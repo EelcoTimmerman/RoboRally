@@ -19,7 +19,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: "ttt_app",
+            title: "roborally",
             template: "public/index.html",
         })
     ],
