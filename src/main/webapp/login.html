@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+ 
+      <!-- template for the modal component -->
+      <script type="text/x-template" id="modal-template">
+
+      </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* Full-width input fields */
+    input[type=text],
+    input[type=password] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    /* Set a style for all buttons */
+    .loginbutton {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .loginbutton:hover {
+      opacity: 0.8;
+    }
+
+    /* Extra styles for the cancel button */
+    .cancelbtn {
+      width: auto;
+      padding: 10px 18px;
+      background-color: #f44336;
+    }
+
+.myButton {
+	box-shadow: 0px 0px 0px 2px #9fb4f2;
+	background:linear-gradient(to bottom, #7891c2 5%, #476e9e 100%);
+	background-color:#7891c2;
+	border-radius:10px;
+	border:1px solid #4e6096;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:19px;
+	padding:12px 37px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #283966;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #476e9e 5%, #7891c2 100%);
+	background-color:#476e9e;
+}
+
+#buttoncontainer{
+  display: inline-block;
+}
+
+.nrmbtn {
+  width: auto;
+  font-size: 10px;
+  border-radius: 50%;
+  background-color: rgb(192, 26, 26);
+}
+
+    /* Center the image and position the close button */
+    .imgcontainer {
+      text-align: center;
+      margin: 24px 0 12px 0;
+      position: relative;
+    }
+
+    img.avatar {
+      width: 40%;
+      border-radius: 50%;
+    }
+
+    .container {
+      padding: 16px;
+    }
+#demobox {
+  background-color: #cfc ;
+  padding: 10px ;
+  border: 1px solid green ;
+}
+
+    span.psw {
+      float: right;
+      padding-top: 16px;
+    }
+
+    /* The Modal (background) */
+    .modal {
+      display: none;
+      /* Hidden by default */
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%;
+      /* Full width */
+      height: 100%;
+      /* Full height */
+      overflow: auto;
+      /* Enable scroll if needed */
+      background-color: rgb(0, 0, 0);
+      /* Fallback color */
+      background-color: rgba(0, 0, 0, 0.4);
+      /* Black w/ opacity */
+      padding-top: 60px;
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto 15% auto;
+      /* 5% from the top, 15% from the bottom and centered */
+      border: 1px solid #888;
+      width: 80%;
+      /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button (x) */
+    .close {
+      position: absolute;
+      right: 25px;
+      top: 0;
+      color: #000;
+      font-size: 35px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: red;
+      cursor: pointer;
+    }
+
+    /* Add Zoom Animation */
+    .animate {
+      -webkit-animation: animatezoom 0.6s;
+      animation: animatezoom 0.6s
+    }
+
+    @-webkit-keyframes animatezoom {
+      from {
+        -webkit-transform: scale(0)
+      }
+
+      to {
+        -webkit-transform: scale(1)
+      }
+    }
+
+    @keyframes animatezoom {
+      from {
+        transform: scale(0)
+      }
+
+      to {
+        transform: scale(1)
+      }
+    }
+
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+      span.psw {
+        display: block;
+        float: none;
+      }
+
+      .cancelbtn {
+        width: 100%;
+      }
+    }
+
+
+.createOutfit {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  background: rgb(194, 25, 123);
+  border-radius: 999px;
+}
+.createOutfit:hover {
+    box-shadow: 0 0 20px 10px rgba(230, 30, 10, 0.6);
+    animation: burn 1000ms ease-out forwards;
+}
+
+.acceptAndNewButton {
+  position: relative;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  background: rgb(50, 197, 185);
+  border-radius: 999px;
+}
+
+
+.acceptAndNewButton:hover {
+    box-shadow: 0 0 20px 10px rgba(230, 30, 10, 0.6);
+    animation: burn 1000ms ease-out forwards;
+}
+
+@keyframes burn {
+  0% {
+    color: rgba(255, 130, 110, 1);
+    background: rgba(255, 230, 110, 1);
+    box-shadow:
+      0 0 5px 0 rgba(200, 0, 10, 1),
+      0 0 5px 0 rgba(230, 30, 10, 0.8),
+      0 0 5px 0 rgba(230, 230, 10, 0.6);
+  }
+  
+  100% {
+    color: rgba(0, 0, 0, 1);
+    background: rgba(255, 255, 255, 1);
+    box-shadow:
+      0 -35px 40px 30px rgba(255, 130, 10, 0),
+      0 -30px 30px 10px rgba(230, 30, 10, 0),
+      0 -20px 10px 0 rgba(255, 255, 10, 0);
+  }
+}
+    
+  </style>
+</head>
+
+<body>
+
+  
+  <div id="app">
+    <login-screen
+     v-if="page == 0"
+     v-on:login-clicked="loginClicked">
+    </login-screen>
+    <home-screen 
+    v-else-if="page == 1"
+    v-bind:username="loginusername"
+    v-bind:cleanitems="cleanitems"
+    v-bind:dirtyitems="dirtyitems"
+    v-bind:outfitpieces="outfit"
+    v-bind:outfitmessage="outfitmessage"
+    v-bind:weatherdata="weatherdata"
+    v-bind:refreshkey="refreshkey"
+    v-bind:city="city"
+    v-on:reset-outfit="resetOutfit"
+    v-on:do-refresh="refresh"
+    v-on:item-added="addItem"
+    v-on:show-items="showItems"
+    v-on:remove-item = "removeItem"
+    v-on:create-outfit = "proposeOutfit"
+    v-on:accept-outfit = "acceptOutfit"
+    v-on:do-laundry = "doLaundry"
+    v-on:get-weather = "getWeather"
+    v-on:set-preferences-modal= "setPreferences">
+    </home-screen>
+    <error-screen 
+    v-else-if="page == 2">
+    </error-screen>
+    <modal
+    v-else-if="page == 3" >
+    </modal>
+  </div>
+
+  <!-- <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button> -->
+
+  <script>
+    Vue.component('login-screen', {
+      data() {
+        return {
+          username: undefined,
+          password: undefined,
+          errorMessage: "",
+        }
+      },
+      template: `       
+         
+            <div class="modal-content animate" >
+              <h2>Welcome to the Outfit Generator</h2>
+                  <div class="imgcontainer">
+                    <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                  </div>
+
+                  <div class="container">
+                    <label for="uname"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" v-model="username">
+
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" v-model="password">
+          
+                    <button class="loginbutton" v-on:click="loginClicked">Log in</button> 
+                    <label>
+                    <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label>
+                  </div>
+
+                  <div class="container" style="background-color:#ebbc21">
+                  <button type="loginbutton" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                  <span class="psw"> Not a member yet?<a href="http://localhost/outfit/signin.html">
+                  Create account</a></span>
+                  </div>
+            </div>
+         
+                `,
+      methods: {
+        loginClicked() {
+          if (!this.username) {
+            this.errorMessage = "Enter username";
+            return;
+          }
+
+          if (!this.password) {
+            this.errorMessage = "Enter password";
+            return;
+          }
+          this.errorMessage = "";
+          this.$emit('login-clicked', this.username, this.password);
+        }
+      }
+    });
+
+    Vue.component('home-screen', {
+      props: [ 'username', 'cleanitems', 'dirtyitems', 'outfitpieces', 'outfitmessage'
+      ,'weatherdata', 'refreshkey', 'city'],
+      data() {
+        return {
+          modelcompon: false,
+          custompref: false,
+          item2: undefined,
+          color: undefined,
+          itemremove:undefined,
+          colorremove:undefined,
+          errorMessage: "",
+          outfitmotivation:"None",
+          extrakey: 0
+        }
+      },
+      template:
+       `
+            <div>
+              <h2>Welcome, {{username}}, to your personal digital closet.</h2>
+              <span>Add a new piece of clothing below.</span><br>
+                            <input list="clothings" name="cloth" v-model="item2"></input>
+                            <datalist id="clothings">
+                            <option value="Pants"></option>
+                            <option value="Sweater"></option>
+                            <option value="T-shirt"></option>
+                            <option value="Socks"></option>
+                            <option value="Shoes"></option>
+                            <option value="Coat"></option>
+                            <option value="Dress"></option>
+                            <option value="Skirt"></option>
+                            </datalist>
+                          <input list="colors" name="color" v-model="color">
+                          <datalist id="colors">
+                            <option value="Red"></option>
+                            <option value="Green"></option>
+                            <option value="Blue"></option>
+                            <option value="Orange"></option>
+                            <option value="Black"></option>
+                            <option value="White"></option>
+                          </datalist>
+                          <input type="submit" v-on:click="additem" ></input>
+                          <br><div> {{this.errorMessage}}</div>
+                          
+                          <div style="float:left;">
+                            <ul> These are your available items.<br>
+                            <div v-for="(item, index) in cleanitems">
+                              {{ item[0] }} {{item[1]}} 
+                              <button class = "nrmbtn" @click="deleterowC( index)"
+                              v-on:click="removeitems(item)">delete
+                              </button>            
+                            </div>
+                            </ul>
+                          </div>
+
+                          <div style="float:right;">
+                            <ul> This is your laundry basket. <br>
+                            <div v-for="(item, index) in dirtyitems">
+                              {{ item[0] }} {{item[1]}} 
+                              <button class = "nrmbtn" @click="deleterowD(index)"
+                              v-on:click="removeitems(item)">delete
+                              </button>            
+                            </div>
+                            <button class="myButton" v-on:click="dolaundry">Do Laundry</button>
+                            </ul>
+                          </div>
+                                     
+          <div id = "demobox" style="clear:both">
+            <h2>Create here your own custom outfit!</h2>
+            <div v-if="outfitpieces.length == 0">
+              <span >Which is the look you wanna rock today?</span>
+              <div>
+              <select v-model="outfitmotivation">
+                <option selected= "selected">Casual</option>
+                <option>Fashionable</option>
+                <option>Spicy</option>
+                <option>Stylish</option>
+              </select>
+              <br>
+                  <div v-if="modelcompon === false">
+                    <span >Do you want to customize your outfit even further?</span>
+                    <button id="showModal" @click="modelcompon = true" >Customize</button>
+                  </div>
+                  <modal
+                    v-if="modelcompon"
+                    @set-preferences-modal="setpreferences"
+                    v-bind:weatherdata="weatherdata"
+                    v-bind:refreshkey="refreshkey"
+                    v-bind:city="city">
+                    <h3 slot="header">Set here your personal preferences!</h3>
+                  </modal>
+                  <div v-if="modelcompon === false">
+                  <br><input type="checkbox" id="checkbox" v-model="custompref">
+                  <label for="checkbox">Use custom preferences(recommended)</label>
+                  <button class = "createOutfit" v-on:click="proposeoutfit">Create outfit </button>
+                  </div> 
+              </div>
+            </div>
+
+            <div v-if="outfitpieces.length == 1">
+              <div v-for="piece in outfitpieces"> {{ piece[0] }} {{ piece[1] }}<br>
+              <button class = "createOutfit" v-on:click="resetoutfit">Try again.</button>
+            </div>
+
+            </div>
+            <div v-if="outfitpieces.length > 1 ">
+              <span>{{outfitmessage}}<br></span>
+              <div v-for="piece in outfitpieces"> {{ piece[0] }} {{ piece[1] }}<br></div>
+              <div id="buttoncontainer">
+                <button class = "acceptAndNewButton" v-on:click="acceptoutfit">
+                Accept outfit </button> 
+                <button class = "acceptAndNewButton" v-on:click="resetoutfit">
+                Again </button>
+              </div>
+            </div>
+          </div>
+
+            </div>` ,
+      methods: {
+        additem() {
+          if (!this.item2) {
+            this.errorMessage = "Put item name!";
+            return;
+          }
+          if (!this.color) {
+            this.errorMessage = "Specify your color, please...";
+            return;
+          }
+          this.errorMessage = "Item added succesfully, we are happy to see that your closet is ever growing."      
+          this.$emit('item-added', this.item2, this.color);
+        },
+        showitems() {    
+          this.errorMessage = ""  
+          this.$emit('show-items');
+        },
+        removeitems(item, color) {    
+          this.$emit('remove-item', item, color);
+        },
+        proposeoutfit(){
+          this.errorMessage = ""  
+          this.$emit('create-outfit', this.custompref, this.weatherdata[1], this.outfitmotivation);
+        },
+        acceptoutfit(){
+          this.errorMessage = "";
+          this.outfitpieces = [];
+          this.$emit('accept-outfit');
+        },
+        deleterowC(index){
+          this.errorMessage = "";
+          this.cleanitems.splice(index,1);
+        },
+        deleterowD( index){
+          this.errorMessage = ""  
+          this.dirtyitems.splice(index,1);
+        },
+        resetoutfit(){
+          this.$emit('reset-outfit');
+        },
+        dolaundry(){
+          this.errorMessage = "";
+          this.$emit('do-laundry');
+        },
+        setpreferences(temp, prim, sec){
+          this.modelcompon = false;
+          this.$emit('set-preferences-modal', temp, prim, sec)
+        }
+      },
+      beforeMount(){
+        this.$emit('show-items');
+      }
+    });
+
+    Vue.component('error-screen', {
+      data() {
+        return {
+          errorMessage: "",
+        }
+      },
+      template: `
+                    <div>Are you trying to hack inside my outfit generator? It's not so easy, you fool.</div>
+                `
+    });
+
+    Vue.component('modal', {
+      props: ['weatherdata', 'refreshkey', 'city'],
+      data() {
+        return {
+          temperature: 20,
+          primarycolor: "None",
+          secondarycolor: "None"
+        }
+      },
+          template: `
+          <div class="modal-mask">
+            <div class="modal-wrapper">
+              <div class="modal-container">
+  
+                <div class="modal-header">
+                  <slot name="header">
+                    default header
+                  </slot>
+                </div>
+  
+                <div class="modal-body">
+                  <slot name="body">
+                    <div v-if=" weatherdata[1] > -1 && refreshkey>-1">
+                      <span>Today's weather in: {{city}} </span><br>
+                      <span>Temperature: {{weatherdata[0]}} </span><br>
+                      <span>Percentage of clouds: {{weatherdata[1]}}</span><br>
+                      <span>Milimeters of rain: {{weatherdata[2]}}</span><br>
+                      <button v-on:click="excludeweather">Exclude weather data</button>
+                    </div>
+                    <div v-else>
+                      <span >Do you want to take the weather into account?</span>
+                      <button v-on:click="getweather">Include weather data</button>
+                    </div>
+
+                    <span >Primary color of interest</span>
+                    <select id="colors1" v-model="primarycolor">
+                      <option selected="selected"> None</option>
+                      <option>Red</option>
+                      <option>Green</option>
+                      <option>Blue</option>
+                      <option>Orange</option>
+                      <option>Black</option>
+                      <option>White</option>
+                    </select><br>
+                    <span >Secondary color of interest</span>
+                    <select id="colors2" v-model="secondarycolor">
+                      <option selected="selected"> None</option>
+                      <option>Red</option>
+                      <option>Green</option>
+                      <option>Blue</option>
+                      <option>Orange</option>
+                      <option>Black</option>
+                      <option>White</option>
+                    </select><br>
+                    <span >Which temperature do you consider as nice and comfy for a summer outfit?</span>
+                    <input type="number" placeholder="temp" value="20" v-model="temperature"><br>
+                  </slot>
+                </div>
+  
+                <div class="modal-footer">
+                  <slot name="footer">
+                    <button class="modal-default-button" v-on:click="setpreferencesss" >
+                      Confirm preferences
+                    </button>
+                  </slot>
+                </div>
+              </div>
+            </div>
+          </div>
+        `,
+      methods: {
+        setpreferencesss(){
+          console.log("arrived here")
+          this.$emit('set-preferences-modal', this.temperature, this.primarycolor, this.secondarycolor);
+          this.$emit('close');
+        },getweather(){
+          this.$parent.$emit('do-refresh');
+          this.$parent.$emit('get-weather');
+        },
+        excludeweather(){
+          this.weatherdata[1]= -1;
+          this.$parent.$emit('do-refresh');
+        }
+      }
+    });
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        page: 0,
+        loginusername: undefined,
+        city: undefined,
+        cleanitems: [],
+        dirtyitems: [],
+        outfit: [],
+        weatherdata: [-1,-1,-1],
+        outfitmessage: "",
+        refreshkey: 0
+      },
+      methods: {
+        async refresh() {
+          this.refreshkey+=1;        
+          this.$nextTick(function () {
+            this.refreshkey+=1;        
+          })
+        },
+        async addItem(item1, color1) {
+          console.log(item1);
+          console.log(color1);
+          const user = this.loginusername;
+          const response = await fetch('api/additem', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({item: item1, color: color1, owner: user})
+          });
+          const res = await response.json(); 
+          console.log("Item added succesfully");
+          console.log(this.outfitpieces);
+          this.showItems();
+        },
+        async showItems() {
+          const user = this.loginusername;
+          const response = await fetch('api/displayitem', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({owner: user})
+          });
+          const res = await response.json(); 
+          this.cleanitems = [];
+          this.dirtyitems = [];
+          for (i = 0; i < res.length; i++) {
+              var item = [];
+              if(res[i].values[0].adapted.properties.state.val == "dirty"){
+                item.push(res[i].values[0].adapted.properties.type.val);
+                item.push(res[i].values[0].adapted.properties.color.val);
+                this.dirtyitems.push(item);
+              }else{
+                item.push(res[i].values[0].adapted.properties.type.val);
+                item.push(res[i].values[0].adapted.properties.color.val);
+                this.cleanitems.push(item);
+              }
+
+          }
+        },
+        async loginClicked(userName, passWord) {
+          const response = await fetch('api/login', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username: userName, password: passWord })
+          });
+          const res = await response.json(); 
+          console.log("Anja has corona.");
+          if (res.check == "false") {
+            this.page = 2;
+          } else {
+            this.page = 1;
+            this.loginusername = res.username;
+            console.log("City obtained from login: "+res.city);
+            this.city = res.city;
+          }
+
+        },
+        async removeItem(item) {
+          const user = this.loginusername;
+          const response = await fetch('api/removeitem', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({item: item[0], color: item[1], owner: user})
+          });
+          const res = await response.json(); 
+        },
+        resetOutfit() {
+          this.outfit = [];        
+          this.$nextTick(function () {
+            this.outfit = [];        
+          })
+          console.log(this.outfit);
+        },
+        async proposeOutfit(pref, weather, motivation) {
+          console.log(motivation)
+          var preferences = "";
+          if(pref === true){
+            preferences = "true";
+          }else{
+            preferences = "false";
+          }
+          const user = this.loginusername;
+          const response = await fetch('api/createoutfit', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({owner: user, item:preferences, color:weather, temp:motivation})
+          });
+          const res = await response.json();
+          this.outfit = [];
+          console.log(res);
+          if(res.status === "OK"){
+            this.outfitmessage = res.outfitmessage;
+            for (i = 0; i < res.items.length; i++) {
+              var item = [];
+              item.push(res.items[i][0]);
+              item.push(res.items[i][1]);
+              this.outfit.push(item);
+            }
+            this.showItems();
+          }else{
+            console.log("mess not OK:")
+            var item = [];
+            item.push("Common..  ");
+            item.push(res.outfitmessage);
+            this.outfit.push(item);
+          }
+        },
+        async acceptOutfit() {
+          console.log("Outfit accepted");
+          const user = this.loginusername;
+          const response = await fetch('api/acceptoutfit', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({owner: user})
+          });
+          const res = await response.json();
+          this.resetOutfit();
+          this.showItems();
+        },
+        async doLaundry() {
+          console.log("doing laundry");
+          const user = this.loginusername;
+          const response = await fetch('api/dolaundry', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({owner: user})
+          });
+          const res = await response.json();
+          console.log(res);
+          this.showItems();
+        },
+        async setPreferences(temp, prim, sec) {
+          const response = await fetch('api/preferences', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({temp: temp, item:prim, color:sec, owner:this.loginusername})
+          });
+          const res = await response.json();
+          console.log(res);
+        },
+        async getWeather() {
+          console.log("Retrieving weather information.");
+          const user = this.loginusername;
+          const city = this.city;
+          this.refreshkey += 1;
+          const response = await fetch('api/weather', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({owner: user, item:city})
+          });
+          const res = await response.json();
+          console.log(res);
+          this.weatherdata[0] = res.temp;
+          this.weatherdata[1] = res.clouds;
+          this.weatherdata[2] = res.rain;
+          this.refresh();
+        }
+      }
+
+    });
+  </script> 
+
+</body>
