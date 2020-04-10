@@ -64,7 +64,13 @@
 			<artifactId>jersey-media-json-jackson</artifactId>
 			<version>${jersey.version}</version>
 		</dependency>
-		
+		<!-- Testing -->		
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.4.0</version>
+			<scope>test</scope>
+		</dependency>
 		<!-- Other -->
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
