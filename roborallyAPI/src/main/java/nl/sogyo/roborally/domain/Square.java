@@ -24,6 +24,17 @@ public abstract class Square {
     public void setNorthNeighbour(Square northNeighbour){
         this.northNeighbour = northNeighbour;
     }
+	public void setEastNeighbour(Square eastNeighbour) {
+		this.eastNeighbour = eastNeighbour;
+	}
+
+	public void setSouthNeighbour(Square southNeighbour) {
+		this.southNeighbour = southNeighbour;
+	}
+
+	public void setWestNeighbour(Square westNeighbour) {
+		this.westNeighbour = westNeighbour;
+	}
 
     public Square getNeighbour(Direction direction){
         switch(direction){
@@ -38,4 +49,5 @@ public abstract class Square {
 	public boolean hasNeighbour(Direction direction) {
 		return this.getNeighbour(direction) != null;
 	}
+
 }

@@ -33,4 +33,34 @@ public class TestEmptySquare {
         assert(emptySquare.hasNeighbour(Direction.NORTH));
         assertEquals(emptySquare2, emptySquare.getNeighbour(Direction.NORTH));
     }
+
+    @Test
+    public void TestEastNeighbour() {
+        Square emptySquare = new EmptySquare();
+        Square emptySquare2 = new EmptySquare();
+        emptySquare.setEastNeighbour(emptySquare2);
+
+        assert (emptySquare.hasNeighbour(Direction.EAST));
+        assertEquals(emptySquare2, emptySquare.getNeighbour(Direction.EAST));
+    }
+
+    @Test
+    public void TestSouthNeighbour(){
+        Square emptySquare = new EmptySquare();
+        Square emptySquare2 = new EmptySquare();
+        emptySquare.setSouthNeighbour(emptySquare2);
+
+        assert(emptySquare.hasNeighbour(Direction.SOUTH));
+        assertEquals(emptySquare2, emptySquare.getNeighbour(Direction.SOUTH));
+    }
+
+    @Test
+    public void TestWestNeighbour(){
+        Square emptySquare = new EmptySquare();
+        Square emptySquare2 = new EmptySquare();
+        emptySquare.setWestNeighbour(emptySquare2);
+
+        assert(emptySquare.hasNeighbour(Direction.WEST));
+        assertEquals(emptySquare2, emptySquare.getNeighbour(Direction.WEST));
+    }
 }
