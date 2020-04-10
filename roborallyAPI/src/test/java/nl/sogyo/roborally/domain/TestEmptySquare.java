@@ -63,4 +63,10 @@ public class TestEmptySquare {
         assert(emptySquare.hasNeighbour(Direction.WEST));
         assertEquals(emptySquare2, emptySquare.getNeighbour(Direction.WEST));
     }
+
+    @Test
+    public void TestDestinationIsSelf(){
+        Square emptySquare = new EmptySquare();
+        assertEquals(emptySquare, emptySquare.getDestination());
+    }
 }

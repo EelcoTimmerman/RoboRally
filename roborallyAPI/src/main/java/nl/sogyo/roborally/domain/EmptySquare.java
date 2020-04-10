@@ -10,4 +10,8 @@ public class EmptySquare extends Square {
     }
 
     public EmptySquare(){}
+
+    public Square getDestination(){
+        return this;
+    }
 }

@@ -50,4 +50,6 @@ public abstract class Square {
 		return this.getNeighbour(direction) != null;
 	}
 
+	public abstract Square getDestination();
+
 }
