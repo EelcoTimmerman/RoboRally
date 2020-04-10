@@ -9,7 +9,16 @@ public class Robot {
     Direction direction;
     ICard card;
     Square square;
+    Square startSquare;
     
+    public Robot() {
+    }
+
+    public Robot(Square square) {
+        this.square = square;
+        this.direction = Direction.NORTH;
+    }
+
     public ICard getNextCard() {
         return card;
     }

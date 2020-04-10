@@ -1,4 +1,4 @@
-package nl.sogyo.roborally.domain;
+package nl.sogyo.roborally.domain.rulebooks;
 
 import java.util.List;
 
