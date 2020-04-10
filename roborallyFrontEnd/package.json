@@ -1,7 +1,7 @@
 {
-  "name": "roborally",
+  "name": "Roborally",
   "version": "1.0.0",
-  "description": "Front-end for the roborally",
+  "description": "Front-end for roborally",
   "private": true,
   "scripts": {
     "lint": "node_modules/.bin/eslint src/**/*",

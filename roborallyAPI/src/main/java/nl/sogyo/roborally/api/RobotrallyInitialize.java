@@ -1,5 +1,10 @@
-package rulebook;
+/**
+ * 
+ */
+package nl.sogyo.roborally.api;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.GET;
@@ -10,19 +15,26 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.json.simple.JSONObject;
 
-@Path("/addCards")
-public class ReceiveRequest {
-	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
+/**
+ * @author rvvugt
+ *
+ */
+@Path("players")
+public class RobotrallyInitialize {
+
+	/**
+	 * @param request
+	 * @return
+	 */
+	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addItem(@Context HttpServletRequest request, RequestData itemData) throws Exception {
-        String i=itemData.getItem();
+	public Response initialize(
+			@Context HttpServletRequest request) {
+
 		JSONObject output = new JSONObject();
-		output.put("color", "Red");         
+		output.put("testcolor", "testRed");         
 		String stringoutput = output.toJSONString();		
 		return Response.status(200).entity(stringoutput).build();
 	}
-
-
+	
 }

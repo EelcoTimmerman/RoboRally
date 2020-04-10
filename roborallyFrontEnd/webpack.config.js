@@ -19,7 +19,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: "roborally",
+            title: "Roborally",
             template: "public/index.html",
         })
     ],
@@ -39,7 +39,7 @@ module.exports = {
           'Expires': '-1',
         },
         proxy: {
-            '/': 'http://localhost:8080/', // <-- change 8080 to a different port if necessary
+            '/roborally/*': 'http://localhost:8080/', // <-- change 8080 to a different port if necessary
         }
     }
 }
