@@ -6,17 +6,17 @@ import nl.sogyo.roborally.domain.squares.Square;
 
 public class Robot {
 
-    Direction direction;
+    Direction orientation;
     ICard card;
-    Square square;
-    Square startSquare;
+    Square position;
+    Square respawnSquare;
     
     public Robot() {
     }
 
     public Robot(Square square) {
-        this.square = square;
-        this.direction = Direction.NORTH;
+        this.position = square;
+        this.orientation = Direction.NORTH;
     }
 
     public ICard getNextCard() {
@@ -24,11 +24,11 @@ public class Robot {
     }
 
     public Square getPosition() {
-        return square;
+        return position;
     }
 
     public boolean isAt(Square square) {
-        if (this.square.equals(square))
+        if (this.position.equals(square))
             return true;
         else
             return false;
