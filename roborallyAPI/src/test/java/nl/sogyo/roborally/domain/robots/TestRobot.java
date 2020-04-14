@@ -2,6 +2,7 @@ package nl.sogyo.roborally.domain.robots;
 
 import org.junit.Test;
 
+import nl.sogyo.roborally.domain.Direction;
 // import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.squares.EmptySquare;
 
@@ -27,5 +28,48 @@ public class TestRobot {
         Robot robot = new Robot(startSquare);
         robot.takeDamage(1);
         assert(robot.getHealth() == 8);
+    }
+
+    @Test
+    public void TestMoveOneNorth(){
+        EmptySquare startSquare = new EmptySquare();
+        EmptySquare northOfStartSquare = new EmptySquare();
+        Robot robot = new Robot(startSquare);
+        startSquare.setNorthNeighbour(northOfStartSquare);
+        robot.move();
+        assert(robot.isAt(northOfStartSquare));
+    }
+
+    @Test
+    public void TestMoveOneEast(){
+        EmptySquare startSquare = new EmptySquare();
+        EmptySquare eastOfStartSquare = new EmptySquare();
+        Robot robot = new Robot(startSquare);
+        robot.setOrientation(Direction.EAST);
+        startSquare.setEastNeighbour(eastOfStartSquare);
+        robot.move();
+        assert(robot.isAt(eastOfStartSquare));
+    }
+
+    @Test
+    public void TestMoveOneSouth(){
+        EmptySquare startSquare = new EmptySquare();
+        EmptySquare southOfStartSquare = new EmptySquare();
+        Robot robot = new Robot(startSquare);
+        robot.setOrientation(Direction.SOUTH);
+        startSquare.setSouthNeighbour(southOfStartSquare);
+        robot.move();
+        assert(robot.isAt(southOfStartSquare));
+    }
+
+    @Test
+    public void TestMoveOneWest(){
+        EmptySquare startSquare = new EmptySquare();
+        EmptySquare westOfStartSquare = new EmptySquare();
+        Robot robot = new Robot(startSquare);
+        robot.setOrientation(Direction.WEST);
+        startSquare.setWestNeighbour(westOfStartSquare);
+        robot.move();
+        assert(robot.isAt(westOfStartSquare));
     }
 }
