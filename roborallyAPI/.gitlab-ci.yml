@@ -1,7 +1,19 @@
+image: maven:3.6.3-jdk-13
+
 stages:
   - build
+  - test
 
 build:
   stage: build
+  tags:
+    - docker
   script:
-  - docker build -f Dockerfile .
+    - mvn clean package
+
+test:
+  stage: test
+  tags:
+    - docker
+  script:
+    - mvn clean test
