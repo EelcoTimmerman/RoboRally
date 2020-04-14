@@ -54,13 +54,13 @@ public class Robot {
     }
 
     public boolean isAt(Square square) {
-        if (this.position.equals(square))
+        if (this.getPosition().equals(square))
             return true;
         else
             return false;
     }
 
     public void move() {
-        this.setPosition(this.position.getNeighbour(this.orientation));
+        this.setPosition(this.getPosition().getNeighbour(this.getOrientation()));
     }
 }
