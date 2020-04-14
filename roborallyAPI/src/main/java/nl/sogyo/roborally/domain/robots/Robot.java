@@ -60,7 +60,7 @@ public class Robot {
             return false;
     }
 
-    public void move() {
+    public void moveForward() {
         this.setPosition(this.getPosition().getNeighbour(this.getOrientation()));
     }
 }
