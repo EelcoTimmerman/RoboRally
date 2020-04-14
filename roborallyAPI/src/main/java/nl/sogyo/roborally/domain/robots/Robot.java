@@ -10,6 +10,7 @@ public class Robot {
     ICard card;
     Square position;
     Square respawnSquare;
+    int health;
     
     public Robot() {
     }
@@ -17,6 +18,7 @@ public class Robot {
     public Robot(Square square) {
         this.position = square;
         this.orientation = Direction.NORTH;
+        this.health = 9;
     }
 
     public ICard getNextCard() {
@@ -32,5 +34,13 @@ public class Robot {
             return true;
         else
             return false;
+    }
+
+    public void takeDamage(int firepower) {
+        this.health -= firepower;
+    }
+
+    public int getHealth() {
+        return this.health;
     }
 }
