@@ -9,21 +9,21 @@ public class TestRobot {
 
     @Test
     public void TestGetStartPosition(){
-        EmptySquare startSquare = new EmptySquare(true, false, false, false);
+        EmptySquare startSquare = new EmptySquare();
         Robot robot = new Robot(startSquare);
         assert(robot.getPosition() == startSquare);
     }
 
     @Test
     public void TestIsAtSquare(){
-        EmptySquare startSquare = new EmptySquare(true, false, false, false);
+        EmptySquare startSquare = new EmptySquare();
         Robot robot = new Robot(startSquare);
         assert(robot.isAt(startSquare));
     }
 
     @Test
     public void TestTakeDamage(){
-        EmptySquare startSquare = new EmptySquare(true, false, false, false);
+        EmptySquare startSquare = new EmptySquare();
         Robot robot = new Robot(startSquare);
         robot.takeDamage(1);
         assert(robot.getHealth() == 8);

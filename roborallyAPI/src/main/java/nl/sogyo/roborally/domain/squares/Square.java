@@ -1,5 +1,7 @@
 package nl.sogyo.roborally.domain.squares;
 
+import java.util.LinkedList;
+
 import nl.sogyo.roborally.domain.*;
 
 public abstract class Square {
@@ -53,8 +55,24 @@ public abstract class Square {
 	}
 
 	public abstract Square getDestination();
-
+	
+	protected void setWalls(String walls) {
+		if(walls.contains("N")) {
+			this.northWall = true;
+		}
+		if(walls.contains("S")) {
+			this.southWall = true;
+		}
+		if(walls.contains("E")) {
+			this.eastWall = true;
+		}
+		if(walls.contains("W")) {
+			this.westWall = true;
+		}
+	}
+	
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        BoardGenerator.generateBoard("");
+
     }
 }
