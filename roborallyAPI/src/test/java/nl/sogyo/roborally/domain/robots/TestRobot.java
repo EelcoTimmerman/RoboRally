@@ -3,8 +3,9 @@ package nl.sogyo.roborally.domain.robots;
 import org.junit.Test;
 
 import nl.sogyo.roborally.domain.Direction;
-// import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.squares.EmptySquare;
+// import nl.sogyo.roborally.domain.Direction;
+import nl.sogyo.roborally.domain.squares.Square;
 
 public class TestRobot {
 
@@ -32,8 +33,8 @@ public class TestRobot {
 
     @Test
     public void TestMoveOneNorth() {
-        EmptySquare startSquare = new EmptySquare();
-        EmptySquare northOfStartSquare = new EmptySquare();
+        Square startSquare = new EmptySquare();
+        Square northOfStartSquare = new EmptySquare();
         Robot robot = new Robot(startSquare);
         startSquare.setNorthNeighbour(northOfStartSquare);
         robot.moveForward();
@@ -42,8 +43,8 @@ public class TestRobot {
 
     @Test
     public void TestMoveOneEast() {
-        EmptySquare startSquare = new EmptySquare();
-        EmptySquare eastOfStartSquare = new EmptySquare();
+        Square startSquare = new EmptySquare();
+        Square eastOfStartSquare = new EmptySquare();
         Robot robot = new Robot(startSquare);
         robot.setOrientation(Direction.EAST);
         startSquare.setEastNeighbour(eastOfStartSquare);
@@ -53,8 +54,8 @@ public class TestRobot {
 
     @Test
     public void TestMoveOneSouth() {
-        EmptySquare startSquare = new EmptySquare();
-        EmptySquare southOfStartSquare = new EmptySquare();
+        Square startSquare = new EmptySquare();
+        Square southOfStartSquare = new EmptySquare();
         Robot robot = new Robot(startSquare);
         robot.setOrientation(Direction.SOUTH);
         startSquare.setSouthNeighbour(southOfStartSquare);
@@ -64,8 +65,8 @@ public class TestRobot {
 
     @Test
     public void TestMoveOneWest() {
-        EmptySquare startSquare = new EmptySquare();
-        EmptySquare westOfStartSquare = new EmptySquare();
+        Square startSquare = new EmptySquare();
+        Square westOfStartSquare = new EmptySquare();
         Robot robot = new Robot(startSquare);
         robot.setOrientation(Direction.WEST);
         startSquare.setWestNeighbour(westOfStartSquare);
