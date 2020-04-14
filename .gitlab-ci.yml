@@ -1,0 +1,21 @@
+image: maven:3.6.3-jdk-13
+
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  tags:
+    - docker
+  script:
+    - cd roborallyAPI
+    - mvn clean package
+
+test:
+  stage: test
+  tags:
+    - docker
+  script:
+    - cd roborallyAPI
+    - mvn clean test
