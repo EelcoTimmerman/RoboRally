@@ -7,7 +7,6 @@ public class SlowConveyorbelt extends Square{
 
     public SlowConveyorbelt(Direction direction){
         this.movementDirection = direction;
-
     }
 
     public Square getDestination() {

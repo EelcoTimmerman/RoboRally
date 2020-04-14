@@ -25,22 +25,42 @@ public class Robot {
         return card;
     }
 
+    public void setNextCard(ICard card) {
+        this.card = card;
+    }
+
     public Square getPosition() {
         return position;
     }
 
-    public boolean isAt(Square square) {
-        if (this.position.equals(square))
-            return true;
-        else
-            return false;
+    public int getHealth() {
+        return this.health;
     }
 
     public void takeDamage(int firepower) {
         this.health -= firepower;
     }
 
-    public int getHealth() {
-        return this.health;
+    public void setPosition(Square newPosition) {
+        this.position = newPosition;
+    }
+
+    public Direction getOrientation() {
+        return this.orientation;
+    }
+
+    public void setOrientation(Direction newOrientation) {
+        this.orientation = newOrientation;
+    }
+
+    public boolean isAt(Square square) {
+        if (this.getPosition().equals(square))
+            return true;
+        else
+            return false;
+    }
+
+    public void moveForward() {
+        this.setPosition(this.getPosition().getNeighbour(this.getOrientation()));
     }
 }
