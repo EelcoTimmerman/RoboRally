@@ -9,6 +9,7 @@ build:
   tags:
     - docker
   script:
+    - cd roborallyAPI
     - mvn clean package
 
 test:
@@ -16,4 +17,5 @@ test:
   tags:
     - docker
   script:
+    - cd roborallyAPI
     - mvn clean test
