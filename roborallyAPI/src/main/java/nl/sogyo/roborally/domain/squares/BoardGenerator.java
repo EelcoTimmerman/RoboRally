@@ -6,7 +6,7 @@ import nl.sogyo.roborally.domain.Direction;
 
 public class BoardGenerator {
 
-	public static LinkedList<LinkedList> generateBoard(String boardString){
+	public static LinkedList<LinkedList> generateBoard(String boardString) {
 		boardString = "E-E*NR*180-WE";
 		String[] boardStringElements = boardString.split("\\*");
 		LinkedList<LinkedList> board = new LinkedList<LinkedList>();

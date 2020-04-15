@@ -18,5 +18,4 @@ public class TestDirection {
         assertEquals("South", southName);
         assertEquals("West", westName);
     }
-
 }
