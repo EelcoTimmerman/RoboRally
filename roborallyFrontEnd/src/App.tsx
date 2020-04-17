@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Square } from "./board/Square";
 import { Board } from "./board/Board";
+import { Robot } from "./Robot";
 
 export function App() {
     let squares : Square[][] = tempGetSquares();
@@ -18,9 +19,15 @@ function tempGetSquares():Square[][]{
                 eastwall: true,
                 southwall: false,
                 westwall: true,
+                robot: undefined,
             });
         }
         result.push(row);
     }
+    let robot: Robot = {
+        name: "Testrobot",
+        orientation: "North",
+    }
+    result[2][3].robot = robot;
     return result;
 }
