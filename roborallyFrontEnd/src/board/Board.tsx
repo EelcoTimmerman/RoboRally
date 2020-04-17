@@ -42,7 +42,13 @@ function createSquare(square: Square, rowNumber: number, columnNumber: number):J
         style.borderLeftColor = "rgb(153, 153, 8)";
     }
 
+    let squareText = square.type;
+
+    if(square.robot != undefined){
+        squareText += "\n " + square.robot.name + " " + square.robot.orientation;
+    }
+
     return <div key={(columnNumber + 1) * (rowNumber + 1)} style={style}>
-            {square.type}
+            {squareText}
         </div>;
 }
