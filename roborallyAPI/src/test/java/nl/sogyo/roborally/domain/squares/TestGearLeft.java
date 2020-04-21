@@ -4,12 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
 
-public class TestGearLeft {
+public class TestGearLeft{
 
-    @Test
-    public void TestDestinationIsSelf(){
-        Square gearLeft = new GearLeft();
-        assertEquals(gearLeft, gearLeft.getDestination());
-    }
 
 }

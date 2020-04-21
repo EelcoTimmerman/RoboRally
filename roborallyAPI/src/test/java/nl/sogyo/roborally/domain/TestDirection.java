@@ -4,7 +4,7 @@ package nl.sogyo.roborally.domain;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-public class TestDirection {
+public class TestDirection{
 
     @Test
     public void TestDirectionNames(){

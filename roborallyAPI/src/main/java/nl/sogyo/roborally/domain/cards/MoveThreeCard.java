@@ -2,9 +2,9 @@ package nl.sogyo.roborally.domain.cards;
 
 import nl.sogyo.roborally.domain.Direction;
 
-public class MoveThreeCard implements ICard {
+public class MoveThreeCard implements ICard{
 
-    public void moveThree(Direction direction) {
+    public void moveThree(Direction direction){
 
     }
 }

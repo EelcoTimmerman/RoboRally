@@ -1,9 +1,6 @@
 package nl.sogyo.roborally.domain.squares;
 
-public class Pit extends Square {
+import nl.sogyo.roborally.domain.Direction;
 
-    public Square getDestination() {
-        throw new RuntimeException("Robots should never stand on a pit.");
-    }
-
+public class Pit extends Square{
 }

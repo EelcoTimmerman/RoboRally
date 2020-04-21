@@ -4,63 +4,74 @@ import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.ICard;
 import nl.sogyo.roborally.domain.squares.Square;
 
-public class Robot {
+public class Robot{
 
     Direction orientation;
     ICard card;
-    Square position;
     Square respawnSquare;
     int health;
+    int xCoordinate;
+    int yCoordinate;
     
-    public Robot() {
+    public Robot(){
     }
 
-    public Robot(Square square) {
-        this.position = square;
+    public Robot(int xCoordinate, int yCoordinate){
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
         this.orientation = Direction.NORTH;
         this.health = 9;
     }
 
-    public ICard getNextCard() {
+    public ICard getNextCard(){
         return card;
     }
 
-    public void setNextCard(ICard card) {
+    public void setNextCard(ICard card){
         this.card = card;
     }
 
-    public Square getPosition() {
-        return position;
+    public int getXCoordinate(){
+        return this.xCoordinate;
     }
 
-    public int getHealth() {
+    public int getYCoordinate(){
+        return this.yCoordinate;
+    }
+
+    public int getHealth(){
         return this.health;
     }
 
-    public void takeDamage(int firepower) {
+    public void takeDamage(int firepower){
         this.health -= firepower;
     }
 
-    public void setPosition(Square newPosition) {
-        this.position = newPosition;
-    }
-
-    public Direction getOrientation() {
+    public Direction getOrientation(){
         return this.orientation;
     }
 
-    public void setOrientation(Direction newOrientation) {
+    public void setOrientation(Direction newOrientation){
         this.orientation = newOrientation;
     }
 
-    public boolean isAt(Square square) {
-        if (this.getPosition().equals(square))
+    public boolean isAt(int xCoordinate, int yCoordinate){
+        if(this.xCoordinate == xCoordinate && this.yCoordinate == yCoordinate)
             return true;
         else
             return false;
     }
 
-    public void moveForward() {
-        this.setPosition(this.getPosition().getNeighbour(this.getOrientation()));
+    public void moveForward(){
+        switch(this.orientation){
+            case NORTH: this.yCoordinate--;
+                        break;
+            case EAST: this.xCoordinate++;
+                        break;
+            case SOUTH: this.yCoordinate++;
+                        break;
+            case WEST: this.xCoordinate--;
+                        break;
+        }
     }
 }
