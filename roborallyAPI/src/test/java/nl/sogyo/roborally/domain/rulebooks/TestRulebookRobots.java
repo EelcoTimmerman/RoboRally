@@ -51,4 +51,37 @@ public class TestRulebookRobots {
         assertEquals(2, robot.getXCoordinate());
         assertEquals(0, robot.getYCoordinate());
     }
+    
+    @Test
+    public void testMoveRobotForwardsIntoEastWall(){
+        Robot robot = new Robot(3,2, Direction.EAST);
+        ICard card = new MoveOneCard();
+        robot.program(card);
+        RulebookRobots rulebookRobots = new RulebookRobots(TestBoard4x4, robot);
+        rulebookRobots.playRound();
+        assertEquals(3, robot.getXCoordinate());
+        assertEquals(2, robot.getYCoordinate());
+    }
+    
+    @Test
+    public void testMoveRobotForwardsIntoSouthWall(){
+        Robot robot = new Robot(1, 3, Direction.SOUTH);
+        ICard card = new MoveOneCard();
+        robot.program(card);
+        RulebookRobots rulebookRobots = new RulebookRobots(TestBoard4x4, robot);
+        rulebookRobots.playRound();
+        assertEquals(1, robot.getXCoordinate());
+        assertEquals(3, robot.getYCoordinate());
+    }
+    
+    @Test
+    public void testMoveRobotForwardsIntoWestWall(){
+        Robot robot = new Robot(0,1, Direction.WEST);
+        ICard card = new MoveOneCard();
+        robot.program(card);
+        RulebookRobots rulebookRobots = new RulebookRobots(TestBoard4x4, robot);
+        rulebookRobots.playRound();
+        assertEquals(0, robot.getXCoordinate());
+        assertEquals(1, robot.getYCoordinate());
+    }
 }
