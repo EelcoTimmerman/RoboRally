@@ -1,5 +1,6 @@
 package nl.sogyo.roborally.domain.robots;
 
+
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.ICard;
 import nl.sogyo.roborally.domain.squares.Square;
@@ -23,12 +24,16 @@ public class Robot{
         this.health = 9;
     }
 
-    public ICard getNextCard(){
-        return card;
+    public Robot(int xCoordinate, int yCoordinate, Direction orientation){
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
+        this.orientation = orientation;
+        this.health = 9;
+
     }
 
-    public void setNextCard(ICard card){
-        this.card = card;
+    public ICard getCard(){
+        return card;
     }
 
     public int getXCoordinate(){
@@ -73,5 +78,9 @@ public class Robot{
             case WEST: this.xCoordinate--;
                         break;
         }
+    }
+
+    public void program(ICard card){
+        this.card = card;
     }
 }

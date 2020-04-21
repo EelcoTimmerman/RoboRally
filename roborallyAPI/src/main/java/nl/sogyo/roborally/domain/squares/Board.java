@@ -24,10 +24,6 @@ public class Board{
 		return this.board;
 	}
 
-	public void setBoard(ArrayList<ArrayList<Square>> board){
-		this.board = board;
-	}
-
 
 	public Board(){
 	}
@@ -42,7 +38,7 @@ public class Board{
 		board = generateBoard(boardString);
 	}
 
-	public ArrayList<ArrayList<Square>> generateBoard(String boardString){
+	private ArrayList<ArrayList<Square>> generateBoard(String boardString){
 		ArrayList<ArrayList<Square>> board = new ArrayList<ArrayList<Square>>();
 		String[] rowStrings = boardString.split("\\*\\|\\|\\*");
 		for(String rowString : rowStrings){
@@ -56,11 +52,7 @@ public class Board{
 		return board;
 	}
 
-	protected Square getSquare(int x, int y){
-		return this.board.get(x).get(y);
-	}
-
-	public Square generateSquareType(String stringSquare){
+	private Square generateSquareType(String stringSquare){
 		Square square;
 		String squareType = stringSquare.split("-")[0];
 		String walls = stringSquare.split("-")[1];
@@ -102,9 +94,6 @@ public class Board{
 		return square;
 	}
 
-
-
-
 	private  boolean coherentBoardStringCheck(String boardString){
 		List<List<String>> board = new ArrayList<List<String>>();
 		String[] boardRows = boardString.split("\\|\\|");
@@ -144,5 +133,17 @@ public class Board{
 			if((row.length() - row.replace("*", "").length() + 1) != colCount)
 				return false;
 		return true;
+	}
+
+	public int getWidth(){
+		return this.board.get(0).size();
+	}
+
+	public int getHeight(){
+		return this.board.size();
+	}	
+
+	public Square getSquare(int x, int y){
+		return this.board.get(y).get(x);
 	}
 }

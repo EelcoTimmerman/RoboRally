@@ -1,5 +1,6 @@
 package nl.sogyo.roborally.domain.squares;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.ArrayList;
@@ -105,12 +106,24 @@ public class TestBoard{
         Board board = new Board(boardString);
         ArrayList<ArrayList<Square>> list = board.getBoard();
         Square firstSquare = board.getSquare(0,0);
-        Square secondSquare = board.getSquare(1,0);
+        Square secondSquare = board.getSquare(0,1);
         assert(firstSquare instanceof EmptySquare);
         assert(secondSquare instanceof GearLeft);
         assert(firstSquare.hasWallAt(Direction.SOUTH));
         assert(secondSquare.hasWallAt(Direction.NORTH));
         assert(list.size() == 2);
         assert(list.get(0).size() == 1);
+    }
+
+    @Test
+    public void testGetSquare(){
+        String boardString = "ES-X*ES-X*ES-N*ES-X*ES-N*ES-X*ES-X*ES-N*ES-X*ES-N*ES-X*ES-X*||*";
+        boardString += "ES-X*PT-X*PT-X*ES-X*ES-X*ES-X*ES-X*ES-X*ES-X*PT-X*PT-X*ES-X*||*";
+        boardString += "ES-W*PT-X*GR-X*CSE-X*CSE-X*CSE-S*CSE-X*CSE-X*CSE-X*GR-X*PT-X*ES-E*||*";
+        boardString += "ES-X*ES-X*CSN-X*GL-X*CSW-X*CSW-N*CSW-X*CSW-X*GL-X*CSS-X*ES-X*ES-X*||*";
+        boardString += "ES-W*ES-X*CSN-X*CSS-X*ES-X*ES-X*PT-X*PT-X*CSN-X*CSS-X*ES-X*ES-E";
+        Board board = new Board(boardString);
+        ArrayList<ArrayList<Square>> list = board.getBoard();
+        assertEquals(list.get(4).get(3), board.getSquare(3, 4));
     }
 }
