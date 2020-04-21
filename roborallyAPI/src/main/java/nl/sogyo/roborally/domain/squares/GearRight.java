@@ -1,9 +1,6 @@
 package nl.sogyo.roborally.domain.squares;
 
-public class GearRight extends Square {
+import nl.sogyo.roborally.domain.Direction;
 
-    public Square getDestination() {
-        return this;
-    }
-
+public class GearRight extends Square{
 }

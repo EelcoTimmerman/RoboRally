@@ -1,8 +1,8 @@
 package nl.sogyo.roborally.domain.cards;
 
-public class RotateRightCard implements ICard {
+public class RotateRightCard implements ICard{
 
-    public void rotateRight() {
+    public void rotateRight(){
 
     }
 }

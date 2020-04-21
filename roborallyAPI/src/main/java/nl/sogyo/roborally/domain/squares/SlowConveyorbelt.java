@@ -9,8 +9,8 @@ public class SlowConveyorbelt extends Square{
         this.movementDirection = direction;
     }
 
-    public Square getDestination() {
-        return this.getNeighbour(movementDirection);
+    public Direction getMovementDirection(){
+        return this.movementDirection;
     }
 
 }

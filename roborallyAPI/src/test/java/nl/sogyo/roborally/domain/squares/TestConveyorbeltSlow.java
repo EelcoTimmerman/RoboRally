@@ -7,23 +7,29 @@ import org.junit.Test;
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.robots.Robot;
 
-public class TestConveyorbeltSlow {
+public class TestConveyorbeltSlow{
 
     @Test
-    public void TestDestinationNorth(){
-        Square testConveyor = new SlowConveyorbelt(Direction.NORTH);
-        Square emptySquare = new EmptySquare();
-        testConveyor.setNorthNeighbour(emptySquare);
-        assertEquals(emptySquare, testConveyor.getDestination());
+    public void testHasMovementDirectionNORTH(){
+        SlowConveyorbelt conveyorbelt = new SlowConveyorbelt(Direction.NORTH);
+        assertEquals(Direction.NORTH, conveyorbelt.getMovementDirection());
     }
 
     @Test
-    public void TestRobotDestionationNorth() {
-        Square startConveyer = new SlowConveyorbelt(Direction.NORTH);
-        Square northOfStartConveyer = new EmptySquare();
-        Robot robot = new Robot(startConveyer);
-        startConveyer.setNorthNeighbour(northOfStartConveyer);
-        Square destination = robot.getPosition().getDestination();
-        assertEquals(northOfStartConveyer, destination);
+    public void testHasMovementDirectionEAST(){
+        SlowConveyorbelt conveyorbelt = new SlowConveyorbelt(Direction.EAST);
+        assertEquals(Direction.EAST, conveyorbelt.getMovementDirection());
+    }
+
+    @Test
+    public void testHasMovementDirectionSOUTH(){
+        SlowConveyorbelt conveyorbelt = new SlowConveyorbelt(Direction.SOUTH);
+        assertEquals(Direction.SOUTH, conveyorbelt.getMovementDirection());
+    }
+
+    @Test
+    public void testHasMovementDirectionWEST(){
+        SlowConveyorbelt conveyorbelt = new SlowConveyorbelt(Direction.WEST);
+        assertEquals(Direction.WEST, conveyorbelt.getMovementDirection());
     }
 }

@@ -7,71 +7,59 @@ import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.squares.EmptySquare;
 import nl.sogyo.roborally.domain.squares.Square;
 
-public class TestRobot {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class TestRobot{
 
     @Test
-    public void TestGetStartPosition(){
-        Square startSquare = new EmptySquare();
-        Robot robot = new Robot(startSquare);
-        assert(robot.getPosition() == startSquare);
+    public void testGetStartPosition(){
+        Robot robot = new Robot(0,1);
+        assertEquals(0, robot.getXCoordinate());
+        assertEquals(1, robot.getYCoordinate());
     }
 
     @Test
-    public void TestIsAtSquare(){
-        Square startSquare = new EmptySquare();
-        Robot robot = new Robot(startSquare);
-        assert(robot.isAt(startSquare));
+    public void testIsAtSquare(){
+        Robot robot = new Robot(2,3);
+        assert(robot.isAt(2,3));
     }
 
     @Test
-    public void TestTakeDamage(){
-        Square startSquare = new EmptySquare();
-        Robot robot = new Robot(startSquare);
+    public void testTakeDamage(){
+        Robot robot = new Robot(2,2);
         robot.takeDamage(1);
         assert(robot.getHealth() == 8);
     }
 
     @Test
-    public void TestMoveOneNorth() {
-        Square startSquare = new EmptySquare();
-        Square northOfStartSquare = new EmptySquare();
-        Robot robot = new Robot(startSquare);
-        startSquare.setNorthNeighbour(northOfStartSquare);
+    public void testMoveOneNorth() {
+        Robot robot = new Robot(2,3);
+        robot.setOrientation(Direction.NORTH);
         robot.moveForward();
-        assert(robot.isAt(northOfStartSquare));
+        assert(robot.isAt(2,2));
     }
 
     @Test
-    public void TestMoveOneEast() {
-        Square startSquare = new EmptySquare();
-        Square eastOfStartSquare = new EmptySquare();
-        Robot robot = new Robot(startSquare);
+    public void testMoveOneEast() {
+        Robot robot = new Robot(2,3);
         robot.setOrientation(Direction.EAST);
-        startSquare.setEastNeighbour(eastOfStartSquare);
         robot.moveForward();
-        assert(robot.isAt(eastOfStartSquare));
+        assert(robot.isAt(3,3));
     }
 
     @Test
-    public void TestMoveOneSouth() {
-        Square startSquare = new EmptySquare();
-        Square southOfStartSquare = new EmptySquare();
-        Robot robot = new Robot(startSquare);
+    public void testMoveOneSouth() {
+        Robot robot = new Robot(2,3);
         robot.setOrientation(Direction.SOUTH);
-        startSquare.setSouthNeighbour(southOfStartSquare);
         robot.moveForward();
-        assert(robot.isAt(southOfStartSquare));
+        assert(robot.isAt(2,4));
     }
 
     @Test
-    public void TestMoveOneWest() {
-        Square startSquare = new EmptySquare();
-        Square westOfStartSquare = new EmptySquare();
-        Robot robot = new Robot(startSquare);
+    public void testMoveOneWest() {
+        Robot robot = new Robot(2,3);
         robot.setOrientation(Direction.WEST);
-        startSquare.setWestNeighbour(westOfStartSquare);
         robot.moveForward();
-        assert(robot.isAt(westOfStartSquare));
+        assert(robot.isAt(1,3));
     }
-
 }

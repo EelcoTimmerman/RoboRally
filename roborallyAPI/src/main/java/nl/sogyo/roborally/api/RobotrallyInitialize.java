@@ -1,6 +1,3 @@
-/**
- * 
- */
 package nl.sogyo.roborally.api;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,12 +12,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.json.simple.JSONObject;
 
-/**
- * @author rvvugt
- *
- */
 @Path("players")
-public class RobotrallyInitialize {
+public class RobotrallyInitialize{
 
 	/**
 	 * @param request
@@ -29,7 +22,7 @@ public class RobotrallyInitialize {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response initialize(
-			@Context HttpServletRequest request) {
+			@Context HttpServletRequest request){
 
 		JSONObject output = new JSONObject();
 		output.put("testcolor", "testRed");         
