@@ -75,6 +75,11 @@ public class Robot{
             return false;
     }
 
+    public void setRespawnPoint(int xCoordinate, int yCoordinate){
+        this.respawnX = xCoordinate;
+        this.respawnY = yCoordinate;
+    }
+
     public void moveForward(){
         switch(this.orientation){
             case NORTH: this.yCoordinate--;
