@@ -146,4 +146,12 @@ public class Robot{
         this.xCoordinate = this.respawnX;
         this.yCoordinate = this.respawnY;
     }
+
+    public void setXCoordinate(int xCoordinate){
+        this.xCoordinate = xCoordinate;
+    }
+
+    public void setYCoordinate(int yCoordinate){
+        this.yCoordinate = yCoordinate;
+    }
 }

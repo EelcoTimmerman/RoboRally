@@ -54,8 +54,8 @@ public class TestBoard{
         Board board = new Board(boardString);
         Square firstSquare = board.getSquare(0,0);
         Square secondSquare = board.getSquare(0,1);
-        Square thirdSquare = board.getSquare(0,0);
-        Square fourthSquare = board.getSquare(0,1);
+        Square thirdSquare = board.getSquare(1,0);
+        Square fourthSquare = board.getSquare(1,1);
         assert(firstSquare instanceof EmptySquare);
         assert(secondSquare instanceof EmptySquare);
         assert(thirdSquare instanceof EmptySquare);
