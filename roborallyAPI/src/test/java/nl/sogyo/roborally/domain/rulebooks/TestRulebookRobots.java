@@ -3,7 +3,7 @@ package nl.sogyo.roborally.domain.rulebooks;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.ICard;
