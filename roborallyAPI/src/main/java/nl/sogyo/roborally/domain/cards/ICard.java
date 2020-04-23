@@ -5,5 +5,5 @@ import nl.sogyo.roborally.domain.squares.Board;
 
 public interface ICard{
 
-    public void doMove(Robot robot, Board board);
+    public void doCardAction(Robot robot, Board board);
 }

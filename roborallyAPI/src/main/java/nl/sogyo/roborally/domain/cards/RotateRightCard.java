@@ -6,7 +6,7 @@ import nl.sogyo.roborally.domain.squares.Board;
 
 public class RotateRightCard implements ICard{
 
-    public void doMove(Robot robot, Board board){
+    public void doCardAction(Robot robot, Board board){
         robot.turnRight();
     }
 }

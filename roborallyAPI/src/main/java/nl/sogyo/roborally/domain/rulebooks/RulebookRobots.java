@@ -33,7 +33,7 @@ public class RulebookRobots{
 
     public void playRound(){
         ICard card = robot.getCard();
-        card.doMove(robot, board);
+        card.doCardAction(robot, board);
     }
 
 }
