@@ -23,6 +23,11 @@ public class RulebookRobots{
         this.robot = robot;
     }
 
+    public RulebookRobots(Board board, Robot robot){
+        this.board = board;
+        this.robot = robot;
+    }
+
     public Robot getRobot(){
         return this.robot;
     }

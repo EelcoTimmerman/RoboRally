@@ -3,6 +3,9 @@ package nl.sogyo.roborally.domain.robots;
 
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.ICard;
+import nl.sogyo.roborally.domain.cards.MoveOneCard;
+import nl.sogyo.roborally.domain.cards.RotateLeftCard;
+import nl.sogyo.roborally.domain.cards.RotateRightCard;
 
 public class Robot{
 
@@ -109,6 +112,17 @@ public class Robot{
 
     public void program(ICard card){
         this.card = card;
+    }
+
+    public void program(int cardnr){
+        switch(cardnr){
+            case 0: this.card = new MoveOneCard();
+                    break;
+            case 1: this.card = new RotateRightCard();
+                    break;
+            case 2: this.card = new RotateLeftCard();
+                    break;
+        }
     }
 
     public void turnRight(){
