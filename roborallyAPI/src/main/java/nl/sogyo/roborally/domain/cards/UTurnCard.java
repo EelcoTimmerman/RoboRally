@@ -6,6 +6,8 @@ import nl.sogyo.roborally.domain.squares.Board;
 
 public class UTurnCard implements ICard{
     
-    public void doMove(Robot robot, Board board){        
+    public void doMove(Robot robot, Board board){      
+        robot.turnRight();
+        robot.turnRight();
     }
 }

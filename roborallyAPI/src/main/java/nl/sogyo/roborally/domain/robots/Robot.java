@@ -85,6 +85,10 @@ public class Robot{
     }
 
     public void turnRight(){
-        orientation = orientation.getNext();
+        orientation = orientation.getRight();
+    }
+
+    public void turnLeft(){
+        orientation = orientation.getLeft();
     }
 }
