@@ -10,7 +10,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.json.simple.JSONObject;
+
+import nl.sogyo.roborally.domain.Direction;
+import nl.sogyo.roborally.domain.robots.Robot;
+import nl.sogyo.roborally.domain.squares.Board;
 
 @Path("gamestate")
 public class RobotrallyInitialize{
@@ -23,10 +26,12 @@ public class RobotrallyInitialize{
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response initialize(
 			@Context HttpServletRequest request){
-
-		JSONObject output = new JSONObject();
-		output.put("testcolor", "testRed");         
-		String stringoutput = output.toJSONString();		
+		
+		System.out.println("Request received for initial gamestate");
+		final String TESTBOARD4X4 = "ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*ES-x";
+		Board board = new Board(TESTBOARD4X4);
+		Robot robot = new Robot(2,3, Direction.EAST);
+		String stringoutput = new JSONResultProcessor().createJSONResponse(board, robot);	
 		return Response.status(200).entity(stringoutput).build();
 	}
 	

@@ -36,6 +36,10 @@ public class Robot{
 
     }
 
+    public String getName(){
+        return "testname";
+    }
+
     public ICard getCard(){
         return this.card;
     }
