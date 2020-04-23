@@ -3,37 +3,41 @@ package nl.sogyo.roborally.domain.robots;
 
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.ICard;
-import nl.sogyo.roborally.domain.squares.Square;
 
 public class Robot{
 
     Direction orientation;
     ICard card;
-    Square respawnSquare;
     int health;
     int xCoordinate;
     int yCoordinate;
+    int respawnX;
+    int respawnY;
     
     public Robot(){
     }
 
     public Robot(int xCoordinate, int yCoordinate){
         this.xCoordinate = xCoordinate;
+        this.respawnX = xCoordinate;
         this.yCoordinate = yCoordinate;
+        this.respawnY = yCoordinate;
         this.orientation = Direction.NORTH;
         this.health = 9;
     }
 
     public Robot(int xCoordinate, int yCoordinate, Direction orientation){
         this.xCoordinate = xCoordinate;
+        this.respawnX = xCoordinate;
         this.yCoordinate = yCoordinate;
+        this.respawnY = yCoordinate;
         this.orientation = orientation;
         this.health = 9;
 
     }
 
     public ICard getCard(){
-        return card;
+        return this.card;
     }
 
     public int getXCoordinate(){
@@ -85,10 +89,15 @@ public class Robot{
     }
 
     public void turnRight(){
-        orientation = orientation.getRight();
+        this.orientation = this.orientation.getRight();
     }
 
     public void turnLeft(){
-        orientation = orientation.getLeft();
+        this.orientation = this.orientation.getLeft();
+    }
+
+    public void respawn(){
+        this.xCoordinate = this.respawnX;
+        this.yCoordinate = this.respawnY;
     }
 }

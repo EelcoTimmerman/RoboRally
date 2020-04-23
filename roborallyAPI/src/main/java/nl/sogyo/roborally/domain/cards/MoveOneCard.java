@@ -14,5 +14,9 @@ public class MoveOneCard implements ICard{
         if(canMove){
             robot.moveForward();
         }
+        boolean robotNotOnBoard = robot.getXCoordinate() < 0 || robot.getYCoordinate() < 0 || robot.getXCoordinate() >= board.getWidth() || robot.getYCoordinate() >= board.getHeight();
+        if(robotNotOnBoard){
+            robot.respawn();
+        }
     }
 }

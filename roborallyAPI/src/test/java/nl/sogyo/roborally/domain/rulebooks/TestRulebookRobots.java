@@ -15,7 +15,7 @@ import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.Board;
 
 public class TestRulebookRobots {
-    final String TestBoard4x4 = "ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*ES-x";
+    final String TESTBOARD4X4 = "ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*ES-x";
 
     @Test
     public void testRulebookHasRobot(){
@@ -27,7 +27,7 @@ public class TestRulebookRobots {
 
     @Test
     public void testRulebookHasBoard(){
-        RulebookRobots rulebookRobots = new RulebookRobots(TestBoard4x4);
+        RulebookRobots rulebookRobots = new RulebookRobots(TESTBOARD4X4);
         Board board = rulebookRobots.getBoard();
         assertEquals(4, board.getWidth());
         assertEquals(4, board.getHeight());
@@ -38,7 +38,7 @@ public class TestRulebookRobots {
         Robot robot = new Robot(2,2, Direction.NORTH);
         ICard card = new MoveOneCard();
         robot.program(card);
-        RulebookRobots rulebookRobots = new RulebookRobots(TestBoard4x4, robot);
+        RulebookRobots rulebookRobots = new RulebookRobots(TESTBOARD4X4, robot);
         rulebookRobots.playRound();
         assertEquals(2, robot.getXCoordinate());
         assertEquals(1, robot.getYCoordinate());
@@ -49,7 +49,7 @@ public class TestRulebookRobots {
         Robot robot = new Robot(2,0, Direction.NORTH);
         ICard card = new MoveOneCard();
         robot.program(card);
-        RulebookRobots rulebookRobots = new RulebookRobots(TestBoard4x4, robot);
+        RulebookRobots rulebookRobots = new RulebookRobots(TESTBOARD4X4, robot);
         rulebookRobots.playRound();
         assertEquals(2, robot.getXCoordinate());
         assertEquals(0, robot.getYCoordinate());
@@ -60,7 +60,7 @@ public class TestRulebookRobots {
         Robot robot = new Robot(3,2, Direction.EAST);
         ICard card = new MoveOneCard();
         robot.program(card);
-        RulebookRobots rulebookRobots = new RulebookRobots(TestBoard4x4, robot);
+        RulebookRobots rulebookRobots = new RulebookRobots(TESTBOARD4X4, robot);
         rulebookRobots.playRound();
         assertEquals(3, robot.getXCoordinate());
         assertEquals(2, robot.getYCoordinate());
@@ -71,7 +71,7 @@ public class TestRulebookRobots {
         Robot robot = new Robot(1, 3, Direction.SOUTH);
         ICard card = new MoveOneCard();
         robot.program(card);
-        RulebookRobots rulebookRobots = new RulebookRobots(TestBoard4x4, robot);
+        RulebookRobots rulebookRobots = new RulebookRobots(TESTBOARD4X4, robot);
         rulebookRobots.playRound();
         assertEquals(1, robot.getXCoordinate());
         assertEquals(3, robot.getYCoordinate());
@@ -82,7 +82,7 @@ public class TestRulebookRobots {
         Robot robot = new Robot(0,1, Direction.WEST);
         ICard card = new MoveOneCard();
         robot.program(card);
-        RulebookRobots rulebookRobots = new RulebookRobots(TestBoard4x4, robot);
+        RulebookRobots rulebookRobots = new RulebookRobots(TESTBOARD4X4, robot);
         rulebookRobots.playRound();
         assertEquals(0, robot.getXCoordinate());
         assertEquals(1, robot.getYCoordinate());
@@ -93,7 +93,7 @@ public class TestRulebookRobots {
         Robot robot = new Robot(2,2, Direction.NORTH);
         ICard card = new RotateRightCard();
         robot.program(card);
-        RulebookRobots rulebookRobots = new RulebookRobots(TestBoard4x4, robot);
+        RulebookRobots rulebookRobots = new RulebookRobots(TESTBOARD4X4, robot);
         rulebookRobots.playRound();
         assertEquals(Direction.EAST, robot.getOrientation());
     }
@@ -103,7 +103,7 @@ public class TestRulebookRobots {
         Robot robot = new Robot(2,2, Direction.NORTH);
         ICard card = new RotateLeftCard();
         robot.program(card);
-        RulebookRobots rulebookRobots = new RulebookRobots(TestBoard4x4, robot);
+        RulebookRobots rulebookRobots = new RulebookRobots(TESTBOARD4X4, robot);
         rulebookRobots.playRound();
         assertEquals(Direction.WEST, robot.getOrientation());
     }
@@ -113,8 +113,20 @@ public class TestRulebookRobots {
         Robot robot = new Robot(2,2, Direction.NORTH);
         ICard card = new UTurnCard();
         robot.program(card);
-        RulebookRobots rulebookRobots = new RulebookRobots(TestBoard4x4, robot);
+        RulebookRobots rulebookRobots = new RulebookRobots(TESTBOARD4X4, robot);
         rulebookRobots.playRound();
         assertEquals(Direction.SOUTH, robot.getOrientation());
+    }
+
+    @Test
+    public void testRobotMovesOffBoard(){
+        Robot robot = new Robot(0,1, Direction.NORTH);
+        ICard card = new MoveOneCard();
+        robot.program(card);
+        RulebookRobots rulebookRobots = new RulebookRobots(TESTBOARD4X4, robot);
+        rulebookRobots.playRound();
+        rulebookRobots.playRound();
+        assertEquals(0, robot.getXCoordinate());
+        assertEquals(1, robot.getYCoordinate());
     }
 }
