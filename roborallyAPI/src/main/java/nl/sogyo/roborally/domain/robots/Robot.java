@@ -4,8 +4,11 @@ package nl.sogyo.roborally.domain.robots;
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.ICard;
 import nl.sogyo.roborally.domain.cards.MoveOneCard;
+import nl.sogyo.roborally.domain.cards.MoveThreeCard;
+import nl.sogyo.roborally.domain.cards.MoveTwoCard;
 import nl.sogyo.roborally.domain.cards.RotateLeftCard;
 import nl.sogyo.roborally.domain.cards.RotateRightCard;
+import nl.sogyo.roborally.domain.cards.UTurnCard;
 
 public class Robot{
 
@@ -121,6 +124,12 @@ public class Robot{
             case 1: this.card = new RotateRightCard();
                     break;
             case 2: this.card = new RotateLeftCard();
+                    break;
+            case 3: this.card = new UTurnCard();
+                    break;
+            case 4: this.card = new MoveTwoCard();
+                    break;
+            case 5: this.card = new MoveThreeCard();
                     break;
         }
     }

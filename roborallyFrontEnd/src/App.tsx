@@ -18,33 +18,32 @@ export function App() {
     }
 
     async function moveForward(){
-        console.log("moving forward");
-        const response = await fetch("roborally/api/program/0", {
-            method: 'PUT',
-            headers:{
-                'Accept': 'application/json'
-            }
-        });
-        const gamestate = await response.json();
-        setGamestate(gamestate);
+        programCard(0);
     }
 
     async function turnRight(){
-        console.log("turning right");
-        const response = await fetch("roborally/api/program/1", {
-            method: 'PUT',
-            headers:{
-                'Accept': 'application/json'
-            }
-        });
-        const gamestate = await response.json();
-        setGamestate(gamestate);
-
+        programCard(1);
     }
 
     async function turnLeft(){
-        console.log("turning left");
-        const response = await fetch("roborally/api/program/2", {
+        programCard(2);
+    }
+
+    async function uTurn(){
+        programCard(3);
+    }
+
+    async function moveForward2(){
+        programCard(4);
+    }
+
+    async function moveForward3(){
+        programCard(5);
+    }
+
+    async function programCard(cardnr:number){
+        console.log("Programming card: " + cardnr);
+        const response = await fetch("roborally/api/program/" + cardnr, {
             method: 'PUT',
             headers:{
                 'Accept': 'application/json'
@@ -52,7 +51,6 @@ export function App() {
         });
         const gamestate = await response.json();
         setGamestate(gamestate);
-
     }
 
 
@@ -62,6 +60,9 @@ export function App() {
                     <button onClick={moveForward}>Forward</button>
                     <button onClick={turnRight}>Right</button>
                     <button onClick={turnLeft}>Left</button>
+                    <button onClick={uTurn}>Turn around</button>
+                    <button onClick={moveForward2}>Forward x 2</button>
+                    <button onClick={moveForward3}>Forward x 3</button>
                 </div>);
     }
     else{
