@@ -7,63 +7,72 @@ html {
 
 .boardgrid {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-auto-columns: min-content;
     background-color: #2196F3;
     padding: 10px;
+    width: min-content;
     height: 100%;
 }
 
 .boardgrid > div{
   background-color: rgba(255, 255, 255, 0.8);
   border-style: solid;
-  border-color: gray;
-  border-width: medium;
+  border-color: #2196F3;
   text-align: center;
+  width: 200px;
+  height: 200px;
   padding: 20px;
   font-size: 30px;
 }
 
-.kalaha{
+.inner-square {
+  background-color: black;
+  width: 50%;
+  height: 50%;
+  margin: 5px;
+}
+
+/* .kalaha{
   grid-template-columns: none;
   width: 10%;
   min-width: 200px;
-}
+} */
 
-.playerinfo{
+/* .playerinfo{
   width: 10%;
   height: 10%;
   background-color: #2196F3;
   text-align: center;
   min-width: 200px;
-}
+} */
 
-.playerinfo > ul{
+/* .playerinfo > ul{
   list-style: none;
   padding: 0px;
-}
+} */
 
-.onturn{
+/* .onturn{
   border-style: dashed;
   border-width: 5px;
   border-color: orange;
-}
+} */
 
-#rules{
+/* #rules{
   background-color: #2196F3;
   width: 10%;
   position: absolute;
   bottom: 0px;
   left: 0px;
   min-width: 200px;
-}
+} */
 
-#player1info{
+/* #player1info{
   position: absolute;
   top: 0px;
   left: 0px;
-}
+} */
 
-#player1pits{
+/* #player1pits{
   position: absolute;
   top: 0px;
   left: 50%;
@@ -71,22 +80,22 @@ html {
   width: 80%;
   height: 10%;
   max-width: 1000px;
-}
+} */
 
-#player1kalaha{
+/* #player1kalaha{
   position: absolute;
   top: 10%;
   left: 0px;
   height: 10%;
-}
+} */
 
-#player2info{
+/* #player2info{
   position: absolute;
   bottom: 0px;
   right: 0px;
-}
+} */
 
-#player2pits{
+/* #player2pits{
   position: absolute;
   bottom: 0px;
   right: 50%;
@@ -94,23 +103,23 @@ html {
   width: 80%;
   height: 10%;
   max-width: 1000px;
-}
+} */
 
-#player2kalaha{
+/* #player2kalaha{
   position: absolute;
   bottom: 10%;
   right: 0px;
   height: 10%;
-}
+} */
 
-#victoryscreen{
+/* #victoryscreen{
   position: absolute;
   top: 50%;
   left: 50%;
   width: 30%;
-}
+} */
 
-@media only screen and (max-width: 1400px){
+/* @media only screen and (max-width: 1400px){
   #player1pits{
     left: 200px;
     margin-left: 0px;
@@ -120,4 +129,4 @@ html {
     right: 200px;
     margin-right: 0px;
   }
-}
+} */

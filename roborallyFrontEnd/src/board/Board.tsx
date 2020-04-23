@@ -26,19 +26,19 @@ function createSquare(square: Square, rowNumber: number, columnNumber: number):J
     }
 
     if(square.northwall){
-        style.borderTopWidth = "thick";
+        style.borderTopWidth = "20px";
         style.borderTopColor = "rgb(153, 153, 8)";
     }
     if(square.eastwall){
-        style.borderRightWidth = "thick";
+        style.borderRightWidth = "20px";
         style.borderRightColor = "rgb(153, 153, 8)";
     }
     if(square.southwall){
-        style.borderBottomWidth = "thick";
+        style.borderBottomWidth = "20px";
         style.borderBottomColor = "rgb(153, 153, 8)";
     }
     if(square.westwall){
-        style.borderLeftWidth = "thick";
+        style.borderLeftWidth = "20px";
         style.borderLeftColor = "rgb(153, 153, 8)";
     }
 
