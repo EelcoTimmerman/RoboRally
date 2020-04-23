@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.Test;
 
 import nl.sogyo.roborally.domain.Direction;
-import nl.sogyo.roborally.domain.robots.Robot;
 
 public class TestConveyorbeltSlow{
 

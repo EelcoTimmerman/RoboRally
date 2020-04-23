@@ -1,6 +1,6 @@
 package nl.sogyo.roborally.domain.squares;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import nl.sogyo.roborally.domain.*;
 

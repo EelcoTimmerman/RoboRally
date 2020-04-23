@@ -1,34 +1,43 @@
 package nl.sogyo.roborally.domain.robots;
 
+
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.ICard;
-import nl.sogyo.roborally.domain.squares.Square;
 
 public class Robot{
 
     Direction orientation;
     ICard card;
-    Square respawnSquare;
     int health;
     int xCoordinate;
     int yCoordinate;
+    int respawnX;
+    int respawnY;
     
     public Robot(){
     }
 
     public Robot(int xCoordinate, int yCoordinate){
         this.xCoordinate = xCoordinate;
+        this.respawnX = xCoordinate;
         this.yCoordinate = yCoordinate;
+        this.respawnY = yCoordinate;
         this.orientation = Direction.NORTH;
         this.health = 9;
     }
 
-    public ICard getNextCard(){
-        return card;
+    public Robot(int xCoordinate, int yCoordinate, Direction orientation){
+        this.xCoordinate = xCoordinate;
+        this.respawnX = xCoordinate;
+        this.yCoordinate = yCoordinate;
+        this.respawnY = yCoordinate;
+        this.orientation = orientation;
+        this.health = 9;
+
     }
 
-    public void setNextCard(ICard card){
-        this.card = card;
+    public ICard getCard(){
+        return this.card;
     }
 
     public int getXCoordinate(){
@@ -43,16 +52,16 @@ public class Robot{
         return this.health;
     }
 
-    public void takeDamage(int firepower){
-        this.health -= firepower;
-    }
-
     public Direction getOrientation(){
         return this.orientation;
     }
 
     public void setOrientation(Direction newOrientation){
         this.orientation = newOrientation;
+    }
+
+    public void takeDamage(int firepower){
+        this.health -= firepower;
     }
 
     public boolean isAt(int xCoordinate, int yCoordinate){
@@ -73,5 +82,22 @@ public class Robot{
             case WEST: this.xCoordinate--;
                         break;
         }
+    }
+
+    public void program(ICard card){
+        this.card = card;
+    }
+
+    public void turnRight(){
+        this.orientation = this.orientation.getRight();
+    }
+
+    public void turnLeft(){
+        this.orientation = this.orientation.getLeft();
+    }
+
+    public void respawn(){
+        this.xCoordinate = this.respawnX;
+        this.yCoordinate = this.respawnY;
     }
 }

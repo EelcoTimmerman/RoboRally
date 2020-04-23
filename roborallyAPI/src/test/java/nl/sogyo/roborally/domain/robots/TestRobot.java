@@ -3,9 +3,8 @@ package nl.sogyo.roborally.domain.robots;
 import org.junit.Test;
 
 import nl.sogyo.roborally.domain.Direction;
-// import nl.sogyo.roborally.domain.Direction;
-import nl.sogyo.roborally.domain.squares.EmptySquare;
-import nl.sogyo.roborally.domain.squares.Square;
+import nl.sogyo.roborally.domain.cards.ICard;
+import nl.sogyo.roborally.domain.cards.MoveOneCard;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -61,5 +60,14 @@ public class TestRobot{
         robot.setOrientation(Direction.WEST);
         robot.moveForward();
         assert(robot.isAt(1,3));
+    }
+
+    @Test
+    public void testProgramRobotMoveForward(){
+        Robot robot = new Robot();
+        ICard card1 = new MoveOneCard();
+        robot.program(card1);
+        ICard card2 = robot.getCard();
+        assertEquals(card1, card2);
     }
 }
