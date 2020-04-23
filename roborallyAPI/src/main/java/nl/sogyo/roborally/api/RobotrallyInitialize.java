@@ -28,7 +28,7 @@ public class RobotrallyInitialize{
 			@Context HttpServletRequest request){
 		
 		System.out.println("Request received for initial gamestate");
-		final String TESTBOARD4X4 = "ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*ES-x";
+		final String TESTBOARD4X4 = "CH-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*ES-x";
 		Board board = new Board(TESTBOARD4X4);
 		Robot robot = new Robot(2,3, Direction.EAST);
 		String stringoutput = new JSONResultProcessor().createJSONResponse(board, robot);	

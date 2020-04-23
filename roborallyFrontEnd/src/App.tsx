@@ -6,6 +6,7 @@ export function App() {
     const [gamestate, setGamestate] = useState<Square[][] | undefined>(undefined);
 
     async function getGameState(){
+        console.log("requesting gamestate.");
         const response = await fetch("roborally/api/gamestate", {
             method: 'GET',
             headers:{
@@ -16,10 +17,11 @@ export function App() {
         setGamestate(gamestate);
     }
 
-    getGameState();
 
     if(gamestate != undefined)
         return <Board squares = {gamestate}></Board>
-    else
+    else{
+        getGameState();
         return <div>Loading...</div>;
+    }
 }
