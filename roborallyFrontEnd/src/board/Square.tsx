@@ -5,5 +5,5 @@ export interface Square{
     eastwall: boolean,
     southwall: boolean,
     westwall: boolean,
-    robot: Robot|undefined,
+    robot: Robot,
 }

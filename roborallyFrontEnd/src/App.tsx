@@ -1,33 +1,27 @@
 import React, { useState } from "react";
 import { Square } from "./board/Square";
 import { Board } from "./board/Board";
-import { Robot } from "./Robot";
 
 export function App() {
-    let squares : Square[][] = tempGetSquares();
-    return <Board squares = {squares}></Board>
-}
+    const [gamestate, setGamestate] = useState<Square[][] | undefined>(undefined);
 
-function tempGetSquares():Square[][]{
-    let result: Square[][] = [];
-    for(let i = 0; i < 5; i++){
-        let row: Square[] = [];
-        for(let j = 0; j < 5; j++){
-            row.push({
-                type: "Empty",
-                northwall: false,
-                eastwall: true,
-                southwall: false,
-                westwall: true,
-                robot: undefined,
-            });
-        }
-        result.push(row);
+    async function getGameState(){
+        console.log("Initializing gamestate.");
+        const response = await fetch("roborally/api/initialize", {
+            method: 'GET',
+            headers:{
+                'Accept': 'application/json'
+            }
+        });
+        const gamestate = await response.json();
+        setGamestate(gamestate);
     }
-    let robot: Robot = {
-        name: "Testrobot",
-        orientation: "North",
+
+
+    if(gamestate != undefined)
+        return <Board squares = {gamestate}></Board>
+    else{
+        getGameState();
+        return <div>Loading...</div>;
     }
-    result[2][3].robot = robot;
-    return result;
 }

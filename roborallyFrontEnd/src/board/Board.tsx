@@ -44,7 +44,7 @@ function createSquare(square: Square, rowNumber: number, columnNumber: number):J
 
     let squareText = square.type;
 
-    if(square.robot != undefined){
+    if(square.robot != null){
         squareText += "\n " + square.robot.name + " " + square.robot.orientation;
     }
 
