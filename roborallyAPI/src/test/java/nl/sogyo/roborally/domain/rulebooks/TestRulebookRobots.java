@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.ICard;
+import nl.sogyo.roborally.domain.cards.MoveBackCard;
 import nl.sogyo.roborally.domain.cards.MoveOneCard;
 import nl.sogyo.roborally.domain.cards.RotateLeftCard;
 import nl.sogyo.roborally.domain.cards.RotateRightCard;
@@ -128,5 +129,16 @@ public class TestRulebookRobots {
         rulebookRobots.playRound();
         assertEquals(0, robot.getXCoordinate());
         assertEquals(1, robot.getYCoordinate());
+    }
+
+    @Test
+    public void testRobotMovesBackwards(){
+        Robot robot = new Robot(2,2, Direction.NORTH);
+        ICard card = new MoveBackCard();
+        robot.program(card);
+        RulebookRobots rulebookRobots = new RulebookRobots(TESTBOARD4X4, robot);
+        rulebookRobots.playRound();
+        assertEquals(2, robot.getXCoordinate());
+        assertEquals(3, robot.getYCoordinate());
     }
 }

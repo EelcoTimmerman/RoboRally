@@ -88,6 +88,20 @@ public class Robot{
         }
     }
 
+    public void moveBackwards(){
+        switch(this.orientation){
+            case NORTH: this.yCoordinate++;
+                        break;
+            case EAST: this.xCoordinate--;
+                        break;
+            case SOUTH: this.yCoordinate--;
+                        break;
+            case WEST: this.xCoordinate++;
+                        break;
+
+        }
+    }
+
     public void program(ICard card){
         this.card = card;
     }
