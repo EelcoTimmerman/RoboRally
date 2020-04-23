@@ -109,7 +109,6 @@ public class Robot{
                         break;
             case WEST: this.xCoordinate++;
                         break;
-
         }
     }
 
@@ -131,6 +130,7 @@ public class Robot{
                     break;
             case 5: this.card = new MoveThreeCard();
                     break;
+            default: throw new RuntimeException("Invalid cardnr");
         }
     }
 
