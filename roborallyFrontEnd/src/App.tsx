@@ -6,8 +6,8 @@ export function App() {
     const [gamestate, setGamestate] = useState<Square[][] | undefined>(undefined);
 
     async function getGameState(){
-        console.log("requesting gamestate.");
-        const response = await fetch("roborally/api/gamestate", {
+        console.log("Initializing gamestate.");
+        const response = await fetch("roborally/api/initialize", {
             method: 'GET',
             headers:{
                 'Accept': 'application/json'
