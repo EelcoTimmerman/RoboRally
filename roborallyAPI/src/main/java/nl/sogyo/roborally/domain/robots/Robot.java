@@ -48,16 +48,16 @@ public class Robot{
         return this.health;
     }
 
-    public void takeDamage(int firepower){
-        this.health -= firepower;
-    }
-
     public Direction getOrientation(){
         return this.orientation;
     }
 
     public void setOrientation(Direction newOrientation){
         this.orientation = newOrientation;
+    }
+
+    public void takeDamage(int firepower){
+        this.health -= firepower;
     }
 
     public boolean isAt(int xCoordinate, int yCoordinate){
@@ -82,5 +82,9 @@ public class Robot{
 
     public void program(ICard card){
         this.card = card;
+    }
+
+    public void turnRight(){
+        orientation = orientation.getNext();
     }
 }

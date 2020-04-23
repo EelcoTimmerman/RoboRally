@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.ICard;
 import nl.sogyo.roborally.domain.cards.MoveOneCard;
+import nl.sogyo.roborally.domain.cards.RotateRightCard;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.Board;
 
@@ -83,5 +84,15 @@ public class TestRulebookRobots {
         rulebookRobots.playRound();
         assertEquals(0, robot.getXCoordinate());
         assertEquals(1, robot.getYCoordinate());
+    }
+
+    @Test
+    public void testRobotTurnsRight(){
+        Robot robot = new Robot(2,2, Direction.NORTH);
+        ICard card = new RotateRightCard();
+        robot.program(card);
+        RulebookRobots rulebookRobots = new RulebookRobots(TestBoard4x4, robot);
+        rulebookRobots.playRound();
+        assertEquals(Direction.EAST, robot.getOrientation());
     }
 }

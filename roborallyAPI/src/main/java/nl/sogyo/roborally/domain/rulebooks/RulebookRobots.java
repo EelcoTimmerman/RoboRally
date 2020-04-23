@@ -1,6 +1,7 @@
 package nl.sogyo.roborally.domain.rulebooks;
 
 import nl.sogyo.roborally.domain.Direction;
+import nl.sogyo.roborally.domain.cards.ICard;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.*;
 
@@ -31,13 +32,8 @@ public class RulebookRobots{
     }
 
     public void playRound(){
-        Direction movementDirection = robot.getOrientation();
-        int robotXCoordinate = robot.getXCoordinate();
-        int robotYCoordinate = robot.getYCoordinate();
-        boolean canMove = !board.getSquare(robotXCoordinate, robotYCoordinate).hasWallAt(movementDirection);
-        if(canMove){
-            robot.moveForward();
-        }
+        ICard card = robot.getCard();
+        card.doMove(robot, board);
     }
 
 }
