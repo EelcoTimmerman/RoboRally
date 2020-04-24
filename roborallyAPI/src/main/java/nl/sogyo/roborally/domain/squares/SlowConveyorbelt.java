@@ -17,5 +17,4 @@ public class SlowConveyorbelt extends Square{
     public String getType() {
         return "SlowConveyorbelt";
     }
-
 }
