@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Square } from "./Square";
+import { Robot } from "../Robot";
 
 interface BoardProps{
     squares: Square[][];
@@ -43,12 +44,23 @@ function createSquare(square: Square, rowNumber: number, columnNumber: number):J
     }
 
     let squareText = square.type;
-
+    let robotElement : JSX.Element = <div></div>;
     if(square.robot != undefined){
-        squareText += "\n " + square.robot.name + " " + square.robot.orientation;
+        robotElement = createRobot(square.robot);
+        // squareText += "\n " + square.robot.name + " " + square.robot.orientation;
     }
 
-    return <div key={(columnNumber + 1) * (rowNumber + 1)} style={style}>
+    return (<div key={(columnNumber + 1) * (rowNumber + 1)} style={style}>
             {squareText}
-        </div>;
+            {robotElement}
+        </div>);
+}
+
+function createRobot(robot: Robot):JSX.Element{
+    let classname:string = robot.orientation + "-arrow";
+    return (<div className="inner-square">
+        <div className={classname}>
+            
+        </div>
+    </div>);
 }
