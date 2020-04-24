@@ -142,6 +142,10 @@ public class Robot{
         this.orientation = this.orientation.getLeft();
     }
 
+    public void turnReverse(){
+        this.orientation = this.orientation.getReverse();
+    }
+
     public void respawn(){
         this.xCoordinate = this.respawnX;
         this.yCoordinate = this.respawnY;

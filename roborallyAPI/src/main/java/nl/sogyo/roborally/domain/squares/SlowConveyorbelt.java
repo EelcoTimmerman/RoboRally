@@ -13,10 +13,6 @@ public class SlowConveyorbelt extends Square{
         return this.movementDirection;
     }
 
-    public void moveRobot(){
-        
-    }
-
     @Override
     public String getType() {
         return "SlowConveyorbelt";
