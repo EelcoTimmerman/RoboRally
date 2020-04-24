@@ -39,7 +39,6 @@ public class Robot{
         this.respawnY = yCoordinate;
         this.orientation = orientation;
         this.health = 9;
-
     }
 
     public String getName(){
@@ -157,5 +156,13 @@ public class Robot{
 
     public void setYCoordinate(int yCoordinate){
         this.yCoordinate = yCoordinate;
+    }
+
+    public int getRespawnXCoordinate(){
+        return this.respawnX;
+    }
+
+    public int getRespawnYCoordinate(){
+        return this.respawnY;
     }
 }
