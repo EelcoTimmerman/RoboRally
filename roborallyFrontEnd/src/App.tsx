@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { showCards } from "./board/CardsInHand";
 
 export function App() {
     const [ testcolor, setTestColor] = useState<String>("");
@@ -13,7 +14,8 @@ export function App() {
         const testy = await response.json();
         setTestColor(testy.testcolor);
     }
-    testFetch();
+    //testFetch();
+    let cards = showCards();
 
-    return <div>{testcolor}</div>
+    return cards;
 }
