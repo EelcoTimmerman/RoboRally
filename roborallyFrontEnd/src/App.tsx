@@ -17,12 +17,11 @@ export function App() {
 
             tempwebsocket.onopen = function(){
                 console.log("connected");
-                tempwebsocket.send("gib data pls");
+                tempwebsocket.send("initialize");
             };
 
             tempwebsocket.onmessage = function(event: WebSocketMessageEvent){
                 let gamestate = JSON.parse(event.data);
-                console.log(gamestate);
                 setGamestate(gamestate);
             };
 
@@ -68,15 +67,13 @@ export function App() {
     }
 
     async function programCard(cardnr:number){
-        console.log("Programming card: " + cardnr);
-        const response = await fetch("roborally/api/program/" + cardnr, {
-            method: 'PUT',
-            headers:{
-                'Accept': 'application/json'
-            }
-        });
-        const gamestate = await response.json();
-        setGamestate(gamestate);
+        if (websocket !== undefined
+                && websocket.readyState !== WebSocket.CLOSED) {
+            websocket.send(cardnr.toString());
+        }
+        else{
+            console.log("No connection.");
+        }
     }
 
 
