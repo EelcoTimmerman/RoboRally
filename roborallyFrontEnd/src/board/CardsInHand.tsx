@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { makeStyles } from '@material-ui/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 interface Card{
     type: string,
@@ -14,18 +17,47 @@ function getCards(){
     return cards;
 }
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    textAlign: 'center'
+  },
+}));
+
 export function showCards(){
-    let myCards = getCards();
-    let cardsInHand = [1,2];
-    
-    // let cardsInHand = cards.map((row: Square[], index: number) => 
-    //     createRow(row, index)
+    const classes = useStyles();
+    let myCards:Card[] = getCards();
+
+    for(let card in myCards){
+      showcard(classes, card)
+    }
+    // return (
+    //     <Grid container spacing={8}>
+
+
+    //     <Grid item xs={3}>
+    //       <Paper className={classes.paper}>xs=3</Paper>
+    //     </Grid>
+    //     <Grid item xs={3}>
+    //       <Paper className={classes.paper}>xs=3</Paper>
+    //     </Grid>
+    //     <Grid item xs={3}>
+    //       <Paper className={classes.paper}>xs=3</Paper>
+    //     </Grid>
+    //   </Grid>
     // );
-    return (
-        <div className="Cards">
-            {myCards}
-        </div>
-    );
+}
+
+function showcard(classes: Record<"root" | "paper", string>, card: string){
+  classes = classes;
+  return (
+    <Grid item xs={3}>
+    <Paper className={classes.paper}>card.type</Paper>
+    </Grid>
+  )
+
 }
 
 // function createRow(row: Square[], rowNumber: number):JSX.Element[]{
