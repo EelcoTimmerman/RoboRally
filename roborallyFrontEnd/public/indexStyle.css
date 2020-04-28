@@ -7,117 +7,142 @@ html {
 
 .boardgrid {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-auto-columns: min-content;
     background-color: #2196F3;
     padding: 10px;
+    width: min-content;
     height: 100%;
 }
 
 .boardgrid > div{
   background-color: rgba(255, 255, 255, 0.8);
   border-style: solid;
-  border-color: gray;
-  border-width: medium;
+  border-color: #2196F3;
   text-align: center;
+  width: 200px;
+  height: 200px;
   padding: 20px;
   font-size: 30px;
 }
 
-.kalaha{
-  grid-template-columns: none;
-  width: 10%;
-  min-width: 200px;
+.inner-square {
+  background-color: black;
+  width: 70px;
+  height: 70px;
+  margin-top: 15%;
+  margin-left: 20%;
 }
 
-.playerinfo{
-  width: 10%;
-  height: 10%;
-  background-color: #2196F3;
-  text-align: center;
-  min-width: 200px;
+.North-arrow {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
 }
 
-.playerinfo > ul{
-  list-style: none;
-  padding: 0px;
+/* [class*="icono"] {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  color: white;
+  box-sizing: border-box;
+}
+*, *:after, *:before {
+  content: "";
+  box-sizing: border-box;
 }
 
-.onturn{
-  border-style: dashed;
-  border-width: 5px;
-  border-color: orange;
+[class*="icono-NorthArrow"]{
+  width: 0;
+  height: 0;
+  border-width: 6px;
+  border-style: solid;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  margin: 10px;
 }
-
-#rules{
-  background-color: #2196F3;
-  width: 10%;
+*:before{
+  right: 0;
+  top: -3px;
   position: absolute;
-  bottom: 0px;
-  left: 0px;
-  min-width: 200px;
+  height: 4px;
+  box-shadow: inset 0 0 0 32px;
+  transform: rotate(-45deg);
+  width: 15px;
+  transform-origin: right top;
+}
+[class*="-up"]{
+  transform: rotate(-45deg);
+}
+[class*="-down"]{
+  transform: rotate(135deg);
+} */
+
+.East-arrow {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
 }
 
-#player1info{
-  position: absolute;
-  top: 0px;
-  left: 0px;
+/* .East-arrow:after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 10px solid white;
+  border-top: 10px solid transparent;
+  border-bottom: 8px solid transparent;
+  vertical-align: middle;
 }
 
-#player1pits{
-  position: absolute;
-  top: 0px;
-  left: 50%;
-  margin-left: -500px;
-  width: 80%;
-  height: 10%;
-  max-width: 1000px;
+.East-arrow:before {
+  width: 20px;
+  height: 2px;
+  background: white;
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+} */
+
+.South-arrow {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
 }
 
-#player1kalaha{
-  position: absolute;
-  top: 10%;
-  left: 0px;
-  height: 10%;
+.West-arrow {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
 }
 
-#player2info{
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
+/* .West-arrow:before {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-right: 10px solid white;
+  border-top: 10px solid transparent;
+  border-bottom: 8px solid transparent;
+  vertical-align: middle;
 }
 
-#player2pits{
-  position: absolute;
-  bottom: 0px;
-  right: 50%;
-  margin-right: -500px;
-  width: 80%;
-  height: 10%;
-  max-width: 1000px;
-}
-
-#player2kalaha{
-  position: absolute;
-  bottom: 10%;
-  right: 0px;
-  height: 10%;
-}
-
-#victoryscreen{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 30%;
-}
-
-@media only screen and (max-width: 1400px){
-  #player1pits{
-    left: 200px;
-    margin-left: 0px;
-  }
-
-  #player2pits{
-    right: 200px;
-    margin-right: 0px;
-  }
-}
+.West-arrow:after {
+  width: 20px;
+  height: 2px;
+  background: white;
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+} */
