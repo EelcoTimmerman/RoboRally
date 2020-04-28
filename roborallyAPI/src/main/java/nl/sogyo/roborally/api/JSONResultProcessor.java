@@ -1,7 +1,6 @@
 package nl.sogyo.roborally.api;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
