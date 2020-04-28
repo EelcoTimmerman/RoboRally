@@ -9,16 +9,11 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import nl.sogyo.roborally.domain.Direction;
-import nl.sogyo.roborally.domain.robots.Robot;
-import nl.sogyo.roborally.domain.rulebooks.RulebookRobots;
-import nl.sogyo.roborally.domain.squares.Board;
+import nl.sogyo.roborally.domain.Robotrally;
 
 @ServerEndpoint(value = "/websocket")
 public class RobotrallyWebsocket{
-    final String TESTBOARD4X4 = "CH-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*ES-x";
-    Board board = new Board(TESTBOARD4X4);
-    Robot robot = new Robot(2,3, Direction.EAST);
+    Robotrally robotrally = new Robotrally();
     
     @OnOpen
     public void onOpen(Session session)throws IOException{
@@ -29,17 +24,16 @@ public class RobotrallyWebsocket{
     public void onMessage(String message, Session session)throws IOException{
         System.out.println("Message recieved: " + message);
         if(message.equals("initialize")){
-            String stringoutput = new JSONResultProcessor().createJSONResponse(board, robot);
+            String stringoutput = new JSONResultProcessor().createJSONResponse(robotrally);
             session.getBasicRemote().sendText(stringoutput);
         }
         else{
             int cardnr = Integer.parseInt(message);
 
-            robot.program(cardnr);    
-            RulebookRobots rulebookRobots = new RulebookRobots(board, robot);
-            rulebookRobots.playRound();
+            robotrally.program(cardnr);
+            robotrally.playRound();
 
-            String stringoutput = new JSONResultProcessor().createJSONResponse(board, robot);
+            String stringoutput = new JSONResultProcessor().createJSONResponse(robotrally);
             session.getBasicRemote().sendText(stringoutput);
         }
     }
