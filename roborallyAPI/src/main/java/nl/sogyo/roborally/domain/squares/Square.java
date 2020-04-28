@@ -31,5 +31,7 @@ public abstract class Square{
 		if(walls.contains("W")){
 			this.westWall = true;
 		}
-	}
+    }
+    
+    public abstract String getType();
 }

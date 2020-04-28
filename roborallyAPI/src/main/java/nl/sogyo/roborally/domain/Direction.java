@@ -18,32 +18,23 @@ public enum Direction{
     }
 
     public Direction getRight(){
-        Direction result = null;
-        switch(this){
-            case NORTH: result = EAST;
-                        break;                        
-            case EAST: result = SOUTH;
-                        break;
-            case SOUTH: result = WEST;
-                        break;                        
-            case WEST: result = NORTH;
-                        break;
-        }
-        return result;
+        int ordinal = this.ordinal();
+        Direction[] directions = Direction.values();
+        int reverseOrdinal = (ordinal + 1) % 4;
+        return directions[reverseOrdinal];
     }
 
     public Direction getLeft(){
-        Direction result = null;
-        switch(this){
-            case NORTH: result = WEST;
-                        break;                        
-            case EAST: result = NORTH;
-                        break;
-            case SOUTH: result = EAST;
-                        break;                        
-            case WEST: result = SOUTH;
-                        break;
-        }
-        return result;
+        int ordinal = this.ordinal();
+        Direction[] directions = Direction.values();
+        int reverseOrdinal = (ordinal + 3) % 4;
+        return directions[reverseOrdinal];
+    }
+
+    public Direction getReverse(){
+        int ordinal = this.ordinal();
+        Direction[] directions = Direction.values();
+        int reverseOrdinal = (ordinal + 2) % 4;
+        return directions[reverseOrdinal];
     }
 }

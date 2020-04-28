@@ -3,6 +3,12 @@ package nl.sogyo.roborally.domain.robots;
 
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.ICard;
+import nl.sogyo.roborally.domain.cards.MoveOneCard;
+import nl.sogyo.roborally.domain.cards.MoveThreeCard;
+import nl.sogyo.roborally.domain.cards.MoveTwoCard;
+import nl.sogyo.roborally.domain.cards.RotateLeftCard;
+import nl.sogyo.roborally.domain.cards.RotateRightCard;
+import nl.sogyo.roborally.domain.cards.UTurnCard;
 
 public class Robot{
 
@@ -33,7 +39,10 @@ public class Robot{
         this.respawnY = yCoordinate;
         this.orientation = orientation;
         this.health = 9;
+    }
 
+    public String getName(){
+        return "testname";
     }
 
     public ICard getCard(){
@@ -71,6 +80,11 @@ public class Robot{
             return false;
     }
 
+    public void setRespawnPoint(int xCoordinate, int yCoordinate){
+        this.respawnX = xCoordinate;
+        this.respawnY = yCoordinate;
+    }
+
     public void moveForward(){
         switch(this.orientation){
             case NORTH: this.yCoordinate--;
@@ -84,8 +98,39 @@ public class Robot{
         }
     }
 
+    public void moveBackwards(){
+        switch(this.orientation){
+            case NORTH: this.yCoordinate++;
+                        break;
+            case EAST: this.xCoordinate--;
+                        break;
+            case SOUTH: this.yCoordinate--;
+                        break;
+            case WEST: this.xCoordinate++;
+                        break;
+        }
+    }
+
     public void program(ICard card){
         this.card = card;
+    }
+
+    public void program(int cardnr){
+        switch(cardnr){
+            case 0: this.card = new MoveOneCard();
+                    break;
+            case 1: this.card = new RotateRightCard();
+                    break;
+            case 2: this.card = new RotateLeftCard();
+                    break;
+            case 3: this.card = new UTurnCard();
+                    break;
+            case 4: this.card = new MoveTwoCard();
+                    break;
+            case 5: this.card = new MoveThreeCard();
+                    break;
+            default: throw new RuntimeException("Invalid cardnr");
+        }
     }
 
     public void turnRight(){
@@ -96,8 +141,28 @@ public class Robot{
         this.orientation = this.orientation.getLeft();
     }
 
+    public void turnReverse(){
+        this.orientation = this.orientation.getReverse();
+    }
+
     public void respawn(){
         this.xCoordinate = this.respawnX;
         this.yCoordinate = this.respawnY;
+    }
+
+    public void setXCoordinate(int xCoordinate){
+        this.xCoordinate = xCoordinate;
+    }
+
+    public void setYCoordinate(int yCoordinate){
+        this.yCoordinate = yCoordinate;
+    }
+
+    public int getRespawnXCoordinate(){
+        return this.respawnX;
+    }
+
+    public int getRespawnYCoordinate(){
+        return this.respawnY;
     }
 }
