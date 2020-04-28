@@ -31,15 +31,6 @@ export function App() {
 
         }
         setWebsocket(tempwebsocket);
-        // console.log("Initializing gamestate.");
-        // const response = await fetch("roborally/api/initialize", {
-        //     method: 'GET',
-        //     headers:{
-        //         'Accept': 'application/json'
-        //     }
-        // });
-        // const gamestate = await response.json();
-        // setGamestate(gamestate);
     }
 
     async function moveForward(){
