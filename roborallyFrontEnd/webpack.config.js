@@ -39,7 +39,10 @@ module.exports = {
           'Expires': '-1',
         },
         proxy: {
-            '/roborally/*': 'http://localhost:8080/', // <-- change 8080 to a different port if necessary
+            '/roborally/*': {
+                target: 'ws://localhost:8080/', // <-- change 8080 to a different port if necessary
+                ws: true,
+            }
         }
     }
 }

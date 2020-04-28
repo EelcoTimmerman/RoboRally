@@ -4,17 +4,43 @@ import { Board } from "./board/Board";
 
 export function App() {
     const [gamestate, setGamestate] = useState<Square[][] | undefined>(undefined);
+    const [websocket, setWebsocket] = useState<WebSocket | undefined>(undefined);
 
     async function getGameState(){
-        console.log("Initializing gamestate.");
-        const response = await fetch("roborally/api/initialize", {
-            method: 'GET',
-            headers:{
-                'Accept': 'application/json'
+        if (websocket !== undefined
+                && websocket.readyState !== WebSocket.CLOSED) {
+            return;
+        }
+        let tempwebsocket = new WebSocket("ws://localhost:3000/roborally/websocket");
+
+        if(tempwebsocket !== undefined && tempwebsocket.readyState !== WebSocket.CLOSED){
+
+            tempwebsocket.onopen = function(){
+                console.log("connected");
+                tempwebsocket.send("gib data pls");
+            };
+
+            tempwebsocket.onmessage = function(event: WebSocketMessageEvent){
+                let gamestate = JSON.parse(event.data);
+                console.log(gamestate);
+                setGamestate(gamestate);
+            };
+
+            tempwebsocket.onclose = function(event: WebSocketCloseEvent){
+                console.log("connection closed");
             }
-        });
-        const gamestate = await response.json();
-        setGamestate(gamestate);
+
+        }
+        setWebsocket(tempwebsocket);
+        // console.log("Initializing gamestate.");
+        // const response = await fetch("roborally/api/initialize", {
+        //     method: 'GET',
+        //     headers:{
+        //         'Accept': 'application/json'
+        //     }
+        // });
+        // const gamestate = await response.json();
+        // setGamestate(gamestate);
     }
 
     async function moveForward(){

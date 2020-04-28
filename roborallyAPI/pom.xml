@@ -33,37 +33,28 @@
 			<version>${jaxrs.version}</version>
 		</dependency>
 		
-		<!-- Jersey -->
+		<!--Jetty dependencies start here -->
 		<dependency>
-			<groupId>org.glassfish.jersey.containers</groupId>
-			<artifactId>jersey-container-servlet</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-server</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-client</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.core</groupId>
-			<artifactId>jersey-common</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.inject</groupId>
-			<artifactId>jersey-hk2</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.glassfish.jersey.media</groupId>
-			<artifactId>jersey-media-json-jackson</artifactId>
-			<version>${jersey.version}</version>
-		</dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>${jettyVersion}</version>
+	  	</dependency>
+  
+	  <dependency>
+		<groupId>org.eclipse.jetty</groupId>
+		<artifactId>jetty-servlet</artifactId>
+		<version>${jettyVersion}</version>
+	  </dependency>
+	  <!--Jetty dependencies end here -->
+	  
+	  <!--Jetty JSR-356 Websocket server side dependency -->
+	  <dependency>
+		<groupId>org.eclipse.jetty.websocket</groupId>
+		<artifactId>javax-websocket-server-impl</artifactId>
+		<version>${jettyVersion}</version>
+	  </dependency>
+	  
+	  <!--Jetty Websocket server dependencies end here -->
 		<!-- Testing -->		
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -95,13 +86,6 @@
 					<release>13</release>
 					<source>13</source>
 					<target>13</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>3.2.3</version>
-				<configuration>
-					<warSourceDirectory>src/main/webapp</warSourceDirectory>
 				</configuration>
 			</plugin>
 			<plugin>
