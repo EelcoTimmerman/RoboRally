@@ -223,4 +223,15 @@ public class TestRulebookRobots {
         assertEquals(2, robot.getXCoordinate());
         assertEquals(2, robot.getYCoordinate());
     }
+
+    @Test
+    public void testRobotMovesOntoPit() {
+        String boardString = "ES-X*PT-X";
+        Robot robot = new Robot(0,0);
+        robot.setOrientation(Direction.EAST);
+        robot.program(0);
+        RulebookRobots rulebookRobots = new RulebookRobots(boardString, robot);
+        rulebookRobots.playRound();
+        assert(robot.isAt(0, 0));
+    }
 }

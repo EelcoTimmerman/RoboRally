@@ -5,6 +5,7 @@ import org.junit.Test;
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.ICard;
 import nl.sogyo.roborally.domain.cards.MoveOneCard;
+import nl.sogyo.roborally.domain.squares.Board;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -70,4 +71,5 @@ public class TestRobot{
         ICard card2 = robot.getCard();
         assertEquals(card1, card2);
     }
+
 }

@@ -39,6 +39,10 @@ public class RulebookRobots{
     public void playRound(){
         ICard card = robot.getCard();
         card.doCardAction(robot, board);
+        Square squareRobotIsPositionedOn = this.board.getSquare(this.robot.getXCoordinate(), this.robot.getYCoordinate());
+        if (squareRobotIsPositionedOn instanceof Pit){
+            this.robot.respawn();
+        }
     }
 
 }
