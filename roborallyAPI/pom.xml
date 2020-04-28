@@ -6,7 +6,6 @@
 	<groupId>nl.sogyo.roborally</groupId>
 	<artifactId>RoborallyAPI</artifactId>
 	<version>0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
 	<name>Roborally API</name>
 
 	<properties>
