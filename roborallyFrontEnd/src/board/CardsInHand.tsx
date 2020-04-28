@@ -22,7 +22,10 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
+<<<<<<< HEAD
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+=======
+>>>>>>> creating a grid for the cards
     textAlign: 'center'
   },
 }));
@@ -32,6 +35,7 @@ export function showCards(){
     let myCards:Card[] = getCards();
 
     for(let card in myCards){
+<<<<<<< HEAD
       //showcard(classes, card)
     }
     return (
@@ -53,6 +57,35 @@ export function showCards(){
         </Grid>
       </Grid>
     );
+=======
+      showcard(classes, card)
+    }
+    // return (
+    //     <Grid container spacing={8}>
+
+
+    //     <Grid item xs={3}>
+    //       <Paper className={classes.paper}>xs=3</Paper>
+    //     </Grid>
+    //     <Grid item xs={3}>
+    //       <Paper className={classes.paper}>xs=3</Paper>
+    //     </Grid>
+    //     <Grid item xs={3}>
+    //       <Paper className={classes.paper}>xs=3</Paper>
+    //     </Grid>
+    //   </Grid>
+    // );
+}
+
+function showcard(classes: Record<"root" | "paper", string>, card: string){
+  classes = classes;
+  return (
+    <Grid item xs={3}>
+    <Paper className={classes.paper}>card.type</Paper>
+    </Grid>
+  )
+
+>>>>>>> creating a grid for the cards
 }
 
 function showcard(classes: Record<"root" | "paper", string>, card: string){

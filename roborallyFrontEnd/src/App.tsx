@@ -74,6 +74,7 @@ export function App() {
     }
 
     let cards = showCards();
+<<<<<<< HEAD
 
     if(gamestate != undefined && cards != undefined){
         return (<div>
@@ -92,4 +93,8 @@ export function App() {
         getGameState();
         return <div>Loading...</div>;
     }
+=======
+    
+    return cards;
+>>>>>>> creating a grid for the cards
 }
