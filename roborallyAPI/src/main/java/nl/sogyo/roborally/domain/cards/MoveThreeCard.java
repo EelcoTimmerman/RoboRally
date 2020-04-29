@@ -1,6 +1,5 @@
 package nl.sogyo.roborally.domain.cards;
 
-import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.Board;
 import nl.sogyo.roborally.domain.squares.Square;

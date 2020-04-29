@@ -6,6 +6,7 @@
 	<groupId>nl.sogyo.roborally</groupId>
 	<artifactId>RoborallyAPI</artifactId>
 	<version>0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>Roborally API</name>
 
 	<properties>
@@ -63,6 +64,10 @@
 					<source>13</source>
 					<target>13</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.2.3</version>
 			</plugin>
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
