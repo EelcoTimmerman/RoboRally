@@ -1,8 +1,8 @@
 package nl.sogyo.roborally.domain.cards;
 
-import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.Board;
+import nl.sogyo.roborally.domain.squares.Pit;
 import nl.sogyo.roborally.domain.squares.Square;
 
 public class MoveOneCard implements ICard{
@@ -10,6 +10,12 @@ public class MoveOneCard implements ICard{
     public void doCardAction(Robot robot, Board board){
         if(canMoveForward(robot, board)) robot.moveForward();    
         if(robotNotOnBoard(robot, board)) robot.respawn();
+        if(robotInPit(robot, board)) robot.respawn();
+    }
+
+    private boolean robotInPit(Robot robot, Board board){
+        Square currentPosition = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
+        return (currentPosition instanceof Pit);
     }
 
     private boolean robotNotOnBoard(Robot robot, Board board){

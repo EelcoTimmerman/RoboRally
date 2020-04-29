@@ -10,7 +10,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.rulebooks.RulebookRobots;
 import nl.sogyo.roborally.domain.squares.Board;

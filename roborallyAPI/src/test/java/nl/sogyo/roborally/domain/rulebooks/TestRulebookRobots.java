@@ -225,11 +225,33 @@ public class TestRulebookRobots {
     }
 
     @Test
-    public void testRobotMovesOntoPit() {
+    public void testRobotMovesOneForwardOntoPitMoveOneCard(){
         String boardString = "ES-X*PT-X";
         Robot robot = new Robot(0,0);
         robot.setOrientation(Direction.EAST);
         robot.program(0);
+        RulebookRobots rulebookRobots = new RulebookRobots(boardString, robot);
+        rulebookRobots.playRound();
+        assert(robot.isAt(0, 0));
+    }
+
+    @Test
+    public void testRobotMovesBackwardOntoPit(){
+        String boardString = "ES-X*PT-X";
+        Robot robot = new Robot(0,0);
+        robot.setOrientation(Direction.WEST);
+        robot.program(6);
+        RulebookRobots rulebookRobots = new RulebookRobots(boardString, robot);
+        rulebookRobots.playRound();
+        assert(robot.isAt(0, 0));
+    }
+
+    @Test
+    public void testRobotMovesTwoForwardOntoPitMoveTwoCard(){
+        String boardString = "ES-X*ES-X*PT-X";
+        Robot robot = new Robot(0,0);
+        robot.setOrientation(Direction.EAST);
+        robot.program(4);
         RulebookRobots rulebookRobots = new RulebookRobots(boardString, robot);
         rulebookRobots.playRound();
         assert(robot.isAt(0, 0));

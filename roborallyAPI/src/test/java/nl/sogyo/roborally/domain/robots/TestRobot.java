@@ -4,9 +4,10 @@ import org.junit.Test;
 
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.ICard;
+import nl.sogyo.roborally.domain.cards.MoveBackCard;
 import nl.sogyo.roborally.domain.cards.MoveOneCard;
-import nl.sogyo.roborally.domain.squares.Board;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestRobot{
@@ -70,6 +71,13 @@ public class TestRobot{
         robot.program(card1);
         ICard card2 = robot.getCard();
         assertEquals(card1, card2);
+    }
+
+    @Test
+    public void testProgramRobotMoveBackward(){
+        Robot robot = new Robot();
+        robot.program(6);
+        assertTrue(robot.getCard() instanceof MoveBackCard);
     }
 
 }

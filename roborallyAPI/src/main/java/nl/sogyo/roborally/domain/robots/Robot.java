@@ -1,8 +1,8 @@
 package nl.sogyo.roborally.domain.robots;
 
-
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.ICard;
+import nl.sogyo.roborally.domain.cards.MoveBackCard;
 import nl.sogyo.roborally.domain.cards.MoveOneCard;
 import nl.sogyo.roborally.domain.cards.MoveThreeCard;
 import nl.sogyo.roborally.domain.cards.MoveTwoCard;
@@ -128,6 +128,8 @@ public class Robot{
             case 4: this.card = new MoveTwoCard();
                     break;
             case 5: this.card = new MoveThreeCard();
+                    break;
+            case 6: this.card = new MoveBackCard();
                     break;
             default: throw new RuntimeException("Invalid cardnr");
         }
