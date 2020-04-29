@@ -9,8 +9,7 @@ public class MoveBackCard implements ICard{
 
     public void doCardAction(Robot robot, Board board){
         if(canMoveBackwards(robot, board)) robot.moveBackwards();    
-        if(robotNotOnBoard(robot, board)) robot.respawn();
-        if(robotInPit(robot, board)) robot.respawn();
+        if(robotNotOnBoard(robot, board) || robotInPit(robot, board)) robot.respawn();
     }
 
     private boolean robotInPit(Robot robot, Board board){

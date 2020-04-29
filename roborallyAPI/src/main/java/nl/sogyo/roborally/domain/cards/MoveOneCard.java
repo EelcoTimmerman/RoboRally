@@ -9,8 +9,7 @@ public class MoveOneCard implements ICard{
 
     public void doCardAction(Robot robot, Board board){
         if(canMoveForward(robot, board)) robot.moveForward();    
-        if(robotNotOnBoard(robot, board)) robot.respawn();
-        if(robotInPit(robot, board)) robot.respawn();
+        if(robotNotOnBoard(robot, board) || robotInPit(robot, board)) robot.respawn();
     }
 
     private boolean robotInPit(Robot robot, Board board){

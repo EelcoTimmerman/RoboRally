@@ -9,16 +9,13 @@ public class MoveThreeCard implements ICard{
 
     public void doCardAction(Robot robot, Board board){      
         if(canMoveForward(robot, board)) robot.moveForward();    
-        if(robotNotOnBoard(robot, board)) robot.respawn();
-        if(robotInPit(robot, board)) robot.respawn();
+        if(robotNotOnBoard(robot, board) || robotInPit(robot, board)) robot.respawn();
         else{
             if(canMoveForward(robot, board)) robot.moveForward();    
-            if(robotNotOnBoard(robot, board)) robot.respawn();
-            if(robotInPit(robot, board)) robot.respawn();
+            if(robotNotOnBoard(robot, board) || robotInPit(robot, board)) robot.respawn();
             else{
                 if(canMoveForward(robot, board)) robot.moveForward();    
-                if(robotNotOnBoard(robot, board)) robot.respawn();
-                if(robotInPit(robot, board)) robot.respawn();
+                if(robotNotOnBoard(robot, board) || robotInPit(robot, board)) robot.respawn();
             }
         }
     }

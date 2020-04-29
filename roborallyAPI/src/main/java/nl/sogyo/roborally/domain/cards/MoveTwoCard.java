@@ -9,17 +9,11 @@ public class MoveTwoCard implements ICard{
 
     public void doCardAction(Robot robot, Board board){
         if(canMoveForward(robot, board)) robot.moveForward();
-        System.out.println("Robot's position within doCardAction() of MoveTwoCard class after first moveForward: " + "[" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "]");    
         if(robotNotOnBoard(robot, board) || robotInPit(robot, board)) robot.respawn();
-        System.out.println("Robot's position within doCardAction() of MoveTwoCard class after first respawn due to robotNotOnBoard: " + "[" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "]");
-        // if(robotInPit(robot, board)) robot.respawn();
-        // System.out.println("Robot's position within doCardAction() of MoveTwoCard class after first respawn due to robotInPit: " + "[" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "]");
-        // else{
-        //     if(canMoveForward(robot, board)) robot.moveForward();    
-        //     if(robotNotOnBoard(robot, board)) robot.respawn();
-        //     if(robotInPit(robot, board)) robot.respawn();
-        //     // System.out.println("Robot's position within doCardAction() of MoveTwoCard class at the end of else-statement: " + "[" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "]");
-        // }
+        else{
+            if(canMoveForward(robot, board)) robot.moveForward();    
+            if(robotNotOnBoard(robot, board) || robotInPit(robot, board)) robot.respawn();
+        }
     }
 
     private boolean robotInPit(Robot robot, Board board){
