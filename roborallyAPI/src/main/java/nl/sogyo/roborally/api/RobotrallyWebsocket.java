@@ -9,7 +9,8 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import nl.sogyo.roborally.domain.rulebooks.Robotrally;
+import nl.sogyo.roborally.domain.Robotrally;
+
 
 
 @ServerEndpoint(value = "/websocket")

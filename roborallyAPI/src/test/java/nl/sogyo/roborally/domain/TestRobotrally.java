@@ -1,10 +1,9 @@
-package nl.sogyo.roborally.domain.rulebooks;
+package nl.sogyo.roborally.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.Test;
 
-import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.ICard;
 import nl.sogyo.roborally.domain.cards.MoveBackCard;
 import nl.sogyo.roborally.domain.cards.MoveOneCard;
@@ -16,7 +15,7 @@ import nl.sogyo.roborally.domain.cards.UTurnCard;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.Board;
 
-public class TestRulebookRobots {
+public class TestRobotrally {
     final String TESTBOARD4X4 = "ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-X*ES-X*ES-X*||*ES-X*ES-X*ES-X*ES-E*||*ES-X*ES-S*ES-X*ES-X";
 
     @Test
