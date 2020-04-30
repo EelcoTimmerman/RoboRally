@@ -7,6 +7,7 @@ import org.json.simple.JSONObject;
 
 import nl.sogyo.roborally.domain.*;
 import nl.sogyo.roborally.domain.robots.Robot;
+import nl.sogyo.roborally.domain.rulebooks.Robotrally;
 import nl.sogyo.roborally.domain.squares.*;
 
 @SuppressWarnings("unchecked")
