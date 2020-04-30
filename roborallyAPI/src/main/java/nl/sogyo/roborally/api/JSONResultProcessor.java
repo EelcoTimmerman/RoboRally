@@ -1,7 +1,6 @@
 package nl.sogyo.roborally.api;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -13,7 +12,9 @@ import nl.sogyo.roborally.domain.squares.*;
 @SuppressWarnings("unchecked")
 public class JSONResultProcessor {
  
-    public String createJSONResponse(Board board, Robot robot){
+    public String createJSONResponse(Robotrally robotrally){
+        Board board = robotrally.getBoard();
+        Robot robot = robotrally.getRobot();
 
         JSONArray squares = createJSONBoard(board);
         int xCoordinate = robot.getXCoordinate();
