@@ -2,13 +2,13 @@ package nl.sogyo.roborally.domain.rulebooks;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 import org.junit.Test;
 
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.ICard;
 import nl.sogyo.roborally.domain.cards.MoveBackCard;
 import nl.sogyo.roborally.domain.cards.MoveOneCard;
+import nl.sogyo.roborally.domain.cards.MoveThreeCard;
 import nl.sogyo.roborally.domain.cards.MoveTwoCard;
 import nl.sogyo.roborally.domain.cards.RotateLeftCard;
 import nl.sogyo.roborally.domain.cards.RotateRightCard;
@@ -17,7 +17,7 @@ import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.Board;
 
 public class TestRulebookRobots {
-    final String TESTBOARD4X4 = "ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*ES-x";
+    final String TESTBOARD4X4 = "ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-X*ES-X*ES-X*||*ES-X*ES-X*ES-X*ES-E*||*ES-X*ES-S*ES-X*ES-X";
 
     @Test
     public void testRulebookHasRobot(){
@@ -223,4 +223,102 @@ public class TestRulebookRobots {
         assertEquals(2, robot.getXCoordinate());
         assertEquals(2, robot.getYCoordinate());
     }
+
+    @Test
+    public void testRobotTakesThreeStepsOffTheBoard2Step(){
+        Robot robot = new Robot(0,1, Direction.NORTH);
+        ICard card = new MoveThreeCard();
+        robot.program(card);
+        robot.setRespawnPoint(2,2);
+        RulebookRobots rulebookRobots = new RulebookRobots(TESTBOARD4X4, robot);
+        rulebookRobots.playRound();
+        assertEquals(2, robot.getXCoordinate());
+        assertEquals(2, robot.getYCoordinate());
+
+    }
+
+    @Test
+    public void testRobotMovesOneForwardOntoPitMoveOneCard(){
+        String boardString = "ES-X*PT-X";
+        Robot robot = new Robot(0,0);
+        robot.setOrientation(Direction.EAST);
+        ICard card = new MoveOneCard();
+        robot.program(card);
+        RulebookRobots rulebookRobots = new RulebookRobots(boardString, robot);
+        rulebookRobots.playRound();
+        assert(robot.isAt(0, 0));
+    }
+
+    @Test
+    public void testRobotMovesBackwardOntoPit(){
+        String boardString = "ES-X*PT-X";
+        Robot robot = new Robot(0,0);
+        robot.setOrientation(Direction.WEST);
+        ICard card = new MoveBackCard();
+        robot.program(card);
+        RulebookRobots rulebookRobots = new RulebookRobots(boardString, robot);
+        rulebookRobots.playRound();
+        assert(robot.isAt(0, 0));
+    }
+
+    @Test
+    public void testRobotMovesTwoForwardOntoPitMoveTwoCard(){
+        String boardString = "ES-X*ES-X*PT-X";
+        Robot robot = new Robot(0,0);
+        robot.setOrientation(Direction.EAST);
+        ICard card = new MoveTwoCard();
+        robot.program(card);
+        RulebookRobots rulebookRobots = new RulebookRobots(boardString, robot);
+        rulebookRobots.playRound();
+        assert(robot.isAt(0, 0));
+    }
+
+    @Test
+    public void testRobotMovesOneForwardOntoPitMoveTwoCard(){
+        String boardString = "ES-X*PT-X*ES-X";
+        Robot robot = new Robot(0,0);
+        robot.setOrientation(Direction.EAST);
+        ICard card = new MoveTwoCard();
+        robot.program(card);
+        RulebookRobots rulebookRobots = new RulebookRobots(boardString, robot);
+        rulebookRobots.playRound();
+        assert(robot.isAt(0, 0));
+    }
+
+    @Test
+    public void testRobotMovesThreeForwardOntoPit(){
+        String boardString = "ES-X*ES-X*ES-X*PT-X";
+        Robot robot = new Robot(0,0);
+        robot.setOrientation(Direction.EAST);
+        ICard card = new MoveThreeCard();
+        robot.program(card);
+        RulebookRobots rulebookRobots = new RulebookRobots(boardString, robot);
+        rulebookRobots.playRound();
+        assert(robot.isAt(0, 0));
+    }
+
+    @Test
+    public void testRobotMovesTwoForwardOntoPitMoveThreeCard(){
+        String boardString = "ES-X*ES-X*PT-X*ES-X";
+        Robot robot = new Robot(0,0);
+        robot.setOrientation(Direction.EAST);
+        ICard card = new MoveThreeCard();
+        robot.program(card);
+        RulebookRobots rulebookRobots = new RulebookRobots(boardString, robot);
+        rulebookRobots.playRound();
+        assert(robot.isAt(0, 0));
+    }
+
+    @Test
+    public void testRobotMovesOneForwardOntoPitMoveThreeCard(){
+        String boardString = "ES-X*PT-X*ES-X*ES-X";
+        Robot robot = new Robot(0,0);
+        robot.setOrientation(Direction.EAST);
+        ICard card = new MoveThreeCard();
+        robot.program(card);
+        RulebookRobots rulebookRobots = new RulebookRobots(boardString, robot);
+        rulebookRobots.playRound();
+        assert(robot.isAt(0, 0));
+    }
+
 }
