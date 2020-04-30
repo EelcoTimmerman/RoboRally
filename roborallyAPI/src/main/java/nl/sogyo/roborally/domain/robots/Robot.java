@@ -1,6 +1,7 @@
 package nl.sogyo.roborally.domain.robots;
 
 import nl.sogyo.roborally.domain.Direction;
+import nl.sogyo.roborally.domain.cards.DoNothingCard;
 import nl.sogyo.roborally.domain.cards.ICard;
 import nl.sogyo.roborally.domain.cards.MoveBackCard;
 import nl.sogyo.roborally.domain.cards.MoveOneCard;
@@ -13,7 +14,7 @@ import nl.sogyo.roborally.domain.cards.UTurnCard;
 public class Robot{
 
     Direction orientation;
-    ICard card;
+    ICard card = new DoNothingCard();
     int health;
     int xCoordinate;
     int yCoordinate;
@@ -86,7 +87,15 @@ public class Robot{
     }
 
     public void moveForward(){
-        switch(this.orientation){
+        move(this.orientation);
+    }
+
+    public void moveBackwards(){
+        move(this.orientation.getReverse());
+    }
+
+    public void move(Direction direction){
+        switch(direction){
             case NORTH: this.yCoordinate--;
                         break;
             case EAST: this.xCoordinate++;
@@ -94,19 +103,6 @@ public class Robot{
             case SOUTH: this.yCoordinate++;
                         break;
             case WEST: this.xCoordinate--;
-                        break;
-        }
-    }
-
-    public void moveBackwards(){
-        switch(this.orientation){
-            case NORTH: this.yCoordinate++;
-                        break;
-            case EAST: this.xCoordinate--;
-                        break;
-            case SOUTH: this.yCoordinate--;
-                        break;
-            case WEST: this.xCoordinate++;
                         break;
         }
     }

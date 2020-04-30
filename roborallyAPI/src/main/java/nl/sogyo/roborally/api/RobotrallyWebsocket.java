@@ -11,6 +11,8 @@ import javax.websocket.server.ServerEndpoint;
 
 import nl.sogyo.roborally.domain.Robotrally;
 
+
+
 @ServerEndpoint(value = "/websocket")
 public class RobotrallyWebsocket{
     Robotrally robotrally = new Robotrally();

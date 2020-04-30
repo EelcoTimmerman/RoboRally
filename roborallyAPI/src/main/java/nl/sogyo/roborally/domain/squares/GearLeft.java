@@ -1,8 +1,15 @@
 package nl.sogyo.roborally.domain.squares;
 
-public class GearLeft  extends Square{
+import nl.sogyo.roborally.domain.robots.Robot;
+
+public class GearLeft extends Square {
     @Override
-    public String getType() {
+    public String getType(){
         return "GearLeft";
+    }
+
+    @Override
+    public void doSquareAction(Robot robot, Board board){
+        robot.turnLeft();
     }
 }

@@ -1,6 +1,7 @@
 package nl.sogyo.roborally.domain.squares;
 
 import nl.sogyo.roborally.domain.*;
+import nl.sogyo.roborally.domain.robots.Robot;
 
 public abstract class Square{
     protected boolean northWall;
@@ -34,4 +35,6 @@ public abstract class Square{
     }
     
     public abstract String getType();
+
+    public abstract void doSquareAction(Robot robot, Board board);
 }
