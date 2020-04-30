@@ -7,8 +7,7 @@ export function App() {
     const [websocket, setWebsocket] = useState<WebSocket | undefined>(undefined);
 
     async function getGameState(){
-        if (websocket !== undefined
-                && websocket.readyState !== WebSocket.CLOSED) {
+        if (websocket !== undefined && websocket.readyState !== WebSocket.CLOSED) {
             return;
         }
         let tempwebsocket = new WebSocket("ws://localhost:3000/roborally/websocket");
@@ -27,9 +26,10 @@ export function App() {
 
             tempwebsocket.onclose = function(event: WebSocketCloseEvent){
                 console.log("connection closed");
-            }
+            };
 
         }
+
         setWebsocket(tempwebsocket);
     }
 
@@ -57,9 +57,12 @@ export function App() {
         programCard(5);
     }
 
+    async function moveBackwards(){
+        programCard(6);
+    }
+
     async function programCard(cardnr:number){
-        if (websocket !== undefined
-                && websocket.readyState !== WebSocket.CLOSED) {
+        if (websocket !== undefined && websocket.readyState !== WebSocket.CLOSED) {
             websocket.send(cardnr.toString());
         }
         else{
@@ -77,6 +80,7 @@ export function App() {
                     <button onClick={uTurn}>Turn around</button>
                     <button onClick={moveForward2}>Forward x 2</button>
                     <button onClick={moveForward3}>Forward x 3</button>
+                    <button onClick={moveBackwards}>Backwards</button>
                 </div>);
     }
     else{
