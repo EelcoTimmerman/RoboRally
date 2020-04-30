@@ -29,34 +29,38 @@ public class RulebookSquares{
     }
 
     public void playBoardElements(){
-        int xCoordinateRobot = this.robot.getXCoordinate();
-        int yCoordinateRobot = this.robot.getYCoordinate();
-        Square squareRobotIsPositionedOn = this.board.getSquare(xCoordinateRobot, yCoordinateRobot);
-        playSlowConveyerBelts(squareRobotIsPositionedOn, xCoordinateRobot, yCoordinateRobot);
-        playGears(squareRobotIsPositionedOn);
-        playCheckpoints(squareRobotIsPositionedOn, xCoordinateRobot, yCoordinateRobot);
+        Square robotPosition = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
+        robotPosition.doSquareAction(robot, board);
     }
+    // public void playBoardElements(){
+    //     int xCoordinateRobot = this.robot.getXCoordinate();
+    //     int yCoordinateRobot = this.robot.getYCoordinate();
+    //     Square squareRobotIsPositionedOn = this.board.getSquare(xCoordinateRobot, yCoordinateRobot);
+    //     playSlowConveyerBelts(squareRobotIsPositionedOn, xCoordinateRobot, yCoordinateRobot);
+    //     playGears(squareRobotIsPositionedOn);
+    //     playCheckpoints(squareRobotIsPositionedOn, xCoordinateRobot, yCoordinateRobot);
+    // }
 
-    public void playSlowConveyerBelts(Square squareRobotIsPositionedOn, int xCoordinateRobot, int yCoordinateRobot) {
-        if(squareRobotIsPositionedOn instanceof SlowConveyorbelt){
-            SlowConveyorbelt conveyerBelt = (SlowConveyorbelt) squareRobotIsPositionedOn;
-            Direction directionConveyerBelt = conveyerBelt.getMovementDirection();
-            switch(directionConveyerBelt){
-                case NORTH: this.robot.setYCoordinate(yCoordinateRobot-1); break;
-                case EAST: this.robot.setXCoordinate(xCoordinateRobot+1); break;
-                case SOUTH: this.robot.setYCoordinate(yCoordinateRobot+1); break;
-                case WEST: this.robot.setXCoordinate(xCoordinateRobot-1); break;
-            }
-        }
-    }
+    // public void playSlowConveyerBelts(Square squareRobotIsPositionedOn, int xCoordinateRobot, int yCoordinateRobot) {
+    //     if(squareRobotIsPositionedOn instanceof SlowConveyorbelt){
+    //         SlowConveyorbelt conveyerBelt = (SlowConveyorbelt) squareRobotIsPositionedOn;
+    //         Direction directionConveyerBelt = conveyerBelt.getMovementDirection();
+    //         switch(directionConveyerBelt){
+    //             case NORTH: this.robot.setYCoordinate(yCoordinateRobot-1); break;
+    //             case EAST: this.robot.setXCoordinate(xCoordinateRobot+1); break;
+    //             case SOUTH: this.robot.setYCoordinate(yCoordinateRobot+1); break;
+    //             case WEST: this.robot.setXCoordinate(xCoordinateRobot-1); break;
+    //         }
+    //     }
+    // }
 
-    private void playGears(Square squareRobotIsPositionedOn) {
-        if(squareRobotIsPositionedOn instanceof GearLeft) this.robot.turnLeft();
-        if(squareRobotIsPositionedOn instanceof GearRight) this.robot.turnRight();
-        if(squareRobotIsPositionedOn instanceof Gear180) this.robot.turnReverse();
-    }
+    // private void playGears(Square squareRobotIsPositionedOn) {
+    //     if(squareRobotIsPositionedOn instanceof GearLeft) this.robot.turnLeft();
+    //     if(squareRobotIsPositionedOn instanceof GearRight) this.robot.turnRight();
+    //     if(squareRobotIsPositionedOn instanceof Gear180) this.robot.turnReverse();
+    // }
     
-    private void playCheckpoints(Square squareRobotIsPositionedOn, int xCoordinateRobot, int yCoordinateRobot) {
-        if(squareRobotIsPositionedOn instanceof Checkpoint) this.robot.setRespawnPoint(xCoordinateRobot, yCoordinateRobot);
-    }
+    // private void playCheckpoints(Square squareRobotIsPositionedOn, int xCoordinateRobot, int yCoordinateRobot) {
+    //     if(squareRobotIsPositionedOn instanceof Checkpoint) this.robot.setRespawnPoint(xCoordinateRobot, yCoordinateRobot);
+    // }
 }
