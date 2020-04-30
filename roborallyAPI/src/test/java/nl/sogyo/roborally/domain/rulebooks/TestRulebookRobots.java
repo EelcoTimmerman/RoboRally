@@ -320,5 +320,136 @@ public class TestRulebookRobots {
         rulebookRobots.playRound();
         assert(robot.isAt(0, 0));
     }
+    
+
+    @Test
+    public void testMovementRobotOnBeltNORTH(){
+        String boardString = "ES-X*ES-X*||*CSN-X*ES-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(0,1);
+        RulebookRobots rulebookRobots = new RulebookRobots(board, robot);
+        rulebookRobots.playRound();
+        assert(robot.getXCoordinate() == 0 && robot.getYCoordinate() == 0);
+    }
+
+    @Test
+    public void testMovementRobotOnBeltEAST(){
+        String boardString = "CSE-X*ES-X*||*ES-X*ES-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(0,0);
+        RulebookRobots rulebookRobots = new RulebookRobots(board, robot);
+        rulebookRobots.playRound();
+        assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 0);
+    }
+
+    @Test
+    public void testMovementRobotOnBeltSOUTH(){
+        String boardString = "CSS-X*ES-X*||*ES-X*ES-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(0,0);
+        RulebookRobots rulebookRobots = new RulebookRobots(board, robot);
+        rulebookRobots.playRound();
+        assert(robot.getXCoordinate() == 0 && robot.getYCoordinate() == 1);
+    }
+
+    @Test
+    public void testMovementRobotOnBeltWEST(){
+        String boardString = "ES-X*CSW-X*||*ES-X*ES-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(1,0);
+        RulebookRobots rulebookRobots = new RulebookRobots(board, robot);
+        rulebookRobots.playRound();
+        assert(robot.getXCoordinate() == 0 && robot.getYCoordinate() == 0);
+    }
+    
+    @Test
+    public void testConveyorbeltWall(){
+        String boardString = "ES-X*CSW-W*||*ES-X*ES-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(1,0);
+        RulebookRobots rulebookRobots = new RulebookRobots(board, robot);
+        rulebookRobots.playRound();
+        assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 0);
+    }
+
+    @Test
+    public void testConveyorbeltPit(){
+        String boardString = "PT-X*CSW-X*||*ES-X*ES-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(1,0);
+        robot.setRespawnPoint(0, 1);
+        RulebookRobots rulebookRobots = new RulebookRobots(board, robot);
+        rulebookRobots.playRound();
+        assert(robot.getXCoordinate() == 0 && robot.getYCoordinate() == 1);
+    }
+
+    @Test
+    public void testConveyorbeltOffBoard(){
+        String boardString = "CSW-X*CSW-X*||*ES-X*ES-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(0,0);
+        robot.setRespawnPoint(1, 1);
+        RulebookRobots rulebookRobots = new RulebookRobots(board, robot);
+        rulebookRobots.playRound();
+        assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 1);
+    }
+    
+    @Test
+    public void testGearReverse(){
+        String boardString = "180-X*ES-X*||*ES-X*ES-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(0,0);
+        RulebookRobots rulebookRobots = new RulebookRobots(board, robot);
+        assert(robot.getOrientation().equals(Direction.NORTH));
+        rulebookRobots.playRound();
+        assert(robot.getOrientation().equals(Direction.SOUTH));
+    }
+    
+    @Test
+    public void testGearRight(){
+        String boardString = "GR-X*ES-X*||*ES-X*ES-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(0,0);
+        RulebookRobots rulebookRobots = new RulebookRobots(board, robot);
+        assert(robot.getOrientation().equals(Direction.NORTH));
+        rulebookRobots.playRound();
+        assert(robot.getOrientation().equals(Direction.EAST));
+    }
+    
+    @Test
+    public void testGearLeft(){
+        String boardString = "GL-X*ES-X*||*ES-X*ES-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(0,0);
+        RulebookRobots rulebookRobots = new RulebookRobots(board, robot);
+        assert(robot.getOrientation().equals(Direction.NORTH));
+        rulebookRobots.playRound();
+        assert(robot.getOrientation().equals(Direction.WEST));
+    }
+    
+    @Test
+    public void testCheckpoint(){
+        String boardString = "ES-X*ES-X*||*CH-X*ES-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(0,0, Direction.SOUTH);
+        RulebookRobots rulebookRobots = new RulebookRobots(board, robot);
+        assert(robot.getRespawnXCoordinate() == 0 && robot.getRespawnYCoordinate() == 0);
+        robot.moveForward();
+        rulebookRobots.playRound();
+        assert(robot.getXCoordinate() == 0 && robot.getYCoordinate() == 1);
+        assert(robot.getRespawnXCoordinate() == 0 && robot.getRespawnYCoordinate() == 1);
+    }
+
+    @Test
+    public void testCheckpoint2(){
+        String boardString = "ES-X*ES-X*||*ES-X*CH-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(0,1, Direction.EAST);
+        RulebookRobots rulebookRobots = new RulebookRobots(board, robot);
+        assert(robot.getRespawnXCoordinate() == 0 && robot.getRespawnYCoordinate() == 1);
+        robot.moveForward();
+        rulebookRobots.playRound();
+        assert(robot.getRespawnXCoordinate() == 1 && robot.getRespawnYCoordinate() == 1);
+    }
 
 }

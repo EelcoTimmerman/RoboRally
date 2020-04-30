@@ -38,6 +38,9 @@ public class RulebookRobots{
     public void playRound(){
         ICard card = robot.getCard();
         card.doCardAction(robot, board);
+        
+        Square robotPosition = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
+        robotPosition.doSquareAction(robot, board);
     }
 
 }

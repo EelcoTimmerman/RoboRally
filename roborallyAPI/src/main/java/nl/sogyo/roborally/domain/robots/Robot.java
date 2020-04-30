@@ -1,6 +1,7 @@
 package nl.sogyo.roborally.domain.robots;
 
 import nl.sogyo.roborally.domain.Direction;
+import nl.sogyo.roborally.domain.cards.DoNothingCard;
 import nl.sogyo.roborally.domain.cards.ICard;
 import nl.sogyo.roborally.domain.cards.MoveBackCard;
 import nl.sogyo.roborally.domain.cards.MoveOneCard;
@@ -13,7 +14,7 @@ import nl.sogyo.roborally.domain.cards.UTurnCard;
 public class Robot{
 
     Direction orientation;
-    ICard card;
+    ICard card = new DoNothingCard();
     int health;
     int xCoordinate;
     int yCoordinate;
