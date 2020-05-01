@@ -9,4 +9,9 @@ public class UTurnCard implements ICard{
         robot.turnRight();
         robot.turnRight();
     }
+
+    @Override
+    public int getSpeed(){
+        return 7;
+    }
 }

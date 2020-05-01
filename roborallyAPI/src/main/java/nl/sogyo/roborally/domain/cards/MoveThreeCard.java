@@ -33,4 +33,9 @@ public class MoveThreeCard implements ICard{
         Square currentPosition = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
         return !currentPosition.hasWallAt(robot.getOrientation());
     }
+
+    @Override
+    public int getSpeed(){
+        return 3;
+    }
 }

@@ -1,6 +1,7 @@
 package nl.sogyo.roborally.api;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -14,12 +15,14 @@ public class JSONResultProcessor {
  
     public String createJSONResponse(Roborally robotrally){
         Board board = robotrally.getBoard();
-        Robot robot = robotrally.getRobot();
+        List<Robot> robots = robotrally.getRobots();
 
         JSONArray squares = createJSONBoard(board);
-        int xCoordinate = robot.getXCoordinate();
-        int yCoordinate = robot.getYCoordinate();
-        ((JSONObject) ((JSONArray) squares.get(yCoordinate)).get(xCoordinate)).put("robot", this.createJSONRobot(robot));
+        for(Robot robot : robots){
+            int xCoordinate = robot.getXCoordinate();
+            int yCoordinate = robot.getYCoordinate();
+            ((JSONObject) ((JSONArray) squares.get(yCoordinate)).get(xCoordinate)).put("robot", this.createJSONRobot(robot));
+        }
         return squares.toJSONString();
     }
  
