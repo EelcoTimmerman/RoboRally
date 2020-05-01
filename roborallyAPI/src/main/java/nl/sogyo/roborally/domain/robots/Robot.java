@@ -22,6 +22,7 @@ public class Robot{
     int yCoordinate;
     int respawnX;
     int respawnY;
+    boolean ready = false;
     
     public Robot(){
     }
@@ -111,6 +112,7 @@ public class Robot{
 
     public void program(ICard card){
         this.card = card;
+        this.ready = true;
     }
 
     public void program(int cardnr){
@@ -129,8 +131,11 @@ public class Robot{
                     break;
             case 6: this.card = new MoveBackCard();
                     break;
+            case 7: this.card = new DoNothingCard();
+                    break;
             default: throw new RuntimeException("Invalid cardnr");
         }
+        this.ready = true;
     }
 
     public void turnRight(){
@@ -172,4 +177,12 @@ public class Robot{
             return robot1.getCard().getSpeed() - robot2.getCard().getSpeed();
         }
     };
+
+    public void unready(){
+        this.ready = false;
+    }
+
+    public boolean isReady(){
+        return this.ready;
+    }
 }

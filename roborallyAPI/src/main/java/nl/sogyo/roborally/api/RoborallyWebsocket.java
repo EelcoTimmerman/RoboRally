@@ -33,7 +33,7 @@ public class RoborallyWebsocket{
             int cardnr = Integer.parseInt(message);
 
             robotrally.program(cardnr);
-            robotrally.playRound();
+            robotrally.playRoundIfAllRobotsReady();
 
             String stringoutput = new JSONResultProcessor().createJSONResponse(robotrally);
             session.getBasicRemote().sendText(stringoutput);

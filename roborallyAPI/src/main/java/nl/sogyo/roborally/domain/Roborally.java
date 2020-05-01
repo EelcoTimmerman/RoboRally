@@ -44,11 +44,20 @@ public class Roborally{
         return this.board;
     }
 
-    public void playRound(){
+    public void playRoundIfAllRobotsReady(){
+        boolean robotsReady = true;
+        for(Robot robot : robots){
+            robotsReady &= robot.isReady();
+        }
+        if(robotsReady) playRound();
+    }
+
+    private void playRound(){
         robots.sort(Robot.COMPARE_BY_CARD);
         for(Robot robot : robots){
             ICard card = robot.getCard();
             card.doCardAction(robot, board);
+            robot.unready();
         }
 
         activateBoardElements(SlowConveyorbelt.class);
