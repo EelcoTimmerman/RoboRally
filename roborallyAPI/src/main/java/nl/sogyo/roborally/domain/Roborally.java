@@ -15,7 +15,6 @@ public class Roborally{
     
     public Roborally(){
         this.board = new Board("CH-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*ES-x");
-        this.robots.add(new Robot(2,3, Direction.EAST));
     }
 
     public Roborally(Robot robot){
@@ -82,5 +81,9 @@ public class Roborally{
 
     public void addRobot(Robot robot){
         this.robots.add(robot);
+    }
+
+    public void removeRobot(Robot robot){
+        this.robots.remove(robot);
     }
 }

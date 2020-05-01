@@ -13,9 +13,9 @@ import nl.sogyo.roborally.domain.squares.*;
 @SuppressWarnings("unchecked")
 public class JSONResultProcessor {
  
-    public String createJSONResponse(Roborally robotrally){
-        Board board = robotrally.getBoard();
-        List<Robot> robots = robotrally.getRobots();
+    public String createJSONResponse(Roborally roborally){
+        Board board = roborally.getBoard();
+        List<Robot> robots = roborally.getRobots();
 
         JSONArray squares = createJSONBoard(board);
         for(Robot robot : robots){
