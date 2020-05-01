@@ -9,13 +9,13 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import nl.sogyo.roborally.domain.Robotrally;
+import nl.sogyo.roborally.domain.Roborally;
 
 
 
 @ServerEndpoint(value = "/websocket")
-public class RobotrallyWebsocket{
-    Robotrally robotrally = new Robotrally();
+public class RoborallyWebsocket{
+    Roborally robotrally = new Roborally();
     
     @OnOpen
     public void onOpen(Session session)throws IOException{

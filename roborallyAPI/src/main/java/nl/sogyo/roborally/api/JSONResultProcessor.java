@@ -12,7 +12,7 @@ import nl.sogyo.roborally.domain.squares.*;
 @SuppressWarnings("unchecked")
 public class JSONResultProcessor {
  
-    public String createJSONResponse(Robotrally robotrally){
+    public String createJSONResponse(Roborally robotrally){
         Board board = robotrally.getBoard();
         Robot robot = robotrally.getRobot();
 

@@ -4,30 +4,30 @@ import nl.sogyo.roborally.domain.cards.ICard;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.*;
 
-public class Robotrally{
+public class Roborally{
 
     Robot robot;
     Board board;
     
-    public Robotrally(){
+    public Roborally(){
         this.board = new Board("CH-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*ES-x");
         this.robot = new Robot(2,3, Direction.EAST);
     }
 
-    public Robotrally(Robot robot){
+    public Roborally(Robot robot){
         this.robot = robot;
     }
 
-    public Robotrally(String boardString){
+    public Roborally(String boardString){
         this.board = new Board(boardString);
     }
 
-    public Robotrally(String boardString, Robot robot){
+    public Roborally(String boardString, Robot robot){
         this.board = new Board(boardString);
         this.robot = robot;
     }
 
-    public Robotrally(Board board, Robot robot){
+    public Roborally(Board board, Robot robot){
         this.board = board;
         this.robot = robot;
     }
