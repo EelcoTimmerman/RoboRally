@@ -29,7 +29,6 @@ public class RoborallyWebsocket{
         Robot robot = new Robot(2,2);
         robots.put(session, robot);
         roborally.addRobot(robot);
-
         players.add(session);
         System.out.println("WebSocket opened: " + session.getId());
     }
@@ -37,30 +36,31 @@ public class RoborallyWebsocket{
     @OnMessage
     public void onMessage(String message, Session session)throws IOException{
         System.out.println("Message recieved: " + message);
-        if(message.equals("initialize")){
-            String stringoutput = new JSONResultProcessor().createJSONResponse(roborally);
-            session.getBasicRemote().sendText(stringoutput);
-        }
-        else{
+        if(!message.equals("initialize")){
             int cardnr = Integer.parseInt(message);
             Robot robot = robots.get(session);
             robot.program(cardnr);
             roborally.playRoundIfAllRobotsReady();
-
-            String stringoutput = new JSONResultProcessor().createJSONResponse(roborally);
-            for(Session player : players){
-                player.getBasicRemote().sendText(stringoutput);
-            }
         }
+        updateAllPlayers();
     }
 
     @OnClose
-    public void onClose(CloseReason reason, Session session){
+    public void onClose(CloseReason reason, Session session)throws IOException{
         Robot robotToRemove = robots.get(session);
         roborally.removeRobot(robotToRemove);
         robots.remove(session);
         players.remove(session);
         System.out.println("Closing a websocket due to " + reason.getReasonPhrase());
+
+        updateAllPlayers();
+    }
+
+    private void updateAllPlayers()throws IOException{
+        String stringoutput = new JSONResultProcessor().createJSONResponse(roborally);
+        for(Session player : players){
+            player.getBasicRemote().sendText(stringoutput);
+        }
     }
 
 }
