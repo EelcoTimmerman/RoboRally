@@ -15,7 +15,7 @@ import nl.sogyo.roborally.domain.cards.UTurnCard;
 
 public class Robot{
 
-    Direction orientation;
+    Direction orientation = Direction.NORTH;;
     ICard card = new DoNothingCard();
     int health;
     int xCoordinate;
@@ -32,7 +32,6 @@ public class Robot{
         this.respawnX = xCoordinate;
         this.yCoordinate = yCoordinate;
         this.respawnY = yCoordinate;
-        this.orientation = Direction.NORTH;
         this.health = 9;
     }
 

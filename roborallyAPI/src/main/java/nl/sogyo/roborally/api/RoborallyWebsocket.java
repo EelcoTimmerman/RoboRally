@@ -32,7 +32,6 @@ public class RoborallyWebsocket{
 
         players.add(session);
         System.out.println("WebSocket opened: " + session.getId());
-        System.out.println("Playercount: " + players.size());
     }
 
     @OnMessage
