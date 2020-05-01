@@ -9,4 +9,9 @@ public class DoNothingCard implements ICard {
     public void doCardAction(Robot robot, Board board) {
     }
 
+    @Override
+    public int getSpeed(){
+        return 0;
+    }
+
 }

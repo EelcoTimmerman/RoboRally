@@ -26,4 +26,8 @@ public class MoveBackCard implements ICard{
         return !currentPosition.hasWallAt(robot.getOrientation().getReverse());
     }
 
+    @Override
+    public int getSpeed(){
+        return 1;
+    }
 }

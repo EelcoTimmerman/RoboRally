@@ -1,21 +1,25 @@
 package nl.sogyo.roborally.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 import nl.sogyo.roborally.domain.cards.ICard;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.*;
 
 public class Roborally{
 
-    Robot robot;
+    List<Robot> robots = new ArrayList<Robot>();
     Board board;
     
     public Roborally(){
         this.board = new Board("CH-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*ES-x");
-        this.robot = new Robot(2,3, Direction.EAST);
+        this.robots.add(new Robot(2,3, Direction.EAST));
     }
 
     public Roborally(Robot robot){
-        this.robot = robot;
+        this.robots.add(robot);
     }
 
     public Roborally(String boardString){
@@ -24,16 +28,16 @@ public class Roborally{
 
     public Roborally(String boardString, Robot robot){
         this.board = new Board(boardString);
-        this.robot = robot;
+        this.robots.add(robot);
     }
 
     public Roborally(Board board, Robot robot){
         this.board = board;
-        this.robot = robot;
+        this.robots.add(robot);
     }
 
-    public Robot getRobot(){
-        return this.robot;
+    public List<Robot> getRobots(){
+        return this.robots;
     }
 
     public Board getBoard(){
@@ -41,15 +45,33 @@ public class Roborally{
     }
 
     public void playRound(){
-        ICard card = robot.getCard();
-        card.doCardAction(robot, board);
-        
-        Square robotPosition = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
-        robotPosition.doSquareAction(robot, board);
+        robots.sort(Robot.COMPARE_BY_CARD);
+        for(Robot robot : robots){
+            ICard card = robot.getCard();
+            card.doCardAction(robot, board);
+        }
+
+        activateBoardElements(SlowConveyorbelt.class);
+        activateBoardElements(Gear180.class);
+        activateBoardElements(GearRight.class);
+        activateBoardElements(GearLeft.class);
+        activateBoardElements(Checkpoint.class);
     }
 
     public void program(int cardnr){
-        this.robot.program(cardnr);
+        this.robots.get(0).program(cardnr);
     }
 
+    private <T extends Square> void activateBoardElements(Class<T> elementTypeToActivate){
+        for(Robot robot : robots){
+            Square position = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
+            if(elementTypeToActivate.isInstance(position)){
+                position.doSquareAction(robot, board);
+            }
+        }
+    }
+
+    public void addRobot(Robot robot){
+        this.robots.add(robot);
+    }
 }

@@ -1,5 +1,7 @@
 package nl.sogyo.roborally.domain.robots;
 
+import java.util.Comparator;
+
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.DoNothingCard;
 import nl.sogyo.roborally.domain.cards.ICard;
@@ -163,4 +165,11 @@ public class Robot{
     public int getRespawnYCoordinate(){
         return this.respawnY;
     }
+
+    public static Comparator<Robot> COMPARE_BY_CARD = new Comparator<Robot>(){
+        @Override
+        public int compare(Robot robot1, Robot robot2) {
+            return robot1.getCard().getSpeed() - robot2.getCard().getSpeed();
+        }
+    };
 }

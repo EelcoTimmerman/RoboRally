@@ -15,14 +15,14 @@ import nl.sogyo.roborally.domain.cards.UTurnCard;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.Board;
 
-public class TestRobotrally {
+public class TestRoborally {
     final String TESTBOARD4X4 = "ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-X*ES-X*ES-X*||*ES-X*ES-X*ES-X*ES-E*||*ES-X*ES-S*ES-X*ES-X";
 
     @Test
     public void testRulebookHasRobot(){
         Robot robot1 = new Robot(2, 2);
         Roborally rulebookRobots = new Roborally(robot1);
-        Robot robot2 = rulebookRobots.getRobot();
+        Robot robot2 = rulebookRobots.getRobots().get(0);
         assertEquals(robot1, robot2);
     }
 
@@ -449,6 +449,19 @@ public class TestRobotrally {
         robot.moveForward();
         rulebookRobots.playRound();
         assert(robot.getRespawnXCoordinate() == 1 && robot.getRespawnYCoordinate() == 1);
+    }
+
+    @Test
+    public void testTwoRobotMoveInCorrectOrder(){
+        Board board = new Board(TESTBOARD4X4);
+        Robot robot1 = new Robot(2,1, Direction.SOUTH);
+        Robot robot2 = new Robot(3,2, Direction.WEST);
+        Roborally roborally = new Roborally(board, robot1);
+        roborally.addRobot(robot2);
+        robot1.program(0);
+        robot2.program(4);
+        roborally.playRound();
+        assertEquals(robot1, roborally.getRobots().get(0));
     }
 
 }

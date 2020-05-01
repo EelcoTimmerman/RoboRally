@@ -8,4 +8,9 @@ public class RotateRightCard implements ICard{
     public void doCardAction(Robot robot, Board board){
         robot.turnRight();
     }
+
+    @Override
+    public int getSpeed(){
+        return 6;
+    }
 }
