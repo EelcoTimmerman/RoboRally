@@ -34,7 +34,7 @@ public class RoborallyWebsocket{
         System.out.println("Message recieved: " + message);
         if(message.contains("initialize")){
             String name = message.split(" ")[1];
-            Robot robot = new Robot(name);
+            Robot robot = new Robot(name, robots.size());
             robots.put(session, robot);
             roborally.addRobot(robot);
             players.add(session);

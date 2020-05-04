@@ -14,6 +14,7 @@ import nl.sogyo.roborally.domain.cards.RotateRightCard;
 import nl.sogyo.roborally.domain.cards.UTurnCard;
 
 public class Robot{
+    private final String[] colours = {"green", "black", "purple", "blue", "red", "brown"};
 
     Direction orientation = Direction.NORTH;;
     ICard card = new DoNothingCard();
@@ -24,12 +25,15 @@ public class Robot{
     int respawnY;
     boolean ready = false;
     String name;
+    String colour;
     
     public Robot(){
     }
 
-    public Robot(String name){
+    public Robot(String name, int colourNr){
         this.name = name;
+        if(colourNr < 6) this.colour = colours[colourNr];
+        else this.colour = "orange";
     }
 
     public Robot(int xCoordinate, int yCoordinate){
@@ -47,6 +51,10 @@ public class Robot{
         this.respawnY = yCoordinate;
         this.orientation = orientation;
         this.health = 9;
+    }
+
+    public String getColour() {
+        return colour;
     }
 
     public String getName(){

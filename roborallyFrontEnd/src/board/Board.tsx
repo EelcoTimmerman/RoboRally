@@ -44,7 +44,7 @@ function createSquare(square: Square, rowNumber: number, columnNumber: number):J
     }
 
     let squareText = square.type;
-    let robotElement : JSX.Element = <div></div>;
+    let robotElement: JSX.Element = <div></div>;
     if(square.robot != undefined){
         robotElement = createRobot(square.robot);
     }
@@ -56,8 +56,8 @@ function createSquare(square: Square, rowNumber: number, columnNumber: number):J
 }
 
 function createRobot(robot: Robot):JSX.Element{
-    let classname:string = robot.orientation + "-arrow";
-    return (<div className="inner-square">
+    let classname: string = robot.orientation + "-arrow";
+    return (<div className="inner-square" style={{backgroundColor: robot.colour}}>
         <div className={classname}>
             
         </div>

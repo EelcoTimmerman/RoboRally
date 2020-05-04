@@ -55,6 +55,7 @@ public class JSONResultProcessor {
         JSONObject result = new JSONObject();
         result.put("name", robot.getName());
         result.put("orientation", robot.getOrientation().toString());
+        result.put("colour", robot.getColour());
         return result;
     }
 }
