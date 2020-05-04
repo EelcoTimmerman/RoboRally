@@ -14,7 +14,7 @@ public class Roborally{
     Board board;
     
     public Roborally(){
-        this.board = new Board("CH-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*ES-x");
+        this.board = new Board("ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*CH-x");
     }
 
     public Roborally(Robot robot){
@@ -58,6 +58,8 @@ public class Roborally{
             card.doCardAction(robot, board);
             robot.unready();
         }
+        //This keeps the order of the robots consistent for the frontend.
+        robots.sort(Robot.COMPARE_BY_NAME);
 
         activateBoardElements(SlowConveyorbelt.class);
         activateBoardElements(Gear180.class);
@@ -81,6 +83,7 @@ public class Roborally{
 
     public void addRobot(Robot robot){
         this.robots.add(robot);
+        robots.sort(Robot.COMPARE_BY_NAME);
     }
 
     public void removeRobot(Robot robot){

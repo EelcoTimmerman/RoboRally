@@ -26,17 +26,22 @@ public class RoborallyWebsocket{
     
     @OnOpen
     public void onOpen(Session session)throws IOException{
-        Robot robot = new Robot(2,2);
-        robots.put(session, robot);
-        roborally.addRobot(robot);
-        players.add(session);
         System.out.println("WebSocket opened: " + session.getId());
     }
 
     @OnMessage
     public void onMessage(String message, Session session)throws IOException{
         System.out.println("Message recieved: " + message);
-        if(!message.equals("initialize")){
+        if(message.contains("initialize")){
+            String name = message.split(" ")[1];
+            Robot robot = new Robot(name, robots.size());
+            robots.put(session, robot);
+            roborally.addRobot(robot);
+            players.add(session);
+            String board = new JSONResultProcessor().createBoardResponse(roborally);
+            session.getBasicRemote().sendText(board);
+        }
+        else{
             int cardnr = Integer.parseInt(message);
             Robot robot = robots.get(session);
             robot.program(cardnr);
@@ -57,9 +62,9 @@ public class RoborallyWebsocket{
     }
 
     private void updateAllPlayers()throws IOException{
-        String stringoutput = new JSONResultProcessor().createJSONResponse(roborally);
+        String robots = new JSONResultProcessor().createRobotsResponse(roborally);
         for(Session player : players){
-            player.getBasicRemote().sendText(stringoutput);
+            player.getBasicRemote().sendText(robots);
         }
     }
 

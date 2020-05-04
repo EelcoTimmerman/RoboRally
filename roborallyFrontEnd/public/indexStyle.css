@@ -26,7 +26,6 @@ html {
 }
 
 .inner-square {
-  background-color: black;
   width: 70px;
   height: 70px;
   margin-top: 15%;
@@ -40,6 +39,7 @@ html {
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
+  margin-top: 50%;
 }
 
 /* [class*="icono"] {
@@ -87,6 +87,7 @@ html {
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
+  margin-top: 50%;
 }
 
 /* .East-arrow:after {
@@ -116,6 +117,7 @@ html {
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
+  margin-top: 50%;
 }
 
 .West-arrow {
@@ -125,6 +127,7 @@ html {
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
+  margin-top: 50%;
 }
 
 /* .West-arrow:before {
