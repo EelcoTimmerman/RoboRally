@@ -4,6 +4,7 @@ import { Board } from "./board/Board";
 import { Startscreen } from "./Startscreen";
 import { Robot } from "./Robot";
 import { incomingMessage } from "./incomingMessage";
+import { PlayerList } from "./PlayerList";
 
 export function App() {
     const [ board, setBoard ] = useState<Square[][] | undefined>(undefined);
@@ -20,6 +21,7 @@ export function App() {
                     <button onClick={() => programCard(4)}>Forward x 2</button>
                     <button onClick={() => programCard(5)}>Forward x 3</button>
                     <button onClick={() => programCard(6)}>Backwards</button>
+                    <PlayerList players={robots}></PlayerList>
                 </div>);
     }
     else{
@@ -41,7 +43,6 @@ export function App() {
 
             tempwebsocket.onmessage = function(event: WebSocketMessageEvent){
                 let message: incomingMessage = JSON.parse(event.data);
-                console.log(message);
                 if(message.messagetype == "boardstate") setBoard(message.body);
                 else if(message.messagetype == "robots") setRobots(message.body);
             };

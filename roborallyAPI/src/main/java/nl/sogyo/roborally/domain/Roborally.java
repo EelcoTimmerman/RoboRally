@@ -58,6 +58,8 @@ public class Roborally{
             card.doCardAction(robot, board);
             robot.unready();
         }
+        //This keeps the order of the robots consistent for the frontend.
+        robots.sort(Robot.COMPARE_BY_NAME);
 
         activateBoardElements(SlowConveyorbelt.class);
         activateBoardElements(Gear180.class);
@@ -81,6 +83,7 @@ public class Roborally{
 
     public void addRobot(Robot robot){
         this.robots.add(robot);
+        robots.sort(Robot.COMPARE_BY_NAME);
     }
 
     public void removeRobot(Robot robot){

@@ -189,6 +189,13 @@ public class Robot{
             return robot1.getCard().getSpeed() - robot2.getCard().getSpeed();
         }
     };
+    
+    public static Comparator<Robot> COMPARE_BY_NAME = new Comparator<Robot>(){
+        @Override
+        public int compare(Robot robot1, Robot robot2) {
+            return robot1.getName().compareTo(robot2.getName());
+        }
+    };
 
     public void unready(){
         this.ready = false;
