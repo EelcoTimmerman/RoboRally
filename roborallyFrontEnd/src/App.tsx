@@ -4,7 +4,6 @@ import { Board } from "./board/Board";
 import { showCards } from "./board/CardsInHand";
 
 export function App() {
-<<<<<<< HEAD
     const [gamestate, setGamestate] = useState<Square[][] | undefined>(undefined);
     const [websocket, setWebsocket] = useState<WebSocket | undefined>(undefined);
 
@@ -75,7 +74,6 @@ export function App() {
     }
 
     let cards = showCards();
-<<<<<<< HEAD
 
     if(gamestate != undefined && cards != undefined){
         return (<div>
@@ -94,23 +92,4 @@ export function App() {
         getGameState();
         return <div>Loading...</div>;
     }
-=======
-=======
->>>>>>> showing cards with a color
-    
-    async function showAllCards(){
-        showCards();
-    }
-
-    let cards = showCards();  
-    return cards;
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> creating a grid for the cards
-=======
->>>>>>> working thing after joris fixed it in one minute
 }
-=======
-}
-
->>>>>>> showing cards with a color
