@@ -96,5 +96,8 @@ export function App() {
 =======
     
     return cards;
+<<<<<<< HEAD
 >>>>>>> creating a grid for the cards
+=======
+>>>>>>> working thing after joris fixed it in one minute
 }
