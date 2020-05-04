@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+<<<<<<< HEAD
 import { Square } from "./board/Square";
 import { Board } from "./board/Board";
 import { showCards } from "./board/CardsInHand";
@@ -93,3 +94,17 @@ export function App() {
         return <div>Loading...</div>;
     }
 }
+=======
+import { showCards } from "./board/CardsInHand";
+
+export function App() {
+    
+    async function showAllCards(){
+        showCards();
+    }
+
+    let cards = showCards();  
+    return cards;
+}
+
+>>>>>>> ff643a089665500932196b4f3f17681cb8ca8304

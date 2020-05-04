@@ -95,4 +95,8 @@ function showcard(classes: Record<"root" | "paper", string>, card: string){
 //     return <div key={(columnNumber + 1) * (rowNumber + 1)} style={style}>
 //             {square.type}
 //         </div>;
+<<<<<<< HEAD
 // }
+=======
+// }
+>>>>>>> ff643a089665500932196b4f3f17681cb8ca8304
