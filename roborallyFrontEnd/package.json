@@ -8,19 +8,13 @@
     "start": "node_modules/.bin/webpack-dev-server"
   },
   "dependencies": {
-<<<<<<< HEAD
-<<<<<<< HEAD
     "@material-ui/core": "^4.9.12",
-=======
     "@material-ui/styles": "^4.9.10",
     "material-ui": "^1.0.0-beta.47",
     "mdbreact": "^4.26.0",
->>>>>>> creating a grid for the cards
-=======
     "@material-ui/styles": "^4.9.10",
     "material-ui": "^1.0.0-beta.47",
     "mdbreact": "^4.26.0",
->>>>>>> ff643a089665500932196b4f3f17681cb8ca8304
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "styled-components": "^5.0.1"
