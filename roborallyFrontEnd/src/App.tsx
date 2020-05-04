@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Square } from "./board/Square";
 import { Board } from "./board/Board";
+import { showCards } from "./board/CardsInHand";
 
 export function App() {
     const [gamestate, setGamestate] = useState<Square[][] | undefined>(undefined);
@@ -32,6 +33,8 @@ export function App() {
 
         setWebsocket(tempwebsocket);
     }
+
+
 
     async function moveForward(){
         programCard(0);
@@ -70,8 +73,9 @@ export function App() {
         }
     }
 
+    let cards = showCards();
 
-    if(gamestate != undefined){
+    if(gamestate != undefined && cards != undefined){
         return (<div>
                     <Board squares = {gamestate}></Board>
                     <button onClick={moveForward}>Forward</button>
@@ -81,6 +85,7 @@ export function App() {
                     <button onClick={moveForward2}>Forward x 2</button>
                     <button onClick={moveForward3}>Forward x 3</button>
                     <button onClick={moveBackwards}>Backwards</button>
+                    <div>{cards}</div>
                 </div>);
     }
     else{
