@@ -4,14 +4,19 @@ import { Robot } from "../Robot";
 
 interface BoardProps{
     squares: Square[][];
+    robots: Robot[];
 }
-export function Board({ squares }: BoardProps){
-    let rows = squares.map((row: Square[], index: number) => 
+export function Board({ squares, robots }: BoardProps){
+    let squaresCopy = JSON.parse(JSON.stringify(squares));
+    for(let i = 0; i < robots.length; i++){
+        AddRobotToBoard(robots[i], squaresCopy);
+    }
+    let board = squaresCopy.map((row: Square[], index: number) => 
         createRow(row, index)
     );
     return (
         <div className="boardgrid">
-            {rows}
+            {board}
         </div>
     );
 }
@@ -20,7 +25,7 @@ function createRow(row: Square[], rowNumber: number):JSX.Element[]{
     return row.map((square: Square, index: number) => createSquare(square, rowNumber, index));
 }
 
-function createSquare(square: Square, rowNumber: number, columnNumber: number):JSX.Element{
+function createSquare(square: Square, rowNumber: number, columnNumber: number){
     let style: React.CSSProperties = {
         gridColumnStart: columnNumber + 1,
         gridRowStart: rowNumber + 1,
@@ -55,6 +60,10 @@ function createSquare(square: Square, rowNumber: number, columnNumber: number):J
             {squareText}
             {robotElement}
         </div>);
+}
+
+function AddRobotToBoard(robot: Robot, board: Square[][]){
+    board[robot.yCoordinate][robot.xCoordinate].robot = robot;
 }
 
 function createRobot(robot: Robot):JSX.Element{

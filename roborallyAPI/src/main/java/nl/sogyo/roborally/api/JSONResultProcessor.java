@@ -13,17 +13,27 @@ import nl.sogyo.roborally.domain.squares.*;
 @SuppressWarnings("unchecked")
 public class JSONResultProcessor {
  
-    public String createJSONResponse(Roborally roborally){
+    public String createBoardResponse(Roborally roborally){
         Board board = roborally.getBoard();
-        List<Robot> robots = roborally.getRobots();
-
         JSONArray squares = createJSONBoard(board);
-        for(Robot robot : robots){
-            int xCoordinate = robot.getXCoordinate();
-            int yCoordinate = robot.getYCoordinate();
-            ((JSONObject) ((JSONArray) squares.get(yCoordinate)).get(xCoordinate)).put("robot", this.createJSONRobot(robot));
+
+        JSONObject response = new JSONObject();
+        response.put("messagetype", "boardstate");
+        response.put("body", squares);
+        return response.toJSONString();
+    }
+
+    public String createRobotsResponse(Roborally roborally){
+        List<Robot> robotList= roborally.getRobots();
+        JSONArray robots = new JSONArray();
+        for(Robot robot : robotList){
+            robots.add(this.createJSONRobot(robot));
         }
-        return squares.toJSONString();
+
+        JSONObject response = new JSONObject();
+        response.put("messagetype", "robots");
+        response.put("body", robots);
+        return response.toJSONString();
     }
  
     private JSONArray createJSONBoard(Board board){
@@ -56,6 +66,8 @@ public class JSONResultProcessor {
         result.put("name", robot.getName());
         result.put("orientation", robot.getOrientation().toString());
         result.put("colour", robot.getColour());
+        result.put("xCoordinate", robot.getXCoordinate());
+        result.put("yCoordinate", robot.getYCoordinate());
         return result;
     }
 }
