@@ -25,22 +25,24 @@ function createSquare(square: Square, rowNumber: number, columnNumber: number):J
         gridColumnStart: columnNumber + 1,
         gridRowStart: rowNumber + 1,
     }
+    let borderwidth = "20px";
+    let bordercolour = "rgb(153, 153, 8)";
 
     if(square.northwall){
-        style.borderTopWidth = "20px";
-        style.borderTopColor = "rgb(153, 153, 8)";
+        style.borderTopWidth = borderwidth;
+        style.borderTopColor = bordercolour;
     }
     if(square.eastwall){
-        style.borderRightWidth = "20px";
-        style.borderRightColor = "rgb(153, 153, 8)";
+        style.borderRightWidth = borderwidth;
+        style.borderRightColor = bordercolour;
     }
     if(square.southwall){
-        style.borderBottomWidth = "20px";
-        style.borderBottomColor = "rgb(153, 153, 8)";
+        style.borderBottomWidth = borderwidth;
+        style.borderBottomColor = bordercolour;
     }
     if(square.westwall){
-        style.borderLeftWidth = "20px";
-        style.borderLeftColor = "rgb(153, 153, 8)";
+        style.borderLeftWidth = borderwidth;
+        style.borderLeftColor = bordercolour;
     }
 
     let squareText = square.type;
