@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Square } from "./board/Square";
 import { Board } from "./board/Board";
+import { Startscreen } from "./Startscreen";
 
 export function App() {
     const [gamestate, setGamestate] = useState<Square[][] | undefined>(undefined);
     const [websocket, setWebsocket] = useState<WebSocket | undefined>(undefined);
 
-    async function getGameState(){
+    async function getGameState(name: string){
         if (websocket !== undefined && websocket.readyState !== WebSocket.CLOSED) {
             return;
         }
@@ -16,7 +17,7 @@ export function App() {
 
             tempwebsocket.onopen = function(){
                 console.log("connected");
-                tempwebsocket.send("initialize");
+                tempwebsocket.send("initialize " + name);
             };
 
             tempwebsocket.onmessage = function(event: WebSocketMessageEvent){
@@ -84,7 +85,6 @@ export function App() {
                 </div>);
     }
     else{
-        getGameState();
-        return <div>Loading...</div>;
+        return <Startscreen login={getGameState}></Startscreen>;
     }
 }

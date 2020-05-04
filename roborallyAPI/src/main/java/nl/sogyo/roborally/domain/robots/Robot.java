@@ -23,8 +23,13 @@ public class Robot{
     int respawnX;
     int respawnY;
     boolean ready = false;
+    String name;
     
     public Robot(){
+    }
+
+    public Robot(String name){
+        this.name = name;
     }
 
     public Robot(int xCoordinate, int yCoordinate){
@@ -45,7 +50,7 @@ public class Robot{
     }
 
     public String getName(){
-        return "testname";
+        return name;
     }
 
     public ICard getCard(){
