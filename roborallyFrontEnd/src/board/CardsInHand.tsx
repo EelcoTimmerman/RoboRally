@@ -9,7 +9,7 @@ interface Card{
 
 function getCards(){
     const cards:Card[] = [];
-    for(let i = 0; i < 9; i++){
+    for(let i = 0; i < 5; i++){
             cards.push({
                 type: "MoveOneForward",
             });
@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     textAlign: 'center'
   },
 }));
@@ -31,23 +32,27 @@ export function showCards(){
     let myCards:Card[] = getCards();
 
     for(let card in myCards){
-      showcard(classes, card)
+      //showcard(classes, card)
     }
-    // return (
-    //     <Grid container spacing={8}>
-
-
-    //     <Grid item xs={3}>
-    //       <Paper className={classes.paper}>xs=3</Paper>
-    //     </Grid>
-    //     <Grid item xs={3}>
-    //       <Paper className={classes.paper}>xs=3</Paper>
-    //     </Grid>
-    //     <Grid item xs={3}>
-    //       <Paper className={classes.paper}>xs=3</Paper>
-    //     </Grid>
-    //   </Grid>
-    // );
+    return (
+      <Grid container spacing={8}>
+        <Grid item xs={2}>
+          <Paper className={classes.paper}>{myCards[0].type}</Paper>
+        </Grid>
+        <Grid item xs={2}>
+          <Paper className={classes.paper}>{myCards[0].type}</Paper>
+        </Grid>
+        <Grid item xs={2}>
+          <Paper className={classes.paper}>{myCards[0].type}</Paper>
+        </Grid>
+        <Grid item xs={2}>
+          <Paper className={classes.paper}>{myCards[0].type}</Paper>
+        </Grid>
+        <Grid item xs={2}>
+          <Paper className={classes.paper}>{myCards[0].type}</Paper>
+        </Grid>
+      </Grid>
+    );
 }
 
 function showcard(classes: Record<"root" | "paper", string>, card: string){
