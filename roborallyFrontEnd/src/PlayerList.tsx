@@ -26,9 +26,12 @@ function createPlayerEntry(robot: Robot){
     let style: React.CSSProperties = {
         color: robot.colour,
     };
+    let readytext = "";
+    if(robot.ready) readytext = " is ready";
+    else readytext = " is still programming";
     return (
         <p style={style} key={robot.name}>
-            {robot.name}
+            {robot.name}{readytext}
         </p>
     );
 }

@@ -4,4 +4,5 @@ export interface Robot{
     colour: string,
     xCoordinate: number,
     yCoordinate: number,
+    ready: boolean,
 }

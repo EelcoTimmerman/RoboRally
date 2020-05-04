@@ -68,6 +68,7 @@ public class JSONResultProcessor {
         result.put("colour", robot.getColour());
         result.put("xCoordinate", robot.getXCoordinate());
         result.put("yCoordinate", robot.getYCoordinate());
+        result.put("ready", robot.isReady());
         return result;
     }
 }
