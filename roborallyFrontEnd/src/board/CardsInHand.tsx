@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import { makeStyles } from '@material-ui/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 
 interface Card{
     type: string,
@@ -28,9 +26,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function showCards(){
-    const classes = useStyles();
     let myCards:Card[] = getCards();
-    let mycarddivs = myCards.map(showcard);
+    let mycarddivs = myCards.map((card: Card, index: number) => showcard(card, index));
     return (      
       <div className = "cardsinhandgrid">
         {mycarddivs}
@@ -38,43 +35,11 @@ export function showCards(){
     );
 }
 
-function showcard(card: Card){
+function showcard(card: Card, index: number){
   const classes = useStyles();
   return (
     <div>
-      <div className={classes.paper}>{card.type}</div>
+      <div key={index} className={classes.paper}>{card.type}</div>
     </div>
   )
 }
-
-// function createRow(row: Square[], rowNumber: number):JSX.Element[]{
-//     return row.map((square: Square, index: number) => createSquare(square, rowNumber, index));
-// }
-
-// function createSquare(square: Square, rowNumber: number, columnNumber: number):JSX.Element{
-//     let style: React.CSSProperties = {
-//         gridColumnStart: columnNumber + 1,
-//         gridRowStart: rowNumber + 1,
-//     }
-
-//     if(square.northwall){
-//         style.borderTopWidth = "thick";
-//         style.borderTopColor = "rgb(153, 153, 8)";
-//     }
-//     if(square.eastwall){
-//         style.borderRightWidth = "thick";
-//         style.borderRightColor = "rgb(153, 153, 8)";
-//     }
-//     if(square.southwall){
-//         style.borderBottomWidth = "thick";
-//         style.borderBottomColor = "rgb(153, 153, 8)";
-//     }
-//     if(square.westwall){
-//         style.borderLeftWidth = "thick";
-//         style.borderLeftColor = "rgb(153, 153, 8)";
-//     }
-
-//     return <div key={(columnNumber + 1) * (rowNumber + 1)} style={style}>
-//             {square.type}
-//         </div>;
-// }

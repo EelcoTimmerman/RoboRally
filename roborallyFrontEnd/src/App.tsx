@@ -10,7 +10,9 @@ import { PlayerList } from "./PlayerList";
 export function App() {
     const [ board, setBoard ] = useState<Square[][] | undefined>(undefined);
     const [ robots, setRobots ] = useState<Robot[] | undefined>(undefined);
-    const [websocket, setWebsocket] = useState<WebSocket | undefined>(undefined);
+    const [websocket, setWebsocket] = useState<WebSocket | undefined>(undefined);    
+
+    let cards = showCards();
 
     if(board != undefined && robots != undefined){
         return (<div>
@@ -23,6 +25,7 @@ export function App() {
                     <button onClick={() => programCard(5)}>Forward x 3</button>
                     <button onClick={() => programCard(6)}>Backwards</button>
                     <PlayerList players={robots}></PlayerList>
+                    {cards}
                 </div>);
     }
     else{
@@ -64,26 +67,6 @@ export function App() {
         else{
             console.log("No connection.");
         }
-    }
-
-    let cards = showCards();
-
-    if(gamestate != undefined && cards != undefined){
-        return (<div>
-                    <Board squares = {gamestate}></Board>
-                    <button onClick={moveForward}>Forward</button>
-                    <button onClick={turnRight}>Right</button>
-                    <button onClick={turnLeft}>Left</button>
-                    <button onClick={uTurn}>Turn around</button>
-                    <button onClick={moveForward2}>Forward x 2</button>
-                    <button onClick={moveForward3}>Forward x 3</button>
-                    <button onClick={moveBackwards}>Backwards</button>
-                    <div>{cards}</div>
-                </div>);
-    }
-    else{
-        getGameState();
-        return <div>Loading...</div>;
     }
 }
 
