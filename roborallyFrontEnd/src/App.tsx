@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Square } from "./board/Square";
 import { Board } from "./board/Board";
+import { showCards } from "./board/CardsInHand";
 import { Startscreen } from "./Startscreen";
 import { Robot } from "./Robot";
 import { incomingMessage } from "./incomingMessage";
@@ -64,4 +65,25 @@ export function App() {
             console.log("No connection.");
         }
     }
+
+    let cards = showCards();
+
+    if(gamestate != undefined && cards != undefined){
+        return (<div>
+                    <Board squares = {gamestate}></Board>
+                    <button onClick={moveForward}>Forward</button>
+                    <button onClick={turnRight}>Right</button>
+                    <button onClick={turnLeft}>Left</button>
+                    <button onClick={uTurn}>Turn around</button>
+                    <button onClick={moveForward2}>Forward x 2</button>
+                    <button onClick={moveForward3}>Forward x 3</button>
+                    <button onClick={moveBackwards}>Backwards</button>
+                    <div>{cards}</div>
+                </div>);
+    }
+    else{
+        getGameState();
+        return <div>Loading...</div>;
+    }
 }
+

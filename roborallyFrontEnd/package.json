@@ -1,5 +1,5 @@
 {
-  "name": "Roborally",
+  "name": "roborally",
   "version": "1.0.0",
   "description": "Front-end for roborally",
   "private": true,
@@ -8,6 +8,10 @@
     "start": "node_modules/.bin/webpack-dev-server"
   },
   "dependencies": {
+    "@material-ui/core": "^4.9.12",
+    "@material-ui/styles": "^4.9.10",
+    "material-ui": "^1.0.0-beta.47",
+    "mdbreact": "^4.26.0",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "styled-components": "^5.0.1"
