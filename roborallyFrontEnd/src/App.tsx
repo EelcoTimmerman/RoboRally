@@ -57,40 +57,6 @@ export function App() {
         setWebsocket(tempwebsocket);
     }
 
-<<<<<<< roborallyFrontEnd/src/App.tsx
-
-
-    async function moveForward(){
-        programCard(0);
-    }
-
-    async function turnRight(){
-        programCard(1);
-    }
-
-    async function turnLeft(){
-        programCard(2);
-    }
-
-    async function uTurn(){
-        console.log("hey");
-        programCard(3);
-    }
-
-    async function moveForward2(){
-        programCard(4);
-    }
-
-    async function moveForward3(){
-        programCard(5);
-    }
-
-    async function moveBackwards(){
-        programCard(6);
-    }
-
-=======
->>>>>>> roborallyFrontEnd/src/App.tsx
     async function programCard(cardnr:number){
         if (websocket !== undefined && websocket.readyState !== WebSocket.CLOSED) {
             websocket.send(cardnr.toString());
@@ -99,7 +65,6 @@ export function App() {
             console.log("No connection.");
         }
     }
-<<<<<<< roborallyFrontEnd/src/App.tsx
 
     let cards = showCards();
 
@@ -121,6 +86,4 @@ export function App() {
         return <div>Loading...</div>;
     }
 }
-=======
-}
->>>>>>> roborallyFrontEnd/src/App.tsx
+
