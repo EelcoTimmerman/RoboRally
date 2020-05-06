@@ -41,8 +41,12 @@ public abstract class Card{
         return currentPosition.hasWallAt(direction);
     }
     
-    protected void respawnIfNecessary(Robot robot, Board board){        
-        if(robotNotOnBoard(robot, board) || robotInPit(robot, board)) robot.respawn();
+    protected boolean respawnIfNecessary(Robot robot, Board board){        
+        if(robotNotOnBoard(robot, board) || robotInPit(robot, board)) {
+            robot.respawn();
+            return true;
+        }
+        return false;
     }
     
     private boolean robotNotOnBoard(Robot robot, Board board){

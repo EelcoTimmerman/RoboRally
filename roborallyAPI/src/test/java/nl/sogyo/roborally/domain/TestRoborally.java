@@ -546,6 +546,72 @@ public class TestRoborally {
         assertEquals(2, robot3.getXCoordinate());
         assertEquals(1, robot3.getYCoordinate());
     }
+    
+    @Test
+    public void testRobotPushesRobot2(){
+        Roborally roborally = new Roborally();
+        Robot robot1 = new Robot(2,1);
+        Robot robot2 = new Robot(3,1, Direction.WEST);
+        robot1.program(new DoNothingCard());
+        robot2.program(new MoveTwoCard());
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(0, robot1.getXCoordinate());
+        assertEquals(1, robot1.getYCoordinate());
+        assertEquals(1, robot2.getXCoordinate());
+        assertEquals(1, robot2.getYCoordinate());
+    }
+
+    @Test
+    public void testRobotPushesRobotIntoWall2(){
+        Roborally roborally = new Roborally();
+        Robot robot1 = new Robot(0,1);
+        Robot robot2 = new Robot(1,1, Direction.WEST);
+        robot1.program(new DoNothingCard());
+        robot2.program(new MoveTwoCard());
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(0, robot1.getXCoordinate());
+        assertEquals(1, robot1.getYCoordinate());
+        assertEquals(1, robot2.getXCoordinate());
+        assertEquals(1, robot2.getYCoordinate());
+    }
+
+    @Test
+    public void testRobotPushesRobotIntoWall2AfterOneStep(){
+        Roborally roborally = new Roborally();
+        Robot robot1 = new Robot(1,1);
+        Robot robot2 = new Robot(2,1, Direction.WEST);
+        robot1.program(new DoNothingCard());
+        robot2.program(new MoveTwoCard());
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(0, robot1.getXCoordinate());
+        assertEquals(1, robot1.getYCoordinate());
+        assertEquals(1, robot2.getXCoordinate());
+        assertEquals(1, robot2.getYCoordinate());
+    }
+
+    @Test
+    public void testRobotPushesRobotOffTheBoard2(){
+        Roborally roborally = new Roborally();
+        Robot robot1 = new Robot(0,2);
+        Robot robot2 = new Robot(1,2, Direction.WEST);
+        robot1.program(new DoNothingCard());
+        robot1.setRespawnPoint(3, 3);
+        robot2.program(new MoveTwoCard());
+        robot2.setRespawnPoint(2, 2);
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(3, robot1.getXCoordinate());
+        assertEquals(3, robot1.getYCoordinate());
+        assertEquals(2, robot2.getXCoordinate());
+        assertEquals(2, robot2.getYCoordinate());
+    }
 
     //Deze test werkt op dit moment niet, omdat we de volgorde van het uitvoeren van de zetten nog niet kunnen testen.
     //Zodra robots elkaar kunnen wegduwen, kan deze test weer aan.
