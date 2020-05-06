@@ -3,8 +3,8 @@ package nl.sogyo.roborally.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import nl.sogyo.roborally.domain.cards.ICard;
+import nl.sogyo.roborally.domain.cards.Deck;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.*;
 
@@ -12,6 +12,7 @@ public class Roborally{
 
     List<Robot> robots = new ArrayList<Robot>();
     Board board;
+    Deck deck;
     
     public Roborally(){
         this.board = new Board("ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*CH-x");
@@ -89,4 +90,6 @@ public class Roborally{
     public void removeRobot(Robot robot){
         this.robots.remove(robot);
     }
+
+ 
 }

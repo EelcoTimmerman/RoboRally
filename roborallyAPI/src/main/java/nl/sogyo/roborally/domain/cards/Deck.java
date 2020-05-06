@@ -3,10 +3,18 @@ package nl.sogyo.roborally.domain.cards;
 import java.util.*;
 
 public class Deck {
-    List<ICard> deck;
+    List<ICard> cardsInDeck;
+
+    public int getSize(){
+        return cardsInDeck.size();
+    }
+
+    public List<ICard> getDeck(){
+        return this.cardsInDeck;
+    }
 
     public void createDeck(){
-        deck = new ArrayList<ICard>();
+        cardsInDeck = new ArrayList<ICard>();
         Scanner sc = new Scanner(getClass().getResourceAsStream("TextDeck.txt"));
         while(sc.hasNextLine()){
             addCardToDeck(sc.nextLine());
@@ -27,14 +35,23 @@ public class Deck {
             case "Move 3": card = new MoveThreeCard(speed); break;
             default: card = null;
         }
-        deck.add(card);
+        cardsInDeck.add(card);
     }
-   
+       
+    public List<ICard> getHand(int damage){
+        List<ICard> hand = new ArrayList<ICard>();
+        for(int i = 0; i < 9;i++){       
+            if(i<9-damage) hand.add(getRandomCard());
+            else  hand.add(new DoNothingCard());
+        }
+        return hand;
+    }
+
     private ICard getRandomCard(){
         Random rand = new Random();
-        int cardIndex = rand.nextInt(deck.size());
-        ICard randCard = this.deck.get(cardIndex);
-        this.deck.remove(cardIndex);
+        int cardIndex = rand.nextInt(cardsInDeck.size());
+        ICard randCard = this.cardsInDeck.get(cardIndex);
+        this.cardsInDeck.remove(cardIndex);
         return randCard;
     }
 }
