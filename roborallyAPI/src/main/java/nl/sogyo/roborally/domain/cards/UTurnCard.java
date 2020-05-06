@@ -4,6 +4,13 @@ import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.Board;
 
 public class UTurnCard implements ICard{
+    private int speed;
+
+    public UTurnCard(){}
+
+    public UTurnCard(int speed){
+        this.speed = speed;
+    }
     
     public void doCardAction(Robot robot, Board board){      
         robot.turnRight();
@@ -12,6 +19,6 @@ public class UTurnCard implements ICard{
 
     @Override
     public int getSpeed(){
-        return 7;
+        return this.speed;
     }
 }

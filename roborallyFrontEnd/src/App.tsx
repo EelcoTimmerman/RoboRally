@@ -11,7 +11,6 @@ export function App() {
     const [ board, setBoard ] = useState<Square[][] | undefined>(undefined);
     const [ robots, setRobots ] = useState<Robot[] | undefined>(undefined);
     const [websocket, setWebsocket] = useState<WebSocket | undefined>(undefined);    
-
     let cards = showCards();
 
     if(board != undefined && robots != undefined){

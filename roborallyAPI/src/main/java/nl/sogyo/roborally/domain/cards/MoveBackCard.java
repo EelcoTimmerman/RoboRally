@@ -6,6 +6,13 @@ import nl.sogyo.roborally.domain.squares.Pit;
 import nl.sogyo.roborally.domain.squares.Square;
 
 public class MoveBackCard implements ICard{
+    private int speed;
+
+    public MoveBackCard(){}
+
+    public MoveBackCard(int speed){
+        this.speed = speed;
+    }
 
     public void doCardAction(Robot robot, Board board){
         if(canMoveBackwards(robot, board)) robot.moveBackwards();    
@@ -28,6 +35,6 @@ public class MoveBackCard implements ICard{
 
     @Override
     public int getSpeed(){
-        return 1;
+        return this.speed;
     }
 }
