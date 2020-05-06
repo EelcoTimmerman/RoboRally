@@ -3,7 +3,7 @@ stages:
   - test backend
   - build frontend
 
-build:
+build backend:
   stage: build backend
   tags:
     - docker
@@ -12,7 +12,7 @@ build:
     - cd roborallyAPI
     - mvn clean package
 
-test:
+test backend:
   stage: test backend
   tags:
     - docker
@@ -21,7 +21,7 @@ test:
     - cd roborallyAPI
     - mvn clean test
 
-build:
+build frontend:
   stage: build frontend
   tags:
     - docker
