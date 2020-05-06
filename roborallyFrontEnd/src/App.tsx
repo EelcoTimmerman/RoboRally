@@ -49,6 +49,7 @@ export function App() {
     }
 
     async function uTurn(){
+        console.log("hey");
         programCard(3);
     }
 
@@ -86,8 +87,6 @@ export function App() {
                     <button onClick={moveForward3}>Forward x 3</button>
                     <button onClick={moveBackwards}>Backwards</button>
                     <div>{cards}</div>
-                    <div>1</div>
-
                 </div>);
     }
     else{

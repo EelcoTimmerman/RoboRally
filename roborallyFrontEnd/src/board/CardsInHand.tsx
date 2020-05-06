@@ -9,7 +9,7 @@ interface Card{
 
 function getCards(){
     const cards:Card[] = [];
-    for(let i = 0; i < 5; i++){
+    for(let i = 0; i < 9; i++){
             cards.push({
                 type: "MoveOneForward",
             });
@@ -30,39 +30,21 @@ const useStyles = makeStyles((theme) => ({
 export function showCards(){
     const classes = useStyles();
     let myCards:Card[] = getCards();
-
-    for(let card in myCards){
-      //showcard(classes, card)
-    }
-    return (
-      <Grid container spacing={8}>
-        <Grid item xs={2}>
-          <Paper className={classes.paper}>{myCards[0].type}</Paper>
-        </Grid>
-        <Grid item xs={2}>
-          <Paper className={classes.paper}>{myCards[0].type}</Paper>
-        </Grid>
-        <Grid item xs={2}>
-          <Paper className={classes.paper}>{myCards[0].type}</Paper>
-        </Grid>
-        <Grid item xs={2}>
-          <Paper className={classes.paper}>{myCards[0].type}</Paper>
-        </Grid>
-        <Grid item xs={2}>
-          <Paper className={classes.paper}>{myCards[0].type}</Paper>
-        </Grid>
-      </Grid>
+    let mycarddivs = myCards.map(showcard);
+    return (      
+      <div className = "cardsinhandgrid">
+        {mycarddivs}
+      </div>
     );
 }
 
-function showcard(classes: Record<"root" | "paper", string>, card: string){
-  classes = classes;
+function showcard(card: Card){
+  const classes = useStyles();
   return (
-    <Grid item xs={3}>
-    <Paper className={classes.paper}>card.type</Paper>
-    </Grid>
+    <div>
+      <div className={classes.paper}>{card.type}</div>
+    </div>
   )
-
 }
 
 // function createRow(row: Square[], rowNumber: number):JSX.Element[]{
