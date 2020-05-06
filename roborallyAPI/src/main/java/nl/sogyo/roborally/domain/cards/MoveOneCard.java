@@ -8,7 +8,7 @@ import nl.sogyo.roborally.domain.squares.Board;
 import nl.sogyo.roborally.domain.squares.Pit;
 import nl.sogyo.roborally.domain.squares.Square;
 
-public class MoveOneCard implements ICard{
+public class MoveOneCard extends Card{
 
     public void doCardAction(Robot robot, Board board, List<Robot> robots){
         moveRobotInDirectionIfPossible(robot, robot.getOrientation(), board, robots);

@@ -3,7 +3,7 @@ package nl.sogyo.roborally.domain.robots;
 import org.junit.Test;
 
 import nl.sogyo.roborally.domain.Direction;
-import nl.sogyo.roborally.domain.cards.ICard;
+import nl.sogyo.roborally.domain.cards.Card;
 import nl.sogyo.roborally.domain.cards.MoveBackCard;
 import nl.sogyo.roborally.domain.cards.MoveOneCard;
 
@@ -67,9 +67,9 @@ public class TestRobot{
     @Test
     public void testProgramRobotMoveForward(){
         Robot robot = new Robot();
-        ICard card1 = new MoveOneCard();
+        Card card1 = new MoveOneCard();
         robot.program(card1);
-        ICard card2 = robot.getCard();
+        Card card2 = robot.getCard();
         assertEquals(card1, card2);
     }
 

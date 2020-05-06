@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.DoNothingCard;
-import nl.sogyo.roborally.domain.cards.ICard;
+import nl.sogyo.roborally.domain.cards.Card;
 import nl.sogyo.roborally.domain.cards.MoveBackCard;
 import nl.sogyo.roborally.domain.cards.MoveOneCard;
 import nl.sogyo.roborally.domain.cards.MoveThreeCard;
@@ -17,7 +17,7 @@ public class Robot{
     private final String[] colours = {"green", "black", "purple", "blue", "red", "brown"};
 
     Direction orientation = Direction.NORTH;;
-    ICard card = new DoNothingCard();
+    Card card = new DoNothingCard();
     int health;
     int xCoordinate;
     int yCoordinate;
@@ -57,7 +57,7 @@ public class Robot{
         return name;
     }
 
-    public ICard getCard(){
+    public Card getCard(){
         return this.card;
     }
 
@@ -118,7 +118,7 @@ public class Robot{
         }
     }
 
-    public void program(ICard card){
+    public void program(Card card){
         this.card = card;
         this.ready = true;
     }

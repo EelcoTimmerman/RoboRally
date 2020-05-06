@@ -7,7 +7,7 @@ import nl.sogyo.roborally.domain.squares.Board;
 import nl.sogyo.roborally.domain.squares.Pit;
 import nl.sogyo.roborally.domain.squares.Square;
 
-public class MoveBackCard implements ICard{
+public class MoveBackCard extends Card{
 
     public void doCardAction(Robot robot, Board board, List<Robot> robots){
         if(canMoveBackwards(robot, board)) robot.moveBackwards();    

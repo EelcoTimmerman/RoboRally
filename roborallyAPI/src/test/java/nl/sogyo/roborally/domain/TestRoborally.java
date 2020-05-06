@@ -30,7 +30,7 @@ public class TestRoborally {
     @Test
     public void testMoveRobotForwardsWithoutObstacles(){
         Robot robot = new Robot(2,2, Direction.NORTH);
-        ICard card = new MoveOneCard();
+        Card card = new MoveOneCard();
         robot.program(card);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -41,7 +41,7 @@ public class TestRoborally {
     @Test
     public void testMoveRobotForwardsIntoNorthWall(){
         Robot robot = new Robot(2,0, Direction.NORTH);
-        ICard card = new MoveOneCard();
+        Card card = new MoveOneCard();
         robot.program(card);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -52,7 +52,7 @@ public class TestRoborally {
     @Test
     public void testMoveRobotForwardsIntoEastWall(){
         Robot robot = new Robot(3,2, Direction.EAST);
-        ICard card = new MoveOneCard();
+        Card card = new MoveOneCard();
         robot.program(card);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -63,7 +63,7 @@ public class TestRoborally {
     @Test
     public void testMoveRobotForwardsIntoSouthWall(){
         Robot robot = new Robot(1, 3, Direction.SOUTH);
-        ICard card = new MoveOneCard();
+        Card card = new MoveOneCard();
         robot.program(card);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -74,7 +74,7 @@ public class TestRoborally {
     @Test
     public void testMoveRobotForwardsIntoWestWall(){
         Robot robot = new Robot(0,1, Direction.WEST);
-        ICard card = new MoveOneCard();
+        Card card = new MoveOneCard();
         robot.program(card);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -85,7 +85,7 @@ public class TestRoborally {
     @Test
     public void testRobotTurnsRight(){
         Robot robot = new Robot(2,2, Direction.NORTH);
-        ICard card = new RotateRightCard();
+        Card card = new RotateRightCard();
         robot.program(card);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -95,7 +95,7 @@ public class TestRoborally {
     @Test
     public void testRobotTurnsLeft(){
         Robot robot = new Robot(2,2, Direction.NORTH);
-        ICard card = new RotateLeftCard();
+        Card card = new RotateLeftCard();
         robot.program(card);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -105,7 +105,7 @@ public class TestRoborally {
     @Test
     public void testRobotUTurn(){
         Robot robot = new Robot(2,2, Direction.NORTH);
-        ICard card = new UTurnCard();
+        Card card = new UTurnCard();
         robot.program(card);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -115,7 +115,7 @@ public class TestRoborally {
     @Test
     public void testRobotMovesOffBoard(){
         Robot robot = new Robot(0,0, Direction.NORTH);
-        ICard card = new MoveOneCard();
+        Card card = new MoveOneCard();
         robot.program(card);
         robot.setRespawnPoint(2,2);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
@@ -127,7 +127,7 @@ public class TestRoborally {
     @Test
     public void testRobotMovesBackwards(){
         Robot robot = new Robot(2,2, Direction.NORTH);
-        ICard card = new MoveBackCard();
+        Card card = new MoveBackCard();
         robot.program(card);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -138,7 +138,7 @@ public class TestRoborally {
     @Test
     public void testRobotMovesIntoWallBackwards(){
         Robot robot = new Robot(2,0, Direction.SOUTH);
-        ICard card = new MoveBackCard();
+        Card card = new MoveBackCard();
         robot.program(card);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -150,7 +150,7 @@ public class TestRoborally {
     @Test
     public void testRobotMovesOffBoardBackwards(){
         Robot robot = new Robot(0,0, Direction.SOUTH);
-        ICard card = new MoveBackCard();
+        Card card = new MoveBackCard();
         robot.program(card);
         robot.setRespawnPoint(2,2);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
@@ -162,7 +162,7 @@ public class TestRoborally {
     @Test
     public void testRobotTakesTwoSteps(){
         Robot robot = new Robot(2,2, Direction.NORTH);
-        ICard card = new MoveTwoCard();
+        Card card = new MoveTwoCard();
         robot.program(card);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -173,7 +173,7 @@ public class TestRoborally {
     @Test
     public void testRobotTakesTwoStepsIntoWall2Steps(){
         Robot robot = new Robot(2,1, Direction.NORTH);
-        ICard card = new MoveTwoCard();
+        Card card = new MoveTwoCard();
         robot.program(card);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -184,7 +184,7 @@ public class TestRoborally {
     @Test
     public void testRobotTakesTwoStepsIntoWall1Step(){
         Robot robot = new Robot(2,0, Direction.NORTH);
-        ICard card = new MoveTwoCard();
+        Card card = new MoveTwoCard();
         robot.program(card);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -195,7 +195,7 @@ public class TestRoborally {
     @Test
     public void testRobotTakesTwoStepsOffTheBoard2Steps(){
         Robot robot = new Robot(1,1, Direction.NORTH);
-        ICard card = new MoveTwoCard();
+        Card card = new MoveTwoCard();
         robot.program(card);
         robot.setRespawnPoint(2,2);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
@@ -207,7 +207,7 @@ public class TestRoborally {
     @Test
     public void testRobotTakesTwoStepsOffTheBoard1Step(){
         Robot robot = new Robot(1,0, Direction.NORTH);
-        ICard card = new MoveTwoCard();
+        Card card = new MoveTwoCard();
         robot.program(card);
         robot.setRespawnPoint(2,2);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
@@ -219,7 +219,7 @@ public class TestRoborally {
     @Test
     public void testRobotTakesThreeStepsOffTheBoard2Step(){
         Robot robot = new Robot(0,1, Direction.NORTH);
-        ICard card = new MoveThreeCard();
+        Card card = new MoveThreeCard();
         robot.program(card);
         robot.setRespawnPoint(2,2);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
@@ -234,7 +234,7 @@ public class TestRoborally {
         String boardString = "ES-X*PT-X";
         Robot robot = new Robot(0,0);
         robot.setOrientation(Direction.EAST);
-        ICard card = new MoveOneCard();
+        Card card = new MoveOneCard();
         robot.program(card);
         Roborally roborally = new Roborally(boardString, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -246,7 +246,7 @@ public class TestRoborally {
         String boardString = "ES-X*PT-X";
         Robot robot = new Robot(0,0);
         robot.setOrientation(Direction.WEST);
-        ICard card = new MoveBackCard();
+        Card card = new MoveBackCard();
         robot.program(card);
         Roborally roborally = new Roborally(boardString, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -258,7 +258,7 @@ public class TestRoborally {
         String boardString = "ES-X*ES-X*PT-X";
         Robot robot = new Robot(0,0);
         robot.setOrientation(Direction.EAST);
-        ICard card = new MoveTwoCard();
+        Card card = new MoveTwoCard();
         robot.program(card);
         Roborally roborally = new Roborally(boardString, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -270,7 +270,7 @@ public class TestRoborally {
         String boardString = "ES-X*PT-X*ES-X";
         Robot robot = new Robot(0,0);
         robot.setOrientation(Direction.EAST);
-        ICard card = new MoveTwoCard();
+        Card card = new MoveTwoCard();
         robot.program(card);
         Roborally roborally = new Roborally(boardString, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -282,7 +282,7 @@ public class TestRoborally {
         String boardString = "ES-X*ES-X*ES-X*PT-X";
         Robot robot = new Robot(0,0);
         robot.setOrientation(Direction.EAST);
-        ICard card = new MoveThreeCard();
+        Card card = new MoveThreeCard();
         robot.program(card);
         Roborally roborally = new Roborally(boardString, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -294,7 +294,7 @@ public class TestRoborally {
         String boardString = "ES-X*ES-X*PT-X*ES-X";
         Robot robot = new Robot(0,0);
         robot.setOrientation(Direction.EAST);
-        ICard card = new MoveThreeCard();
+        Card card = new MoveThreeCard();
         robot.program(card);
         Roborally roborally = new Roborally(boardString, robot);
         roborally.playRoundIfAllRobotsReady();
@@ -306,7 +306,7 @@ public class TestRoborally {
         String boardString = "ES-X*PT-X*ES-X*ES-X";
         Robot robot = new Robot(0,0);
         robot.setOrientation(Direction.EAST);
-        ICard card = new MoveThreeCard();
+        Card card = new MoveThreeCard();
         robot.program(card);
         Roborally roborally = new Roborally(boardString, robot);
         roborally.playRoundIfAllRobotsReady();
