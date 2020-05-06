@@ -24,8 +24,8 @@ public class Robot{
     int respawnX;
     int respawnY;
     boolean ready = false;
-    String name;
-    String colour;
+    String name = "defaultname";
+    String colour = "orange";
     
     public Robot(){
     }
@@ -45,12 +45,8 @@ public class Robot{
     }
 
     public Robot(int xCoordinate, int yCoordinate, Direction orientation){
-        this.xCoordinate = xCoordinate;
-        this.respawnX = xCoordinate;
-        this.yCoordinate = yCoordinate;
-        this.respawnY = yCoordinate;
+        this(xCoordinate, yCoordinate);
         this.orientation = orientation;
-        this.health = 9;
     }
 
     public String getColour() {

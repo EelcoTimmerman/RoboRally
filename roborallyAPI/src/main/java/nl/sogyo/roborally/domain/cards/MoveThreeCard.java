@@ -1,5 +1,7 @@
 package nl.sogyo.roborally.domain.cards;
 
+import java.util.List;
+
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.Board;
 import nl.sogyo.roborally.domain.squares.Pit;
@@ -7,7 +9,7 @@ import nl.sogyo.roborally.domain.squares.Square;
 
 public class MoveThreeCard implements ICard{
 
-    public void doCardAction(Robot robot, Board board){      
+    public void doCardAction(Robot robot, Board board, List<Robot> robots){      
         if(canMoveForward(robot, board)) robot.moveForward();    
         if(robotNotOnBoard(robot, board) || robotInPit(robot, board)) robot.respawn();
         else{

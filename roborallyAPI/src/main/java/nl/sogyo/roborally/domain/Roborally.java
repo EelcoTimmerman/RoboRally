@@ -55,7 +55,7 @@ public class Roborally{
         robots.sort(Robot.COMPARE_BY_CARD);
         for(Robot robot : robots){
             ICard card = robot.getCard();
-            card.doCardAction(robot, board);
+            card.doCardAction(robot, board, robots);
             robot.unready();
         }
         //This keeps the order of the robots consistent for the frontend.
