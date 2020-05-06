@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "lint": "node_modules/.bin/eslint src/**/*",
+    "build": "node_modules/.bin/webpack",
     "start": "node_modules/.bin/webpack-dev-server"
   },
   "dependencies": {

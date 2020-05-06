@@ -1,21 +1,31 @@
-image: maven:3.6.3-jdk-13
-
 stages:
-  - build
-  - test
+  - build backend
+  - test backend
+  - build frontend
 
-build:
-  stage: build
+build backend:
+  stage: build backend
   tags:
     - docker
+  image: maven:3.6.3-jdk-13
   script:
     - cd roborallyAPI
     - mvn clean package
 
-test:
-  stage: test
+test backend:
+  stage: test backend
   tags:
     - docker
+  image: maven:3.6.3-jdk-13
   script:
     - cd roborallyAPI
     - mvn clean test
+
+build frontend:
+  stage: build frontend
+  tags:
+    - docker
+  image: node:12.16.3
+  script:
+    - cd roborallyFrontEnd
+    - npm build
