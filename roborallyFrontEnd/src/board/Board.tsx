@@ -18,7 +18,7 @@ export function Board({ squares, robots }: BoardProps){
         <div className="boardgrid">
             {board}
         </div>
-    );
+    ); 
 }
 
 function createRow(row: Square[], rowNumber: number):JSX.Element[]{

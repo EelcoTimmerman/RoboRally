@@ -24,8 +24,8 @@ public class JSONResultProcessor {
     }
 
     public String createCardsResponse(Roborally roborally, Robot robot){
-        List<ICard> drawNewHand = roborally.getHandOfCards(robot);
-        JSONArray cards = createJSONCards(drawNewHand);
+        List<ICard> hand = roborally.getHandOfCards(robot);
+        JSONArray cards = createJSONCards(hand);
         JSONObject response = new JSONObject();
         response.put("messagetype", "drawncards");
         response.put("body", cards);
@@ -48,9 +48,16 @@ public class JSONResultProcessor {
     private JSONArray createJSONCards(List<ICard> cards){
         JSONArray jsonCards = new JSONArray();
         for(ICard card : cards){
-            jsonCards.add(card);
+            jsonCards.add(createJSONCard(card));
         }
         return jsonCards;
+    }
+
+    private JSONObject createJSONCard(ICard card){
+        JSONObject jsonCard = new JSONObject();
+        jsonCard.put("name", card.getName());
+        jsonCard.put("speed", card.getSpeed());
+        return jsonCard;
     }
 
     private JSONArray createJSONBoard(Board board){

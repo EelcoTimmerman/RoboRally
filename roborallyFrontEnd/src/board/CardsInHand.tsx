@@ -2,18 +2,25 @@ import React, { Component } from "react";
 import { makeStyles } from '@material-ui/styles';
 
 interface Card{
-    type: string,
+    name: string,
+    speed: string
 }
 
-function getCards(){
-    const cards:Card[] = [];
-    for(let i = 0; i < 9; i++){
-            cards.push({
-                type: "MoveOneForward",
-            });
-    }
-    return cards;
+interface allCards{
+  cards: Card[]
 }
+
+
+
+// function getCards(cards :Card[]){
+//     const cards:Card[] = [];
+//     for(let i = 0; i < 9; i++){
+//             cards.push({
+//                 type: "MoveOneForward",
+//             });
+//     }
+//     return cards;
+// }
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,9 +32,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export function showCards(){
-    let myCards:Card[] = getCards();
-    let mycarddivs = myCards.map((card: Card, index: number) => showcard(card, index));
+export function CardsInhand({cards}: allCards){
+    let mycarddivs = cards.map((card: Card, index: number) => showcard(card, index));
     return (      
       <div className = "cardsinhandgrid">
         {mycarddivs}

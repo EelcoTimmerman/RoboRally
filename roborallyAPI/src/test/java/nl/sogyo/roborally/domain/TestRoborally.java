@@ -2,6 +2,8 @@ package nl.sogyo.roborally.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import nl.sogyo.roborally.domain.cards.ICard;
@@ -461,6 +463,14 @@ public class TestRoborally {
         robot.moveForward();
         rulebookRobots.playRoundIfAllRobotsReady();
         assert(robot.getRespawnXCoordinate() == 1 && robot.getRespawnYCoordinate() == 1);
+    }
+
+    @Test
+    public void testCreateDeck(){
+        Roborally r = new Roborally();
+        Robot robot = new Robot(0,1, Direction.EAST);
+        List<ICard> hand = r.getHandOfCards(robot);
+        assert(hand.size() == 9);
     }
 
     //Deze test werkt op dit moment niet, omdat we de volgorde van het uitvoeren van de zetten nog niet kunnen testen.
