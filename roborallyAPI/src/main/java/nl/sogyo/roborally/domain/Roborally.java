@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-import nl.sogyo.roborally.domain.cards.ICard;
+import nl.sogyo.roborally.domain.cards.Card;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.*;
 
@@ -54,8 +54,8 @@ public class Roborally{
     private void playRound(){
         robots.sort(Robot.COMPARE_BY_CARD);
         for(Robot robot : robots){
-            ICard card = robot.getCard();
-            card.doCardAction(robot, board);
+            Card card = robot.getCard();
+            card.doCardAction(robot, board, robots);
             robot.unready();
         }
         //This keeps the order of the robots consistent for the frontend.

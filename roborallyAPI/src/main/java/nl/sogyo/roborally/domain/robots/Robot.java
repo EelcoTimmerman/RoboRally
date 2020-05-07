@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.DoNothingCard;
-import nl.sogyo.roborally.domain.cards.ICard;
+import nl.sogyo.roborally.domain.cards.Card;
 import nl.sogyo.roborally.domain.cards.MoveBackCard;
 import nl.sogyo.roborally.domain.cards.MoveOneCard;
 import nl.sogyo.roborally.domain.cards.MoveThreeCard;
@@ -16,16 +16,16 @@ import nl.sogyo.roborally.domain.cards.UTurnCard;
 public class Robot{
     private final String[] colours = {"green", "black", "purple", "blue", "red", "brown"};
 
-    Direction orientation = Direction.NORTH;;
-    ICard card = new DoNothingCard();
+    Direction orientation = Direction.NORTH;
+    Card card = new DoNothingCard();
     int health;
     int xCoordinate;
     int yCoordinate;
     int respawnX;
     int respawnY;
     boolean ready = false;
-    String name;
-    String colour;
+    String name = "defaultname";
+    String colour = "orange";
     
     public Robot(){
     }
@@ -45,12 +45,8 @@ public class Robot{
     }
 
     public Robot(int xCoordinate, int yCoordinate, Direction orientation){
-        this.xCoordinate = xCoordinate;
-        this.respawnX = xCoordinate;
-        this.yCoordinate = yCoordinate;
-        this.respawnY = yCoordinate;
+        this(xCoordinate, yCoordinate);
         this.orientation = orientation;
-        this.health = 9;
     }
 
     public String getColour() {
@@ -61,7 +57,7 @@ public class Robot{
         return name;
     }
 
-    public ICard getCard(){
+    public Card getCard(){
         return this.card;
     }
 
@@ -122,7 +118,7 @@ public class Robot{
         }
     }
 
-    public void program(ICard card){
+    public void program(Card card){
         this.card = card;
         this.ready = true;
     }
