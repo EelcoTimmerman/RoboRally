@@ -31,7 +31,7 @@ function createPlayerEntry(robot: Robot){
     else readytext = " is still programming";
     return (
         <p style={style} key={robot.name}>
-            {robot.name}{readytext}
+            {robot.name}({robot.hitpoints}){readytext}
         </p>
     );
 }

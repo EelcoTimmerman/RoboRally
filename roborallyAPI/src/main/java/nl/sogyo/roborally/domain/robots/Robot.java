@@ -1,6 +1,7 @@
 package nl.sogyo.roborally.domain.robots;
 
 import java.util.Comparator;
+import java.util.List;
 
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.DoNothingCard;
@@ -12,13 +13,15 @@ import nl.sogyo.roborally.domain.cards.MoveTwoCard;
 import nl.sogyo.roborally.domain.cards.RotateLeftCard;
 import nl.sogyo.roborally.domain.cards.RotateRightCard;
 import nl.sogyo.roborally.domain.cards.UTurnCard;
+import nl.sogyo.roborally.domain.squares.Board;
+import nl.sogyo.roborally.domain.squares.Square;
 
 public class Robot{
     private final String[] colours = {"green", "black", "purple", "blue", "red", "brown"};
 
     Direction orientation = Direction.NORTH;
     Card card = new DoNothingCard();
-    int health;
+    int health = 9;
     int xCoordinate;
     int yCoordinate;
     int respawnX;
@@ -199,5 +202,90 @@ public class Robot{
 
     public boolean isReady(){
         return this.ready;
+    }
+
+    public void fireLaser(List<Robot> robots, Board board){
+        switch(this.orientation){
+            case NORTH: fireNorth(robots, board);
+                        break;
+            case EAST: fireEast(robots, board);
+                        break;                        
+            case SOUTH: fireSouth(robots, board);
+                        break;            
+            case WEST: fireWest(robots, board);
+                        break;
+        }
+    }
+
+    private void fireNorth(List<Robot> robots, Board board){
+        int xCoordinate = this.xCoordinate;
+        int yCoordinate = this.yCoordinate;
+        while(yCoordinate > 0){
+            Square currentSquare = board.getSquare(xCoordinate, yCoordinate);
+            if(currentSquare.hasWallAt(Direction.NORTH)){
+                break;
+            }
+            yCoordinate--;
+            for(Robot robot : robots){
+                if(robot.isAt(xCoordinate, yCoordinate)){
+                    robot.takeDamage(1);
+                    yCoordinate = -1;
+                }
+            }
+        }
+    }
+
+    private void fireEast(List<Robot> robots, Board board){
+        int xCoordinate = this.xCoordinate;
+        int yCoordinate = this.yCoordinate;
+        while(xCoordinate < board.getWidth() - 1){
+            Square currentSquare = board.getSquare(xCoordinate, yCoordinate);
+            if(currentSquare.hasWallAt(Direction.EAST)){
+                break;
+            }
+            xCoordinate++;
+            for(Robot robot : robots){
+                if(robot.isAt(xCoordinate, yCoordinate)){
+                    robot.takeDamage(1);
+                    xCoordinate = board.getWidth();
+                }
+            }
+        }        
+    }
+
+    private void fireSouth(List<Robot> robots, Board board){
+        int xCoordinate = this.xCoordinate;
+        int yCoordinate = this.yCoordinate;
+        while(yCoordinate < board.getHeight() - 1){
+            Square currentSquare = board.getSquare(xCoordinate, yCoordinate);
+            if(currentSquare.hasWallAt(Direction.SOUTH)){
+                break;
+            }
+            yCoordinate++;
+            for(Robot robot : robots){
+                if(robot.isAt(xCoordinate, yCoordinate)){
+                    robot.takeDamage(1);
+                    yCoordinate = board.getHeight();
+                }
+            }
+        }        
+    }
+
+    private void fireWest(List<Robot> robots, Board board){
+        int xCoordinate = this.xCoordinate;
+        int yCoordinate = this.yCoordinate;
+        while(xCoordinate > 0){
+            Square currentSquare = board.getSquare(xCoordinate, yCoordinate);
+            if(currentSquare.hasWallAt(Direction.WEST)){
+                break;
+            }
+            xCoordinate--;
+            for(Robot robot : robots){
+                if(robot.isAt(xCoordinate, yCoordinate)){
+                    robot.takeDamage(1);
+                    xCoordinate = -1;
+                }
+            }
+        }
     }
 }

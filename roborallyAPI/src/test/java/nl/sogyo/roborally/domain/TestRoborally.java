@@ -626,4 +626,139 @@ public class TestRoborally {
         assertEquals(robot1, roborally.getRobots().get(0));
     }
 
+    @Test
+    public void testRobotFiresLaserWest(){
+        Robot robot1 = new Robot(0,1, Direction.SOUTH);
+        Robot robot2 = new Robot(2,1, Direction.WEST);
+        Roborally roborally = new Roborally();
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        robot1.program(7);
+        robot2.program(7);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(8, robot1.getHealth());
+    }
+    
+    @Test
+    public void testRobotFiresLaserNorth(){
+        Robot robot1 = new Robot(0,1, Direction.SOUTH);
+        Robot robot2 = new Robot(0,2, Direction.NORTH);
+        Roborally roborally = new Roborally();
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        robot1.program(7);
+        robot2.program(7);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(8, robot1.getHealth());
+    }
+    
+    @Test
+    public void testRobotFiresLaserEast(){
+        Robot robot1 = new Robot(2,1, Direction.SOUTH);
+        Robot robot2 = new Robot(0,1, Direction.EAST);
+        Roborally roborally = new Roborally();
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        robot1.program(7);
+        robot2.program(7);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(8, robot1.getHealth());
+    }
+    
+    @Test
+    public void testRobotFiresLaserSouth(){
+        Robot robot1 = new Robot(0,1, Direction.SOUTH);
+        Robot robot2 = new Robot(0,0, Direction.SOUTH);
+        Roborally roborally = new Roborally();
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        robot1.program(7);
+        robot2.program(7);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(8, robot1.getHealth());
+    }
+    
+    @Test
+    public void testRobotFiresLaserMisses(){
+        Robot robot1 = new Robot(1,2, Direction.SOUTH);
+        Robot robot2 = new Robot(0,0, Direction.SOUTH);
+        Roborally roborally = new Roborally();
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        robot1.program(7);
+        robot2.program(7);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(9, robot1.getHealth());
+    }
+
+    @Test
+    public void testRobotFiresLaserAtWallNorth(){
+        Robot robot1 = new Robot(0,0, Direction.WEST);
+        Robot robot2 = new Robot(0,1, Direction.NORTH);
+        Roborally roborally = new Roborally("ES-SE*ES-SW*||*ES-NE*ES-NW");
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        robot1.program(7);
+        robot2.program(7);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(9, robot1.getHealth());
+    }
+
+    @Test
+    public void testRobotFiresLaserAtWallEast(){
+        Robot robot1 = new Robot(1,0, Direction.WEST);
+        Robot robot2 = new Robot(0,0, Direction.EAST);
+        Roborally roborally = new Roborally("ES-E*ES-W");
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        robot1.program(7);
+        robot2.program(7);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(9, robot1.getHealth());
+    }
+    
+    @Test
+    public void testRobotFiresLaserAtWallSouth(){
+        Robot robot1 = new Robot(0,1, Direction.WEST);
+        Robot robot2 = new Robot(0,0, Direction.SOUTH);
+        Roborally roborally = new Roborally("ES-SE*ES-SW*||*ES-NE*ES-NW");
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        robot1.program(7);
+        robot2.program(7);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(9, robot1.getHealth());
+    }
+    
+    @Test
+    public void testRobotFiresLaserAtWallWest(){
+        Robot robot1 = new Robot(0,0, Direction.WEST);
+        Robot robot2 = new Robot(1,0, Direction.WEST);
+        Roborally roborally = new Roborally("ES-E*ES-W");
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        robot1.program(7);
+        robot2.program(7);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(9, robot1.getHealth());
+    }
+
+    @Test
+    public void testRobotBlocksLaser(){
+        Robot robot1 = new Robot(0,1, Direction.SOUTH);
+        Robot robot2 = new Robot(0,2, Direction.NORTH);
+        Robot robot3 = new Robot(0,0, Direction.EAST);
+        Roborally roborally = new Roborally();
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        roborally.addRobot(robot3);
+        robot1.program(7);
+        robot2.program(7);
+        robot3.program(7);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(8, robot1.getHealth());
+        assertEquals(9, robot3.getHealth());
+
+    }
+
 }

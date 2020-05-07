@@ -69,6 +69,7 @@ public class JSONResultProcessor {
         result.put("xCoordinate", robot.getXCoordinate());
         result.put("yCoordinate", robot.getYCoordinate());
         result.put("ready", robot.isReady());
+        result.put("hitpoints", robot.getHealth());
         return result;
     }
 }
