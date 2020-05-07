@@ -16,7 +16,7 @@ import nl.sogyo.roborally.domain.cards.UTurnCard;
 public class Robot{
     private final String[] colours = {"green", "black", "purple", "blue", "red", "brown"};
 
-    Direction orientation = Direction.NORTH;;
+    Direction orientation = Direction.NORTH;
     Card card = new DoNothingCard();
     int health;
     int xCoordinate;
