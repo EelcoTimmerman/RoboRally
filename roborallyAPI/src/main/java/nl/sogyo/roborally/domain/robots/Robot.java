@@ -21,7 +21,7 @@ public class Robot{
 
     Direction orientation = Direction.NORTH;;
     Card card = new DoNothingCard();
-    int health;
+    int health = 9;
     int xCoordinate;
     int yCoordinate;
     int respawnX;
