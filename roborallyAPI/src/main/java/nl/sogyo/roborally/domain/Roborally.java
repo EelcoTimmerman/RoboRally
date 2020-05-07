@@ -65,6 +65,7 @@ public class Roborally{
         activateBoardElements(Gear180.class);
         activateBoardElements(GearRight.class);
         activateBoardElements(GearLeft.class);
+        fireRobotLasers();
         activateBoardElements(Checkpoint.class);
     }
 
@@ -78,6 +79,12 @@ public class Roborally{
             if(elementTypeToActivate.isInstance(position)){
                 position.doSquareAction(robot, board);
             }
+        }
+    }
+
+    private void fireRobotLasers(){
+        for(Robot robot : robots){
+            robot.fireLaser(robots, board);
         }
     }
 
