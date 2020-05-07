@@ -7,4 +7,6 @@ public interface ICard{
     public void doCardAction(Robot robot, Board board);
 
     public int getSpeed();
+
+    public String getName();
 }

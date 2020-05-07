@@ -6,6 +6,7 @@ import nl.sogyo.roborally.domain.squares.Pit;
 import nl.sogyo.roborally.domain.squares.Square;
 
 public class MoveThreeCard implements ICard{
+    private String name = "MoveThreeCard";
     private int speed;
 
     public MoveThreeCard(){}
@@ -44,5 +45,10 @@ public class MoveThreeCard implements ICard{
     @Override
     public int getSpeed(){
         return this.speed;
+    }
+
+    @Override
+    public String getName(){
+        return this.name;
     }
 }

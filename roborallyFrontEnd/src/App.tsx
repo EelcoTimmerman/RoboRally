@@ -6,11 +6,13 @@ import { Startscreen } from "./Startscreen";
 import { Robot } from "./Robot";
 import { incomingMessage } from "./incomingMessage";
 import { PlayerList } from "./PlayerList";
+import { Card } from "./board/Card";
 
 export function App() {
     const [ board, setBoard ] = useState<Square[][] | undefined>(undefined);
     const [ robots, setRobots ] = useState<Robot[] | undefined>(undefined);
     const [websocket, setWebsocket] = useState<WebSocket | undefined>(undefined);    
+    // const [ drawncards, setHand ] = useState<Card[] | undefined>(undefined);
     let cards = showCards();
 
     if(board != undefined && robots != undefined){
@@ -46,14 +48,15 @@ export function App() {
 
             tempwebsocket.onmessage = function(event: WebSocketMessageEvent){
                 let message: incomingMessage = JSON.parse(event.data);
+                // console.log(message.body);
                 if(message.messagetype == "boardstate") setBoard(message.body);
                 else if(message.messagetype == "robots") setRobots(message.body);
+                else if(message.messagetype == "drawncards") console.log(message.body);
             };
 
             tempwebsocket.onclose = function(event: WebSocketCloseEvent){
                 console.log("connection closed");
             };
-
         }
 
         setWebsocket(tempwebsocket);
@@ -68,4 +71,3 @@ export function App() {
         }
     }
 }
-

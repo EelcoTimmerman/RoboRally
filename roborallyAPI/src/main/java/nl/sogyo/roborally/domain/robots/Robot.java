@@ -2,8 +2,6 @@ package nl.sogyo.roborally.domain.robots;
 
 import java.util.Comparator;
 
-// import java.util.List;
-
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.*;
 
@@ -20,7 +18,6 @@ public class Robot{
     boolean ready = false;
     String name;
     String colour;
-    // List<ICard> hand;
     
     public Robot(){
     }
@@ -199,8 +196,4 @@ public class Robot{
     public boolean isReady(){
         return this.ready;
     }
-
-    // public void getHand(Deck deck){
-    //    this.hand = deck.getHand(9-this.getHealth());
-    // }
 }

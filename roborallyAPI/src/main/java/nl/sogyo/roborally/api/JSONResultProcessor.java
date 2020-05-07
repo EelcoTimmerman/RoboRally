@@ -7,6 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import nl.sogyo.roborally.domain.*;
+import nl.sogyo.roborally.domain.cards.ICard;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.*;
 
@@ -16,10 +17,18 @@ public class JSONResultProcessor {
     public String createBoardResponse(Roborally roborally){
         Board board = roborally.getBoard();
         JSONArray squares = createJSONBoard(board);
-
         JSONObject response = new JSONObject();
         response.put("messagetype", "boardstate");
         response.put("body", squares);
+        return response.toJSONString();
+    }
+
+    public String createCardsResponse(Roborally roborally, Robot robot){
+        List<ICard> drawNewHand = roborally.getHandOfCards(robot);
+        JSONArray cards = createJSONCards(drawNewHand);
+        JSONObject response = new JSONObject();
+        response.put("messagetype", "drawncards");
+        response.put("body", cards);
         return response.toJSONString();
     }
 
@@ -36,6 +45,14 @@ public class JSONResultProcessor {
         return response.toJSONString();
     }
  
+    private JSONArray createJSONCards(List<ICard> cards){
+        JSONArray jsonCards = new JSONArray();
+        for(ICard card : cards){
+            jsonCards.add(card);
+        }
+        return jsonCards;
+    }
+
     private JSONArray createJSONBoard(Board board){
         JSONArray jsonSquares = new JSONArray();
         ArrayList<ArrayList<Square>> boardSquares = board.getBoard();

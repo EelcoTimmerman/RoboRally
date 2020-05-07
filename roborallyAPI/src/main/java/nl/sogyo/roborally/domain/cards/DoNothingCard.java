@@ -13,4 +13,9 @@ public class DoNothingCard implements ICard {
     public int getSpeed(){
         return 0;
     }
+
+    @Override
+    public String getName(){
+        return "DoNothingCard";
+    }
 }

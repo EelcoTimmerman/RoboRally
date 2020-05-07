@@ -12,10 +12,11 @@ public class Roborally{
 
     List<Robot> robots = new ArrayList<Robot>();
     Board board;
-    Deck deck;
+    Deck deck = new Deck();
     
     public Roborally(){
         this.board = new Board("ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*CH-x");
+        deck.createDeck();
     }
 
     public Roborally(Robot robot){
@@ -91,5 +92,12 @@ public class Roborally{
         this.robots.remove(robot);
     }
 
- 
+    public List<ICard> getHandOfCards(Robot robot){
+       List<ICard> hand = this.deck.getHand(9-robot.getHealth());
+       return hand;
+    }
+
+    public Deck getDeck(){
+        return this.deck;
+    }
 }

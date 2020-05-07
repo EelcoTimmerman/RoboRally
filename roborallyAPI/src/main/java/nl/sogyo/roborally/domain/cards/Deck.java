@@ -2,7 +2,6 @@ package nl.sogyo.roborally.domain.cards;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 
 public class Deck {
@@ -19,7 +18,6 @@ public class Deck {
     public void createDeck(){
         cardsInDeck = new ArrayList<ICard>();
         ClassLoader classLoader = new Deck().getClass().getClassLoader();
-        // Deck.getResourceAsStream("roborallyAPI\src\main\resources\TextDeck.txt")
         File file = new File(classLoader.getResource("TextDeck.txt").getFile());
         try{
             Scanner sc = new Scanner(file);
