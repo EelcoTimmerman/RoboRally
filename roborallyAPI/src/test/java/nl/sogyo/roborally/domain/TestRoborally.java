@@ -392,7 +392,85 @@ public class TestRoborally {
         roborally.playRoundIfAllRobotsReady();
         assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 1);
     }
-    
+
+    @Test
+    public void testRobotTurningLeftOnRotatingConveyorBelt(){
+        String boardString = "ES-X*CSN-X*||*CSE-X*CSN-X*||*ES-X*CSN-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(0, 1, Direction.EAST);
+        Card card = new DoNothingCard();
+        robot.program(card);
+        Roborally roborally = new Roborally(board, robot);
+        roborally.playRoundIfAllRobotsReady();
+        assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 1);
+        assert(robot.getOrientation() == Direction.NORTH);
+    }
+
+    @Test
+    public void testRobotTurningRightOnRotatingConveyorBelt(){
+        String boardString = "ES-X*CSS-X*||*CSE-X*CSS-X*||*ES-X*CSS-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(0, 1, Direction.EAST);
+        Card card = new DoNothingCard();
+        robot.program(card);
+        Roborally roborally = new Roborally(board, robot);
+        roborally.playRoundIfAllRobotsReady();
+        assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 1);
+        assert(robot.getOrientation() == Direction.SOUTH);
+    }
+
+    @Test
+    public void testRobotTurningReverseOnRotatingConveyorBelt(){
+        String boardString = "CSE-X*CSW-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(0, 0, Direction.EAST);
+        Card card = new DoNothingCard();
+        robot.program(card);
+        Roborally roborally = new Roborally(board, robot);
+        roborally.playRoundIfAllRobotsReady();
+        assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 0);
+        assert(robot.getOrientation() == Direction.WEST);
+    }
+
+    @Test
+    public void testRobotNotTurningOnRotatingConveyorBelt(){
+        String boardString = "ES-X*CSN-X*||*CSE-X*CSN-X*||*ES-X*CSN-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(1, 2, Direction.WEST);
+        Card card = new DoNothingCard();
+        robot.program(card);
+        Roborally roborally = new Roborally(board, robot);
+        roborally.playRoundIfAllRobotsReady();
+        assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 1);
+        assert(robot.getOrientation() == Direction.WEST);
+    }
+
+    @Test
+    public void testRobotNotTurningOnConveyorBelt(){
+    String boardString = "CSE-X*CSE-X";
+    Board board = new Board(boardString);
+    Robot robot = new Robot(0, 0, Direction.NORTH);
+    Card card = new DoNothingCard();
+    robot.program(card);
+    Roborally roborally = new Roborally(board, robot);
+    roborally.playRoundIfAllRobotsReady();
+    assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 0);
+    assert(robot.getOrientation() == Direction.NORTH);
+    }
+
+    @Test
+    public void testRobotNotTurningWhenPushedOffConveyorBelt(){
+        String boardString = "CSE-X*ES-X";
+        Board board = new Board(boardString);
+        Robot robot = new Robot(0, 0, Direction.NORTH);
+        Card card = new DoNothingCard();
+        robot.program(card);
+        Roborally roborally = new Roborally(board, robot);
+        roborally.playRoundIfAllRobotsReady();
+        assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 0);
+        assert(robot.getOrientation() == Direction.NORTH);    
+    }
+
     @Test
     public void testGearReverse(){
         String boardString = "180-X*ES-X*||*ES-X*ES-X";
