@@ -10,7 +10,7 @@ public class Robot{
 
     Direction orientation = Direction.NORTH;;
     ICard card = new DoNothingCard();
-    int health;
+    int health = 9;
     int xCoordinate;
     int yCoordinate;
     int respawnX;
@@ -24,7 +24,6 @@ public class Robot{
 
     public Robot(String name, int colourNr){
         this.name = name;
-        this.health = 9;
         if(colourNr < 6) this.colour = colours[colourNr];
         else this.colour = "orange";
     }
@@ -34,7 +33,6 @@ public class Robot{
         this.respawnX = xCoordinate;
         this.yCoordinate = yCoordinate;
         this.respawnY = yCoordinate;
-        this.health = 9;
     }
 
     public Robot(int xCoordinate, int yCoordinate, Direction orientation){
@@ -43,7 +41,6 @@ public class Robot{
         this.yCoordinate = yCoordinate;
         this.respawnY = yCoordinate;
         this.orientation = orientation;
-        this.health = 9;
     }
 
     public String getColour() {

@@ -5,31 +5,32 @@ import java.io.IOException;
 import java.util.*;
 
 public class Deck {
-    final List<ICard> start_deck = new ArrayList<ICard>();
-    List<ICard> discardPileForThisRound = new ArrayList<ICard>();
     List<ICard> cardsInDeck;
 
     public Deck(){
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        File file = new File(classLoader.getResource("TextDeck.txt").getFile());
-        try{
-            Scanner sc = new Scanner(file);
-            while(sc.hasNextLine())
-                addCardToDeck(sc.nextLine());
-            sc.close();
-        }catch(IOException e){
-            System.out.println("File not found.");
-        }
-        this.cardsInDeck  = this.start_deck;
+        this.cardsInDeck = this.createDeck();
     }
     
     public List<ICard> getDeck(){
         return this.cardsInDeck;
     }
 
-    public void createDeck(){this.cardsInDeck = this.start_deck;}
+    private List<ICard> createDeck(){
+        List<ICard> cardsInDeck = new ArrayList<ICard>();
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        File file = new File(classLoader.getResource("TextDeck.txt").getFile());
+        try{
+            Scanner sc = new Scanner(file);
+            while(sc.hasNextLine())
+                cardsInDeck = addCardToDeck(cardsInDeck, sc.nextLine());
+            sc.close();
+        }catch(IOException e){
+            System.out.println("File not found.");
+        }
+        return cardsInDeck;
+    }
 
-    private void addCardToDeck(String line){
+    private List<ICard> addCardToDeck(List<ICard> cards, String line){
         int speed = Integer.parseInt(line.split(" ")[0]);
         String type = line.split(" ", 2)[1];
         ICard card;
@@ -43,45 +44,48 @@ public class Deck {
             case "Move 3": card = new MoveThreeCard(speed); break;
             default: card = null;
         }
-        this.start_deck.add(card);
+        cards.add(card);
+        return cards;
     }
        
     public List<ICard> getHand(int damage){
         List<ICard> hand = new ArrayList<ICard>();
-        for(int i = 0; i < 9;i++){       
-            if(i<9-damage) hand.add(getRandomCard());
-            else hand.add(new DoNothingCard());
+        for(int i = 0; i < (9-damage);i++){       
+            hand.add(getRandomCard());
         }
         return hand;
     }
 
     private ICard getRandomCard(){
-        if(this.cardsInDeck.isEmpty()) createNewDeckMinusDrawnCards();
         Random rand = new Random();
         int cardIndex = rand.nextInt(cardsInDeck.size());
         ICard randCard = this.cardsInDeck.get(cardIndex);
         this.cardsInDeck.remove(randCard);
-        this.discardPileForThisRound.add(randCard);
         return randCard;
     }
 
-    private void createNewDeckMinusDrawnCards(){
-        this.createDeck();
-        for(ICard card1: this.discardPileForThisRound)
-            removeCardFromDeck(card1);
+    public void resetDeck(){
+        this.cardsInDeck = this.createDeck();
     }
 
-    private void removeCardFromDeck(ICard discardedCard){
-        for(ICard deckCard: this.cardsInDeck)
-            if(deckCard.equals(discardedCard))
-                this.cardsInDeck.remove(deckCard);
-    }
+    // private void createNewDeckMinusDrawnCards(){
+    //     this.cardsInDeck  = this.start_deck; // hier zit de fout, cardsInDeck/start_deck blijft 0
+    //     this.createDeck();
+    //     for(ICard card1: this.discardPileForThisRound)
+    //         removeCardFromDeck(card1);
+    // }
 
-	public void resetDiscardPile(){
-        this.discardPileForThisRound.clear();
-    }
+    // private void removeCardFromDeck(ICard discardedCard){
+    //     for(ICard deckCard: this.cardsInDeck)
+    //         if(deckCard.equals(discardedCard))
+    //             this.cardsInDeck.remove(deckCard);
+    // }
+
+	// public void resetDiscardPile(){
+    //     this.discardPileForThisRound.clear();
+    // }
     
-    public List<ICard> getDiscardPile(){
-        return this.discardPileForThisRound;
-    }
+    // public List<ICard> getDiscardPile(){
+    //     return this.discardPileForThisRound;
+    // }
 }

@@ -16,7 +16,6 @@ public class Roborally{
     
     public Roborally(){
         this.board = new Board("ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*CH-x");
-        deck.createDeck();
     }
 
     public Roborally(Robot robot){
@@ -68,7 +67,7 @@ public class Roborally{
         activateBoardElements(GearRight.class);
         activateBoardElements(GearLeft.class);
         activateBoardElements(Checkpoint.class);
-        this.deck.resetDiscardPile();
+        this.getDeck().resetDeck();
     }
 
     public void program(int cardnr){
