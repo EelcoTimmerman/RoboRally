@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles';
 
 interface Card{
     name: string,
-    speed: string
+    speed: number
 }
 
 interface allCards{
@@ -45,7 +45,7 @@ function showcard(card: Card, index: number){
   const classes = useStyles();
   return (
     <div>
-      <div key={index} className={classes.paper}>{card.type}</div>
+      <div key={index} className={classes.paper}>{card.name}</div>
     </div>
   )
 }
