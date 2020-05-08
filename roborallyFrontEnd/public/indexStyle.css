@@ -25,6 +25,14 @@ html {
   font-size: 30px;
 }
 
+.card{
+  text-align: center;
+  width: 40px;
+  padding-top: 10px;
+  border-style: dashed;
+  border-color: darkgray;
+}
+
 .inner-square {
   width: 70px;
   height: 70px;
