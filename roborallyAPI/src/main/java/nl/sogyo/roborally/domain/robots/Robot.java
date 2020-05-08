@@ -24,6 +24,7 @@ public class Robot{
 
     public Robot(String name, int colourNr){
         this.name = name;
+        this.health = 9;
         if(colourNr < 6) this.colour = colours[colourNr];
         else this.colour = "orange";
     }

@@ -1,6 +1,8 @@
 package nl.sogyo.roborally.domain;
 
 import nl.sogyo.roborally.domain.cards.Deck;
+import nl.sogyo.roborally.domain.robots.Robot;
+
 import org.junit.Test;
 
 import nl.sogyo.roborally.domain.cards.*;
@@ -12,9 +14,8 @@ public class TestDeck {
     public void TestCreateDeck(){
         Deck deck = new Deck();
         deck.createDeck();
-        List<ICard> cardsInHand = deck.getHand(0);
-        assert(cardsInHand.size() == 9);
-        assert(deck.getSize() == 84-9);
+        System.out.print(deck.getDeck().size());
+        assert(deck.getDeck().size() == 84);
     }
 
     @Test
@@ -23,13 +24,33 @@ public class TestDeck {
         deck.createDeck();
         List<ICard> cardsInHand = deck.getHand(0);
         assert(cardsInHand.size() == 9);
-        assert(deck.getSize() == 84-9);
+        assert(deck.getDeck().size() == 84-9);
     }
 
     @Test
-    public void TestCreateDeck2(){
+    public void TestCreateDiscardPile(){
         Deck deck = new Deck();
         deck.createDeck();
-        assert(deck.getSize() == 84);
+        assert(deck.getDiscardPile().isEmpty());
+    }
+
+    @Test
+    public void TestResetDiscardPile(){
+        Deck deck = new Deck();
+        deck.createDeck();
+        List<ICard> cardsInHand = deck.getHand(0);
+        assert(cardsInHand.size() == 9);
+        assert(deck.getDiscardPile().size() == 9);
+    }
+
+    @Test
+    public void TestResetDiscardPile2(){
+        Robot robot = new Robot();
+        Roborally roborally = new Roborally(robot);
+        Deck deck = roborally.getDeck();
+        assert(deck.getDiscardPile().size() == 0);
+        List<ICard> cardsInHand = roborally.getHandOfCards(robot);
+        assert(cardsInHand.size() == 9);
+        // assert(deck.getDiscardPile().size() == 9);
     }
 }

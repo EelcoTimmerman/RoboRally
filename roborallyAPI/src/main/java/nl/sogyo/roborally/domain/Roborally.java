@@ -68,6 +68,7 @@ public class Roborally{
         activateBoardElements(GearRight.class);
         activateBoardElements(GearLeft.class);
         activateBoardElements(Checkpoint.class);
+        this.deck.resetDiscardPile();
     }
 
     public void program(int cardnr){

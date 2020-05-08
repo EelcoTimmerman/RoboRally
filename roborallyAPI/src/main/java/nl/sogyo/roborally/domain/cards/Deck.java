@@ -5,31 +5,29 @@ import java.io.IOException;
 import java.util.*;
 
 public class Deck {
+    final List<ICard> start_deck = new ArrayList<ICard>();
+    List<ICard> discardPileForThisRound = new ArrayList<ICard>();
     List<ICard> cardsInDeck;
 
-    public int getSize(){
-        return cardsInDeck.size();
-    }
-
-    public List<ICard> getDeck(){
-        return this.cardsInDeck;
-    }
-
-    public void createDeck(){
-        cardsInDeck = new ArrayList<ICard>();
-        ClassLoader classLoader = new Deck().getClass().getClassLoader();
+    public Deck(){
+        ClassLoader classLoader = this.getClass().getClassLoader();
         File file = new File(classLoader.getResource("TextDeck.txt").getFile());
         try{
             Scanner sc = new Scanner(file);
-            while(sc.hasNextLine()){
+            while(sc.hasNextLine())
                 addCardToDeck(sc.nextLine());
-            };
             sc.close();
         }catch(IOException e){
             System.out.println("File not found.");
         }
-
+        this.cardsInDeck  = this.start_deck;
     }
+    
+    public List<ICard> getDeck(){
+        return this.cardsInDeck;
+    }
+
+    public void createDeck(){this.cardsInDeck = this.start_deck;}
 
     private void addCardToDeck(String line){
         int speed = Integer.parseInt(line.split(" ")[0]);
@@ -45,23 +43,45 @@ public class Deck {
             case "Move 3": card = new MoveThreeCard(speed); break;
             default: card = null;
         }
-        cardsInDeck.add(card);
+        this.start_deck.add(card);
     }
        
     public List<ICard> getHand(int damage){
         List<ICard> hand = new ArrayList<ICard>();
         for(int i = 0; i < 9;i++){       
             if(i<9-damage) hand.add(getRandomCard());
-            else  hand.add(new DoNothingCard());
+            else hand.add(new DoNothingCard());
         }
         return hand;
     }
 
     private ICard getRandomCard(){
+        if(this.cardsInDeck.isEmpty()) createNewDeckMinusDrawnCards();
         Random rand = new Random();
         int cardIndex = rand.nextInt(cardsInDeck.size());
         ICard randCard = this.cardsInDeck.get(cardIndex);
-        this.cardsInDeck.remove(cardIndex);
+        this.cardsInDeck.remove(randCard);
+        this.discardPileForThisRound.add(randCard);
         return randCard;
+    }
+
+    private void createNewDeckMinusDrawnCards(){
+        this.createDeck();
+        for(ICard card1: this.discardPileForThisRound)
+            removeCardFromDeck(card1);
+    }
+
+    private void removeCardFromDeck(ICard discardedCard){
+        for(ICard deckCard: this.cardsInDeck)
+            if(deckCard.equals(discardedCard))
+                this.cardsInDeck.remove(deckCard);
+    }
+
+	public void resetDiscardPile(){
+        this.discardPileForThisRound.clear();
+    }
+    
+    public List<ICard> getDiscardPile(){
+        return this.discardPileForThisRound;
     }
 }
