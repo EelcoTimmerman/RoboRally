@@ -13,7 +13,7 @@ export function PlayerList({ players }: playerlistprops){
         position: "absolute",
         top: "0px",
         right: "0px",
-        minWidth: "300px",
+        minWidth: "350px",
     }
     return (
         <div style={style}>
@@ -28,7 +28,8 @@ function createPlayerEntry(robot: Robot){
     };
     let readytext = "";
     if(robot.ready) readytext = " is ready";
-    else readytext = " is still programming";
+    else readytext = " is programming, and active";
+    if(robot.status == "Inactive") readytext = " has powered down.";
     return (
         <p style={style} key={robot.name}>
             {robot.name}({robot.hitpoints}){readytext}

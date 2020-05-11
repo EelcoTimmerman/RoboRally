@@ -35,6 +35,13 @@ public class JSONResultProcessor {
         response.put("body", robots);
         return response.toJSONString();
     }
+
+    public String createPowerstatusResponse(Robot robot){
+        JSONObject response = new JSONObject();
+        response.put("messagetype", "powerstatus");
+        response.put("body", robot.getActivitylevel().toString());
+        return response.toJSONString();
+    }
  
     private JSONArray createJSONBoard(Board board){
         JSONArray jsonSquares = new JSONArray();
@@ -70,6 +77,7 @@ public class JSONResultProcessor {
         result.put("yCoordinate", robot.getYCoordinate());
         result.put("ready", robot.isReady());
         result.put("hitpoints", robot.getHealth());
+        result.put("status", robot.getActivitylevel().toString());
         return result;
     }
 }

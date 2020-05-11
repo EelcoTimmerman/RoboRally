@@ -46,7 +46,7 @@ public class Roborally{
     public void playRoundIfAllRobotsReady(){
         boolean robotsReady = true;
         for(Robot robot : robots){
-            robotsReady &= robot.isReady();
+            robotsReady &= (robot.isReady() || robot.isInactive());
         }
         if(robotsReady) playRound();
     }
@@ -57,6 +57,12 @@ public class Roborally{
             Card card = robot.getCard();
             card.doCardAction(robot, board, robots);
             robot.unready();
+            if(robot.isInactive()){
+                robot.activate();
+            }
+            if(robot.isPoweringDown()){
+                robot.shutDown();
+            }
         }
         //This keeps the order of the robots consistent for the frontend.
         robots.sort(Robot.COMPARE_BY_NAME);

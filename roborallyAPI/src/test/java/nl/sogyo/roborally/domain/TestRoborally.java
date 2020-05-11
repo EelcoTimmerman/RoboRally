@@ -761,4 +761,35 @@ public class TestRoborally {
 
     }
 
+    @Test
+    public void testRobotPoweredDownDoesNotMove(){
+        Robot robot1 = new Robot(0,1, Direction.EAST);
+        Robot robot2 = new Robot(2,2, Direction.WEST);
+        Roborally roborally = new Roborally("ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*CH-x");
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        robot1.program(new MoveOneCard());
+        robot2.program(new MoveOneCard());
+        robot1.turnOnOrOff();
+        roborally.playRoundIfAllRobotsReady();
+        robot2.program(new MoveOneCard());
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(0, robot2.getXCoordinate());
+        assertEquals(1, robot1.getXCoordinate());
+    }
+
+    @Test
+    public void testRobotReactivates(){
+        Robot robot = new Robot(0,0, Direction.EAST);
+        Roborally roborally = new Roborally("ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*CH-x");
+        robot.program(new MoveOneCard());
+        robot.turnOnOrOff();
+        roborally.addRobot(robot);
+        roborally.playRoundIfAllRobotsReady();
+        roborally.playRoundIfAllRobotsReady();
+        robot.program(new MoveOneCard());
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(2, robot.getXCoordinate());
+    }
+
 }
