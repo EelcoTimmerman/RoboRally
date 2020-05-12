@@ -12,18 +12,18 @@ public class Board{
 	public static Board createSimpleBoard(){
 		Board simpleBoard = new Board();
 		Square square00 = new EmptySquare();
-		Square square01 = new EmptySquare();
 		Square square10 = new EmptySquare();
+		Square square01 = new EmptySquare();
 		Square square11 = new EmptySquare();
 		square00.eastWall = true;
 		square00.southWall = true;
-		square01.westWall = true;
-		square10.northWall = true;
+		square10.westWall = true;
+		square01.northWall = true;
 		ArrayList<Square> row1 = new ArrayList<>();
 		ArrayList<Square> row2 = new ArrayList<>();
 		row1.add(square00);
-		row1.add(square01);
-		row2.add(square10);
+		row1.add(square10);
+		row2.add(square01);
 		row2.add(square11);
 		simpleBoard.addRow(row1);
 		simpleBoard.addRow(row2);
@@ -35,16 +35,16 @@ public class Board{
 		//square10 needs a northwall
 		Board wrongWallsBoard = new Board();
 		Square square00 = new EmptySquare();
-		Square square01 = new EmptySquare();
 		Square square10 = new EmptySquare();
+		Square square01 = new EmptySquare();
 		Square square11 = new EmptySquare();
 		square00.southWall = true;
-		square01.westWall = true;
+		square10.westWall = true;
 		ArrayList<Square> row1 = new ArrayList<>();
 		ArrayList<Square> row2 = new ArrayList<>();
 		row1.add(square00);
-		row1.add(square01);
-		row2.add(square10);
+		row1.add(square10);
+		row2.add(square01);
 		row2.add(square11);
 		wrongWallsBoard.addRow(row1);
 		wrongWallsBoard.addRow(row2);
@@ -58,17 +58,103 @@ public class Board{
 		Square square10 = new EmptySquare();
 		square00.eastWall = true;
 		square00.southWall = true;
-		square01.westWall = true;
-		square10.northWall = true;
+		square10.westWall = true;
+		square01.northWall = true;
 		ArrayList<Square> row1 = new ArrayList<>();
 		ArrayList<Square> row2 = new ArrayList<>();
 		row1.add(square00);
-		row1.add(square01);
-		row2.add(square10);
+		row1.add(square10);
+		row2.add(square01);
 		simpleBoard.addRow(row1);
 		simpleBoard.addRow(row2);
 		return simpleBoard;
+	}
 
+	public static Board createLaserTestBoard(){
+		Board laserTestBoard = new Board();
+		Square square00 = new EmptySquare();
+		Square square10 = new EmptySquare();
+		Square square01 = new EmptySquare();
+		Square square11 = new EmptySquare();
+		Square square02 = new EmptySquare();
+		Square square12 = new EmptySquare();
+
+		square00.northWall = true;
+
+		square00.southWall = true;
+		square01.northWall = true;
+		
+		square01.westWall = true;
+
+		square10.southWall = true;
+		square11.northWall = true;
+
+		square11.southWall = true;
+		square12.northWall = true;
+		
+		ArrayList<Square> row1 = new ArrayList<>();
+		row1.add(square00);
+		row1.add(square10);
+		ArrayList<Square> row2 = new ArrayList<>();
+		row2.add(square01);
+		row2.add(square11);
+		ArrayList<Square> row3 = new ArrayList<>();
+		row3.add(square02);
+		row3.add(square12);
+		laserTestBoard.addRow(row1);
+		laserTestBoard.addRow(row2);
+		laserTestBoard.addRow(row3);
+
+		Laser laser1 = new Laser(0,0, Direction.SOUTH, 1);
+		Laser laser2 = new Laser(0,1, Direction.EAST, 1);
+		Laser laser3 = new Laser(1,1, Direction.NORTH, 1);
+
+		laserTestBoard.addLaser(laser1);
+		laserTestBoard.addLaser(laser2);
+		laserTestBoard.addLaser(laser3);
+
+		return laserTestBoard;
+	}
+
+	public static Board createFaultyLaserTestBoard(){
+		Board faultyLaserTestBoard = new Board();
+		Square square00 = new EmptySquare();
+		Square square10 = new EmptySquare();
+		Square square01 = new EmptySquare();
+		Square square11 = new EmptySquare();
+		Square square02 = new EmptySquare();
+		Square square12 = new EmptySquare();
+
+
+		square00.southWall = true;
+		square01.northWall = true;
+
+		square10.southWall = true;
+		square11.northWall = true;
+
+		
+		ArrayList<Square> row1 = new ArrayList<>();
+		row1.add(square00);
+		row1.add(square10);
+		ArrayList<Square> row2 = new ArrayList<>();
+		row2.add(square01);
+		row2.add(square11);
+		ArrayList<Square> row3 = new ArrayList<>();
+		row3.add(square02);
+		row3.add(square12);
+		faultyLaserTestBoard.addRow(row1);
+		faultyLaserTestBoard.addRow(row2);
+		faultyLaserTestBoard.addRow(row3);
+
+		Laser laser1 = new Laser(0,0, Direction.SOUTH, 1);
+		Laser laser2 = new Laser(0,1, Direction.EAST, 1);
+		Laser laser3 = new Laser(1,2, Direction.NORTH, 1);
+
+		faultyLaserTestBoard.addLaser(laser1);
+		faultyLaserTestBoard.addLaser(laser2);
+		faultyLaserTestBoard.addLaser(laser3);
+
+		return faultyLaserTestBoard;		
 	}
 
 /** This is an example boardstring:
@@ -96,6 +182,10 @@ public class Board{
 
 	public void addRow(ArrayList<Square> row){
 		this.board.add(row);
+	}
+
+	public void addLaser(Laser laser){
+		this.lasers.add(laser);
 	}
 
 	public boolean wallsAreConsistent(){
@@ -134,7 +224,15 @@ public class Board{
 			consistent &= southNeighboursHaveConsistenVerticalWalls(this.getSquare(xCoordinate, yCoordinate).hasWallAt(Direction.SOUTH), xCoordinate, yCoordinate + 1);
 		}
 		return consistent;
+	}
 
+	public boolean allLasersOnWalls(){
+		for(Laser laser : lasers){
+			Square laserSquare = this.getSquare(laser.getxCoordinate(), laser.getyCoordinate());
+			boolean laserIsOnWall = laserSquare.hasWallAt(laser.getOrientation().getReverse());
+			if(!laserIsOnWall) return false;
+		}
+		return true;
 	}
 
 	public Board(String boardString){

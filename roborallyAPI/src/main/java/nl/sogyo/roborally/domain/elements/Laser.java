@@ -1,19 +1,22 @@
 package nl.sogyo.roborally.domain.elements;
 
 import nl.sogyo.roborally.domain.Direction;
-import nl.sogyo.roborally.domain.squares.Square;
 
 public class Laser{
 
-    Square position;
+    int xCoordinate;
+    int yCoordinate;
     Direction orientation;
     int firepower;
 
     public Laser(){
     }
 
-    public Square getPosition(){
-        return position;
+    public Laser(int xCoordinate, int yCoordinate, Direction orientation, int firepower){
+        this.xCoordinate = xCoordinate;
+        this.yCoordinate = yCoordinate;
+        this.orientation = orientation;
+        this.firepower = firepower;
     }
 
     public Direction getOrientation(){
@@ -22,5 +25,13 @@ public class Laser{
 
     public int getFirepower(){
         return firepower;
+    }
+    
+    public int getxCoordinate() {
+        return xCoordinate;
+    }
+
+    public int getyCoordinate() {
+        return yCoordinate;
     }
 }

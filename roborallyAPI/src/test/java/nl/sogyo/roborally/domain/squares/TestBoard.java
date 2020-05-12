@@ -144,11 +144,29 @@ public class TestBoard{
         Board board = Board.createSimpleBoard();
         assert(board.isRectangular());
     }
-
     
     @Test
     public void testRectangularBoardFalse(){
         Board board = Board.createNonRectangularBoard();
         assert(!board.isRectangular());
+    }
+
+    @Test
+    public void testLaserTestBoard(){
+        Board board = Board.createLaserTestBoard();
+        assert(board.isRectangular());
+        assert(board.wallsAreConsistent());
+    }
+
+    @Test
+    public void testAllLasersOnWallTrue(){
+        Board board = Board.createLaserTestBoard();
+        assert(board.allLasersOnWalls());
+    }
+
+    @Test
+    public void testAllLasersOnWallFalse(){
+        Board board = Board.createFaultyLaserTestBoard();
+        assert(!board.allLasersOnWalls());
     }
 }
