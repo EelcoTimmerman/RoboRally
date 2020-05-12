@@ -5,29 +5,31 @@ import java.io.IOException;
 import java.util.*;
 
 public class Deck {
-    List<ICard> cardsInDeck;
+   // private final List<ICard> initDeck;
+    List<ICard> cardsInDeck = new ArrayList<ICard>();
+    List<ICard> discardPile= new ArrayList<ICard>();
+     
 
     public Deck(){
-        this.cardsInDeck = this.createDeck();
+//        this.initDeck = new ArrayList<ICard>();
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        File file = new File(classLoader.getResource("TextDeck.txt").getFile());
+        try{
+            Scanner sc = new Scanner(file);
+            while(sc.hasNextLine())
+                addCardToDeck(cardsInDeck, sc.nextLine());
+            sc.close();
+        }catch(IOException e){
+            System.out.println("File not found.");
+        }
     }
     
     public List<ICard> getDeck(){
         return this.cardsInDeck;
     }
 
-    private List<ICard> createDeck(){
-        List<ICard> cardsInDeck = new ArrayList<ICard>();
-        ClassLoader classLoader = this.getClass().getClassLoader();
-        File file = new File(classLoader.getResource("TextDeck.txt").getFile());
-        try{
-            Scanner sc = new Scanner(file);
-            while(sc.hasNextLine())
-                cardsInDeck = addCardToDeck(cardsInDeck, sc.nextLine());
-            sc.close();
-        }catch(IOException e){
-            System.out.println("File not found.");
-        }
-        return cardsInDeck;
+    public List<ICard> getDiscardPile(){
+        return this.discardPile;
     }
 
     private List<ICard> addCardToDeck(List<ICard> cards, String line){
@@ -57,6 +59,7 @@ public class Deck {
     }
 
     private ICard getRandomCard(){
+        if(this.cardsInDeck.isEmpty()) replenishDeckWithDiscardPile();
         Random rand = new Random();
         int cardIndex = rand.nextInt(cardsInDeck.size());
         ICard randCard = this.cardsInDeck.get(cardIndex);
@@ -64,16 +67,25 @@ public class Deck {
         return randCard;
     }
 
-    public void resetDeck(){
-        this.cardsInDeck = this.createDeck();
-    }
-
-    // private void createNewDeckMinusDrawnCards(){
-    //     this.cardsInDeck  = this.start_deck; // hier zit de fout, cardsInDeck/start_deck blijft 0
-    //     this.createDeck();
-    //     for(ICard card1: this.discardPileForThisRound)
-    //         removeCardFromDeck(card1);
+    // public List<ICard> resetDeck(){
+    //     this.cardsInDeck.clear();
+    //     for(ICard card:this.initDeck){
+    //         this.cardsInDeck.add(card);
+    //     }
+    //     return this.cardsInDeck;
     // }
+
+    private void replenishDeckWithDiscardPile(){
+        if(this.discardPile.isEmpty()){
+            throw new RuntimeException("Trying to obtain cards from an empty deck..");
+        }
+        for(ICard card1: this.discardPile){
+            this.cardsInDeck.add(card1);
+        }
+        this.discardPile.clear();
+        
+
+    }
 
     // private void removeCardFromDeck(ICard discardedCard){
     //     for(ICard deckCard: this.cardsInDeck)
@@ -81,11 +93,8 @@ public class Deck {
     //             this.cardsInDeck.remove(deckCard);
     // }
 
-	// public void resetDiscardPile(){
-    //     this.discardPileForThisRound.clear();
-    // }
+	public void resetDiscardPile(){
+        this.discardPile.clear();
+    }
     
-    // public List<ICard> getDiscardPile(){
-    //     return this.discardPileForThisRound;
-    // }
 }

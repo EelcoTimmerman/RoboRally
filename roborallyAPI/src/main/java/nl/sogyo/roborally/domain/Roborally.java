@@ -52,13 +52,22 @@ public class Roborally{
         if(robotsReady) playRound();
     }
 
+    public void DiscardAllCards( ){
+        for(Robot robot : robots){
+            robot.addHandToDiscardPile(deck);
+        }
+    }
+
     private void playRound(){
         robots.sort(Robot.COMPARE_BY_CARD);
         for(Robot robot : robots){
+            robot.getHand(deck);
             ICard card = robot.getCard();
             card.doCardAction(robot, board);
-            robot.unready();
+            robot.unready();         
         }
+
+
         //This keeps the order of the robots consistent for the frontend.
         robots.sort(Robot.COMPARE_BY_NAME);
 
@@ -67,7 +76,6 @@ public class Roborally{
         activateBoardElements(GearRight.class);
         activateBoardElements(GearLeft.class);
         activateBoardElements(Checkpoint.class);
-        this.getDeck().resetDeck();
     }
 
     public void program(int cardnr){
@@ -90,11 +98,6 @@ public class Roborally{
 
     public void removeRobot(Robot robot){
         this.robots.remove(robot);
-    }
-
-    public List<ICard> getHandOfCards(Robot robot){
-       List<ICard> hand = this.deck.getHand(9-robot.getHealth());
-       return hand;
     }
 
     public Deck getDeck(){

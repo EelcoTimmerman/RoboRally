@@ -1,12 +1,16 @@
 package nl.sogyo.roborally.domain.robots;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
+//import jdk.javadoc.internal.doclets.toolkit.resources.doclets;
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.*;
 
 public class Robot{
     private final String[] colours = {"green", "black", "purple", "blue", "red", "brown"};
+    List<ICard> hand = new ArrayList<ICard>();
 
     Direction orientation = Direction.NORTH;;
     ICard card = new DoNothingCard();
@@ -194,4 +198,21 @@ public class Robot{
     public boolean isReady(){
         return this.ready;
     }
+
+    public List<ICard> getHand(Deck deck){
+        this.hand = deck.getHand(9-getHealth());
+        return this.hand;
+    }
+    
+    public List<ICard> showHand(Deck deck){
+        return this.hand;
+    }
+
+    public void addHandToDiscardPile(Deck deck){
+        for(ICard card:this.hand){
+            deck.getDiscardPile().add(card);
+        }
+        this.hand.clear();
+    }
+
 }

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Square } from "./board/Square";
 import { Board } from "./board/Board";
-import { showCards, CardsInhand } from "./board/CardsInHand";
 import { Startscreen } from "./Startscreen";
 import { Robot } from "./Robot";
 import { incomingMessage } from "./incomingMessage";
 import { PlayerList } from "./PlayerList";
 import { Card } from "./board/Card";
+import { CardsInhand } from "./board/CardsInHand";
 
 export function App() {
     const [ board, setBoard ] = useState<Square[][] | undefined>(undefined);
@@ -47,12 +47,9 @@ export function App() {
 
             tempwebsocket.onmessage = function(event: WebSocketMessageEvent){
                 let message: incomingMessage = JSON.parse(event.data);
-                // console.log(message.body);
                 if(message.messagetype == "boardstate") setBoard(message.body);
                 else if(message.messagetype == "robots") setRobots(message.body);
-                else if(message.messagetype == "drawncards")setCards(message.body);
-                
-
+                else if(message.messagetype == "drawncards")setCards(message.body);              
             };
 
             tempwebsocket.onclose = function(event: WebSocketCloseEvent){

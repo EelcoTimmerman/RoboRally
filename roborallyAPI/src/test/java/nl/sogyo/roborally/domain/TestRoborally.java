@@ -465,13 +465,7 @@ public class TestRoborally {
         assert(robot.getRespawnXCoordinate() == 1 && robot.getRespawnYCoordinate() == 1);
     }
 
-    @Test
-    public void testCreateDeck(){
-        Roborally r = new Roborally();
-        Robot robot = new Robot(0,1, Direction.EAST);
-        List<ICard> hand = r.getHandOfCards(robot);
-        assert(hand.size() == 9);
-    }
+
 
     //Deze test werkt op dit moment niet, omdat we de volgorde van het uitvoeren van de zetten nog niet kunnen testen.
     //Zodra robots elkaar kunnen wegduwen, kan deze test weer aan.
