@@ -29,6 +29,7 @@ public class Robot{
     boolean ready = false;
     String name = "defaultname";
     String colour = "orange";
+    ActivityLevel activitylevel = ActivityLevel.ACTIVE;
     
     public Robot(){
     }
@@ -84,6 +85,10 @@ public class Robot{
         this.orientation = newOrientation;
     }
 
+    public ActivityLevel getActivitylevel() {
+        return activitylevel;
+    }
+
     public void takeDamage(int firepower){
         this.health -= firepower;
     }
@@ -122,27 +127,29 @@ public class Robot{
     }
 
     public void program(Card card){
-        this.card = card;
-        this.ready = true;
+        if(this.activitylevel != ActivityLevel.INACTIVE){
+            this.card = card;
+            this.ready = true;
+        }
     }
 
     public void program(int cardnr){
         switch(cardnr){
-            case 0: this.card = new MoveOneCard();
+            case 0: program(new MoveOneCard());
                     break;
-            case 1: this.card = new RotateRightCard();
+            case 1: program(new RotateRightCard());
                     break;
-            case 2: this.card = new RotateLeftCard();
+            case 2: program(new RotateLeftCard());
                     break;
-            case 3: this.card = new UTurnCard();
+            case 3: program(new UTurnCard());
                     break;
-            case 4: this.card = new MoveTwoCard();
+            case 4: program(new MoveTwoCard());
                     break;
-            case 5: this.card = new MoveThreeCard();
+            case 5: program(new MoveThreeCard());
                     break;
-            case 6: this.card = new MoveBackCard();
+            case 6: program(new MoveBackCard());
                     break;
-            case 7: this.card = new DoNothingCard();
+            case 7: program(new DoNothingCard());
                     break;
             default: throw new RuntimeException("Invalid cardnr");
         }
@@ -202,6 +209,24 @@ public class Robot{
 
     public boolean isReady(){
         return this.ready;
+    }
+
+    public boolean isInactive(){
+        return this.activitylevel == ActivityLevel.INACTIVE;
+    }
+
+    public boolean isPoweringDown(){
+        return this.activitylevel == ActivityLevel.POWERINGDOWN;
+    }
+
+    public void shutDown(){
+        this.activitylevel = ActivityLevel.INACTIVE;
+        this.card = new DoNothingCard();
+        this.health = 9;
+    }
+
+    public void activate(){
+        this.activitylevel = ActivityLevel.ACTIVE;
     }
 
     public void fireLaser(List<Robot> robots, Board board){
@@ -287,5 +312,10 @@ public class Robot{
                 }
             }
         }
+    }
+
+    public void turnOnOrOff(){
+        if(this.activitylevel == ActivityLevel.ACTIVE) this.activitylevel = ActivityLevel.POWERINGDOWN;
+        else if(this.activitylevel == ActivityLevel.POWERINGDOWN) this.activitylevel = ActivityLevel.ACTIVE;
     }
 }

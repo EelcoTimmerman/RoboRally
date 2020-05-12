@@ -6,4 +6,5 @@ export interface Robot{
     yCoordinate: number,
     ready: boolean,
     hitpoints: number,
+    status: string,
 }

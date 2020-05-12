@@ -6,11 +6,13 @@ import { Startscreen } from "./Startscreen";
 import { Robot } from "./Robot";
 import { incomingMessage } from "./incomingMessage";
 import { PlayerList } from "./PlayerList";
+import { Powerbutton } from "./Powerbutton";
 
 export function App() {
     const [ board, setBoard ] = useState<Square[][] | undefined>(undefined);
     const [ robots, setRobots ] = useState<Robot[] | undefined>(undefined);
-    const [websocket, setWebsocket] = useState<WebSocket | undefined>(undefined);    
+    const [ websocket, setWebsocket ] = useState<WebSocket | undefined>(undefined);
+    const [ powerstatus, setPowerstatus ] = useState("Active");
 
     let cards = showCards();
 
@@ -24,6 +26,7 @@ export function App() {
                     <button onClick={() => programCard(4)}>Forward x 2</button>
                     <button onClick={() => programCard(5)}>Forward x 3</button>
                     <button onClick={() => programCard(6)}>Backwards</button>
+                    <Powerbutton powerstatus={powerstatus} onClick={() => powerDown()}/>
                     <PlayerList players={robots}></PlayerList>
                     {cards}
                 </div>);
@@ -49,6 +52,7 @@ export function App() {
                 let message: incomingMessage = JSON.parse(event.data);
                 if(message.messagetype == "boardstate") setBoard(message.body);
                 else if(message.messagetype == "robots") setRobots(message.body);
+                else if(message.messagetype == "powerstatus") setPowerstatus(message.body);
             };
 
             tempwebsocket.onclose = function(event: WebSocketCloseEvent){
@@ -63,6 +67,15 @@ export function App() {
     async function programCard(cardnr:number){
         if (websocket !== undefined && websocket.readyState !== WebSocket.CLOSED) {
             websocket.send(cardnr.toString());
+        }
+        else{
+            console.log("No connection.");
+        }
+    }
+
+    async function powerDown(){
+        if (websocket !== undefined && websocket.readyState !== WebSocket.CLOSED) {
+            websocket.send("switchpower");
         }
         else{
             console.log("No connection.");
