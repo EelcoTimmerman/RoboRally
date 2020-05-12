@@ -14,20 +14,15 @@ public class Roborally{
     Board board;
     
     public Roborally(){
-        this.board = new Board("ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*CH-x");
+        this.board = Board.createTESTBOARD4X4();
     }
 
     public Roborally(Robot robot){
         this.robots.add(robot);
     }
 
-    public Roborally(String boardString){
-        this.board = new Board(boardString);
-    }
-
-    public Roborally(String boardString, Robot robot){
-        this.board = new Board(boardString);
-        this.robots.add(robot);
+    public Roborally(Board board){
+        this.board = board;
     }
 
     public Roborally(Board board, Robot robot){
