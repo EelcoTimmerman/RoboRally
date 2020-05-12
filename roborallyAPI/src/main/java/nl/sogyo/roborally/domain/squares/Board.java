@@ -5,8 +5,71 @@ import java.util.Arrays;
 import java.util.List;
 
 import nl.sogyo.roborally.domain.Direction;
+import nl.sogyo.roborally.domain.elements.Laser;
 
 public class Board{
+
+	public static Board createSimpleBoard(){
+		Board simpleBoard = new Board();
+		Square square00 = new EmptySquare();
+		Square square01 = new EmptySquare();
+		Square square10 = new EmptySquare();
+		Square square11 = new EmptySquare();
+		square00.eastWall = true;
+		square00.southWall = true;
+		square01.westWall = true;
+		square10.northWall = true;
+		ArrayList<Square> row1 = new ArrayList<>();
+		ArrayList<Square> row2 = new ArrayList<>();
+		row1.add(square00);
+		row1.add(square01);
+		row2.add(square10);
+		row2.add(square11);
+		simpleBoard.addRow(row1);
+		simpleBoard.addRow(row2);
+		return simpleBoard;
+	}
+
+	public static Board createWrongWalls(){
+		//square00 needs an eastwall
+		//square10 needs a northwall
+		Board wrongWallsBoard = new Board();
+		Square square00 = new EmptySquare();
+		Square square01 = new EmptySquare();
+		Square square10 = new EmptySquare();
+		Square square11 = new EmptySquare();
+		square00.southWall = true;
+		square01.westWall = true;
+		ArrayList<Square> row1 = new ArrayList<>();
+		ArrayList<Square> row2 = new ArrayList<>();
+		row1.add(square00);
+		row1.add(square01);
+		row2.add(square10);
+		row2.add(square11);
+		wrongWallsBoard.addRow(row1);
+		wrongWallsBoard.addRow(row2);
+		return wrongWallsBoard;
+	}
+
+	public static Board createNonRectangularBoard(){
+		Board simpleBoard = new Board();
+		Square square00 = new EmptySquare();
+		Square square01 = new EmptySquare();
+		Square square10 = new EmptySquare();
+		square00.eastWall = true;
+		square00.southWall = true;
+		square01.westWall = true;
+		square10.northWall = true;
+		ArrayList<Square> row1 = new ArrayList<>();
+		ArrayList<Square> row2 = new ArrayList<>();
+		row1.add(square00);
+		row1.add(square01);
+		row2.add(square10);
+		simpleBoard.addRow(row1);
+		simpleBoard.addRow(row2);
+		return simpleBoard;
+
+	}
 
 /** This is an example boardstring:
 * ES-NW*ES-NE*||*ES-WS*ES-X
@@ -19,6 +82,7 @@ public class Board{
 */ 
 
 	private ArrayList<ArrayList<Square>> board;
+	private ArrayList<Laser> lasers;
 
 	public ArrayList<ArrayList<Square>> getBoard(){
 		return this.board;
@@ -26,6 +90,51 @@ public class Board{
 
 
 	public Board(){
+		this.board = new ArrayList<>();
+		this.lasers = new ArrayList<>();
+	}
+
+	public void addRow(ArrayList<Square> row){
+		this.board.add(row);
+	}
+
+	public boolean wallsAreConsistent(){
+		boolean consistent = true;
+		for(int row = 0; row < this.getHeight(); row++){
+			consistent &= eastNeighboursHaveConsistentHorizontalWalls(this.getSquare(0, row).hasWallAt(Direction.EAST), 1, row);
+		}
+		for(int column = 0; column < this.getWidth(); column++){
+			consistent &= southNeighboursHaveConsistenVerticalWalls(this.getSquare(column, 0).hasWallAt(Direction.SOUTH), column, 1);
+		}
+		return consistent;
+	}
+
+	public boolean isRectangular(){
+		for(ArrayList<Square> row : this.board){
+			if(row.size() != this.getWidth()) return false;
+		}
+		return true;
+	}
+
+	private boolean eastNeighboursHaveConsistentHorizontalWalls(boolean mustHaveWestWall, int xCoordinate, int yCoordinate){
+		boolean stillOnBoard = this.board.get(0).size() > xCoordinate;
+		boolean consistent = true;
+		if(stillOnBoard){
+			consistent = this.getSquare(xCoordinate, yCoordinate).hasWallAt(Direction.WEST) == mustHaveWestWall;
+			consistent &= eastNeighboursHaveConsistentHorizontalWalls(this.getSquare(xCoordinate, yCoordinate).hasWallAt(Direction.EAST), xCoordinate + 1, yCoordinate);
+		}
+		return consistent;
+	}
+
+	private boolean southNeighboursHaveConsistenVerticalWalls(boolean mustHaveNorthWall, int xCoordinate, int yCoordinate){
+		boolean stillOnBoard = this.board.size() > yCoordinate;
+		boolean consistent = true;
+		if(stillOnBoard){
+			consistent = this.getSquare(xCoordinate, yCoordinate).hasWallAt(Direction.NORTH) == mustHaveNorthWall;
+			consistent &= southNeighboursHaveConsistenVerticalWalls(this.getSquare(xCoordinate, yCoordinate).hasWallAt(Direction.SOUTH), xCoordinate, yCoordinate + 1);
+		}
+		return consistent;
+
 	}
 
 	public Board(String boardString){

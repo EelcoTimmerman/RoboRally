@@ -126,4 +126,29 @@ public class TestBoard{
         ArrayList<ArrayList<Square>> list = board.getBoard();
         assertEquals(list.get(4).get(3), board.getSquare(3, 4));
     }
+
+    @Test
+    public void testWallConsistencyCheckTrue(){
+        Board board = Board.createSimpleBoard();
+        assert(board.wallsAreConsistent());
+    }
+
+    @Test
+    public void testWallConsistencyCheckFalse(){
+        Board board = Board.createWrongWalls();
+        assert(!board.wallsAreConsistent());
+    }
+
+    @Test
+    public void testRectangularBoardTrue(){
+        Board board = Board.createSimpleBoard();
+        assert(board.isRectangular());
+    }
+
+    
+    @Test
+    public void testRectangularBoardFalse(){
+        Board board = Board.createNonRectangularBoard();
+        assert(!board.isRectangular());
+    }
 }
