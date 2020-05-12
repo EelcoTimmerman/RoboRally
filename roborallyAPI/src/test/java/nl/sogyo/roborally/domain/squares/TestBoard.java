@@ -67,6 +67,7 @@ public class TestBoard{
         assert(TESTBOARD4X4.allLasersOnWalls());
     }
 
+    @Test
     public void testPitTestBoard(){
         Board pitTestBoard = BoardFactory.createPitTestBoard();        
         assert(pitTestBoard.isRectangular());
@@ -74,6 +75,7 @@ public class TestBoard{
         assert(pitTestBoard.allLasersOnWalls());
     }
 
+    @Test
     public void testSlowConveyorbeltTestBoard(){        
         Board slowConveyorbeltTestBoard = BoardFactory.createSlowConveyorbeltTestBoard();
         assert(slowConveyorbeltTestBoard.isRectangular());
@@ -81,6 +83,7 @@ public class TestBoard{
         assert(slowConveyorbeltTestBoard.allLasersOnWalls());
     }
 
+    @Test
     public void testSlowConveyorbeltTestBoardWalls(){
         Board slowConveyorbeltTestBoardWalls = BoardFactory.createSlowConveyorbeltTestBoardOther();
         assert(slowConveyorbeltTestBoardWalls.isRectangular());
@@ -88,6 +91,7 @@ public class TestBoard{
         assert(slowConveyorbeltTestBoardWalls.allLasersOnWalls());
     }
 
+    @Test
     public void testGearTestBoard(){
         Board gearTestBoard = BoardFactory.createGearTestBoard();
         assert(gearTestBoard.isRectangular());
@@ -95,6 +99,7 @@ public class TestBoard{
         assert(gearTestBoard.allLasersOnWalls());
     }
 
+    @Test
     public void testRobotLaserTestBoard(){
         Board robotLaserTestBoard = BoardFactory.createRobotLaserWallTestBoard();
         assert(robotLaserTestBoard.isRectangular());
