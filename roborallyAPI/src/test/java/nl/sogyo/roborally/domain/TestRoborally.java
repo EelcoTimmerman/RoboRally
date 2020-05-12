@@ -792,4 +792,17 @@ public class TestRoborally {
         assertEquals(2, robot.getXCoordinate());
     }
 
+    @Test
+    public void testRobotRepairsAfterPowerdown(){
+        Robot robot = new Robot(0,0, Direction.EAST);
+        Roborally roborally = new Roborally("ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*CH-x");
+        robot.program(new MoveOneCard());
+        robot.turnOnOrOff();
+        robot.takeDamage(4);
+        assertEquals(5, robot.getHealth());
+        roborally.addRobot(robot);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(9, robot.getHealth());
+    }
+
 }

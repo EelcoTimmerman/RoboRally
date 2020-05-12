@@ -222,6 +222,7 @@ public class Robot{
     public void shutDown(){
         this.activitylevel = ActivityLevel.INACTIVE;
         this.card = new DoNothingCard();
+        this.health = 9;
     }
 
     public void activate(){
