@@ -14,7 +14,7 @@ public class Roborally{
     Board board;
     
     public Roborally(){
-        this.board = Board.createTESTBOARD4X4();
+        this.board = BoardFactory.createTESTBOARD4X4();
     }
 
     public Roborally(Robot robot){

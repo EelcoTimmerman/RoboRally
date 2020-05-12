@@ -8,6 +8,7 @@ import org.junit.Test;
 import nl.sogyo.roborally.domain.cards.*;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.Board;
+import nl.sogyo.roborally.domain.squares.BoardFactory;
 
 public class TestRoborally {
     private Board TESTBOARD4X4 = null;
@@ -19,12 +20,12 @@ public class TestRoborally {
 
     @Before
     public void initializeBoards(){
-        TESTBOARD4X4 = Board.createTESTBOARD4X4();
-        PITTESTBOARD = Board.createPitTestBoard();
-        SLOWCONVEYORBELTTESTBOARD = Board.createSlowConveyorbeltTestBoard();
-        SLOWCONVEYORBELTTESTBOARDOTHER = Board.createSlowConveyorbeltTestBoardOther();
-        GEARTESTBOARD = Board.createGearTestBoard();
-        ROBOTLASERTESTBOARDWALL = Board.createRobotLaserWallTestBoard();
+        TESTBOARD4X4 = BoardFactory.createTESTBOARD4X4();
+        PITTESTBOARD = BoardFactory.createPitTestBoard();
+        SLOWCONVEYORBELTTESTBOARD = BoardFactory.createSlowConveyorbeltTestBoard();
+        SLOWCONVEYORBELTTESTBOARDOTHER = BoardFactory.createSlowConveyorbeltTestBoardOther();
+        GEARTESTBOARD = BoardFactory.createGearTestBoard();
+        ROBOTLASERTESTBOARDWALL = BoardFactory.createRobotLaserWallTestBoard();
     }
 
     @Test
