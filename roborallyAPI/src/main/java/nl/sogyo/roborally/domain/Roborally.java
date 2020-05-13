@@ -53,15 +53,9 @@ public class Roborally{
 
     private void playRound(){
         robots.sort(Robot.COMPARE_BY_CARD);
-        for(Robot robot : robots){
-            Card card = robot.getCard();
-            card.doCardAction(robot, board, robots);
-            robot.unready();
-            if(robot.isInactive()){
-                robot.activate();
-            }
-            if(robot.isPoweringDown()){
-                robot.shutDown();
+        for(int cardNr=0;cardNr<5;cardNr++){
+            for(Robot robot : robots){
+                robotPlaysCard(robot, cardNr);
             }
         }
         //This keeps the order of the robots consistent for the frontend.
@@ -73,6 +67,18 @@ public class Roborally{
         activateBoardElements(GearLeft.class);
         fireRobotLasers();
         activateBoardElements(Checkpoint.class);
+    }
+
+    private void robotPlaysCard(Robot robot, int cardNr){
+        Card playingCard = robot.getCard(cardNr);
+        playingCard.doCardAction(robot, board, robots);
+        robot.unready();
+        if(robot.isInactive()){
+            robot.activate();
+        }
+        if(robot.isPoweringDown()){
+            robot.shutDown();
+        }
     }
 
     public void program(int cardnr){

@@ -20,7 +20,7 @@ public class Robot{
     private final String[] colours = {"green", "black", "purple", "blue", "red", "brown"};
 
     Direction orientation = Direction.NORTH;
-    Card card = new DoNothingCard();
+    Card[] cards = {new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
     int health = 9;
     int xCoordinate;
     int yCoordinate;
@@ -61,8 +61,8 @@ public class Robot{
         return name;
     }
 
-    public Card getCard(){
-        return this.card;
+    public Card getCard(int CardNr){
+        return this.cards[CardNr];
     }
 
     public int getXCoordinate(){
@@ -126,34 +126,44 @@ public class Robot{
         }
     }
 
-    public void program(Card card){
+    public void programOneCard(Card card, int index){
         if(this.activitylevel != ActivityLevel.INACTIVE){
-            this.card = card;
+            this.cards[index] = card;
             this.ready = true;
         }
     }
 
-    public void program(int cardnr){
+    public void program(int[] cardnrs){
+       int index = 0;
+        for(int cardNr:cardnrs){
+            programOneCard(cardNr, index);
+            index++;
+        }
+        this.ready = true;
+
+    }
+
+    
+    public void programOneCard(int cardnr, int index){
         switch(cardnr){
-            case 0: program(new MoveOneCard());
+            case 0: programOneCard(new MoveOneCard(), index);
                     break;
-            case 1: program(new RotateRightCard());
+            case 1: programOneCard(new RotateRightCard(), index);
                     break;
-            case 2: program(new RotateLeftCard());
+            case 2: programOneCard(new RotateLeftCard(), index);
                     break;
-            case 3: program(new UTurnCard());
+            case 3: programOneCard(new UTurnCard(), index);
                     break;
-            case 4: program(new MoveTwoCard());
+            case 4: programOneCard(new MoveTwoCard(), index);
                     break;
-            case 5: program(new MoveThreeCard());
+            case 5: programOneCard(new MoveThreeCard(), index);
                     break;
-            case 6: program(new MoveBackCard());
+            case 6: programOneCard(new MoveBackCard(), index);
                     break;
-            case 7: program(new DoNothingCard());
+            case 7: programOneCard(new DoNothingCard(), index);
                     break;
             default: throw new RuntimeException("Invalid cardnr");
         }
-        this.ready = true;
     }
 
     public void turnRight(){
