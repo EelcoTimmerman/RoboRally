@@ -68,12 +68,11 @@ public class Robot{
     }
 
     private Card getCurrentCard(){
-        int index = this.currentCardIndex;
-        return this.cards[index];
+        return this.cards[this.currentCardIndex];
     }
 
     public void updateCurrentCard(){
-        if(this.currentCardIndex<4)this.currentCardIndex++;
+        if(this.currentCardIndex<4) this.currentCardIndex++;
         else  this.currentCardIndex = 0;
     }
 
@@ -139,23 +138,9 @@ public class Robot{
     }
 
     public void programOneCard(Card card, int index){
-        if(this.activitylevel != ActivityLevel.INACTIVE){
-            this.cards[index] = card;
-            this.ready = true;
-        }
+        this.cards[index] = card;
     }
 
-    public void program(int[] cardnrs){
-       int index = 0;
-        for(int cardNr:cardnrs){
-            programOneCard(cardNr, index);
-            index++;
-        }
-        this.ready = true;
-
-    }
-
-    
     public void programOneCard(int cardnr, int index){
         switch(cardnr){
             case 0: programOneCard(new MoveOneCard(), index);
@@ -177,6 +162,30 @@ public class Robot{
             default: throw new RuntimeException("Invalid cardnr");
         }
     }
+
+    public void program(int[] cardnrs){
+        if(this.activitylevel != ActivityLevel.INACTIVE){
+            int cardPosition = 0;
+            for(int cardNr:cardnrs){
+                programOneCard(cardNr, cardPosition);
+                cardPosition++;
+            }
+        }
+        this.ready = true;
+
+    }
+
+    public void program(Card[] cards){
+        if(this.activitylevel != ActivityLevel.INACTIVE){
+            for(int cardPosition = 0;cardPosition<5;cardPosition++){
+                programOneCard(cards[cardPosition], cardPosition);
+            }
+        }
+         this.ready = true;
+     }
+
+    
+
 
     public void turnRight(){
         this.orientation = this.orientation.getRight();

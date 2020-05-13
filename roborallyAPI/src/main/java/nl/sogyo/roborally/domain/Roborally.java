@@ -56,7 +56,6 @@ public class Roborally{
             robots.sort(Robot.COMPARE_BY_CARD);
             for(Robot robot : robots){
                 robotPlaysCard(robot, cardNr);
-                robot.updateCurrentCard();
             }
         }
         //This keeps the order of the robots consistent for the frontend.
@@ -80,6 +79,7 @@ public class Roborally{
         if(robot.isPoweringDown()){
             robot.shutDown();
         }
+        robot.updateCurrentCard();
     }
 
     public void program(int cardnr){
