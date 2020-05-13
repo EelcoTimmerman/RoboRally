@@ -199,12 +199,11 @@ public class Robot{
         return this.ready;
     }
 
-    public List<ICard> getHand(Deck deck){
-        this.hand = deck.getHand(9-getHealth());
-        return this.hand;
+    public void setHand(Deck deck){
+        this.hand = deck.createHand(9-getHealth());
     }
     
-    public List<ICard> showHand(Deck deck){
+    public List<ICard> getHand(){
         return this.hand;
     }
 

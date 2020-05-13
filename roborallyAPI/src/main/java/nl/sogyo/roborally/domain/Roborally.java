@@ -61,7 +61,7 @@ public class Roborally{
     private void playRound(){
         robots.sort(Robot.COMPARE_BY_CARD);
         for(Robot robot : robots){
-            robot.getHand(deck);
+            robot.setHand(deck);
             ICard card = robot.getCard();
             card.doCardAction(robot, board);
             robot.unready();         

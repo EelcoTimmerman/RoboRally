@@ -38,7 +38,8 @@ public class RoborallyWebsocket{
             players.add(session);
             String board = new JSONResultProcessor().createBoardResponse(roborally);
             session.getBasicRemote().sendText(board);
-            String cards = new JSONResultProcessor().createInitCardsResponse(roborally, robots.get(session));
+            robots.get(session).setHand(roborally.getDeck());
+            String cards = new JSONResultProcessor().createCardsResponse(roborally, robots.get(session));
             session.getBasicRemote().sendText(cards);
         }
         else{

@@ -5,13 +5,11 @@ import java.io.IOException;
 import java.util.*;
 
 public class Deck {
-   // private final List<ICard> initDeck;
     List<ICard> cardsInDeck = new ArrayList<ICard>();
     List<ICard> discardPile= new ArrayList<ICard>();
      
 
     public Deck(){
-//        this.initDeck = new ArrayList<ICard>();
         ClassLoader classLoader = this.getClass().getClassLoader();
         File file = new File(classLoader.getResource("TextDeck.txt").getFile());
         try{
@@ -50,7 +48,7 @@ public class Deck {
         return cards;
     }
        
-    public List<ICard> getHand(int damage){
+    public List<ICard> createHand(int damage){
         List<ICard> hand = new ArrayList<ICard>();
         for(int i = 0; i < (9-damage);i++){       
             hand.add(getRandomCard());
@@ -67,14 +65,6 @@ public class Deck {
         return randCard;
     }
 
-    // public List<ICard> resetDeck(){
-    //     this.cardsInDeck.clear();
-    //     for(ICard card:this.initDeck){
-    //         this.cardsInDeck.add(card);
-    //     }
-    //     return this.cardsInDeck;
-    // }
-
     private void replenishDeckWithDiscardPile(){
         if(this.discardPile.isEmpty()){
             throw new RuntimeException("Trying to obtain cards from an empty deck..");
@@ -82,18 +72,6 @@ public class Deck {
         for(ICard card1: this.discardPile){
             this.cardsInDeck.add(card1);
         }
-        this.discardPile.clear();
-        
-
-    }
-
-    // private void removeCardFromDeck(ICard discardedCard){
-    //     for(ICard deckCard: this.cardsInDeck)
-    //         if(deckCard.equals(discardedCard))
-    //             this.cardsInDeck.remove(deckCard);
-    // }
-
-	public void resetDiscardPile(){
         this.discardPile.clear();
     }
     

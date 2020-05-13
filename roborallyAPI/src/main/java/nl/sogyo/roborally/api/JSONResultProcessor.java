@@ -24,16 +24,7 @@ public class JSONResultProcessor {
     }
 
     public String createCardsResponse(Roborally rRally, Robot robot){
-        List<ICard> hand = robot.showHand(rRally.getDeck());
-        JSONArray cards = createJSONCards(hand);
-        JSONObject response = new JSONObject();
-        response.put("messagetype", "drawncards");
-        response.put("body", cards);
-        return response.toJSONString();
-    }
-
-    public String createInitCardsResponse(Roborally rRally, Robot robot){
-        List<ICard> hand = robot.getHand(rRally.getDeck());
+        List<ICard> hand = robot.getHand();
         JSONArray cards = createJSONCards(hand);
         JSONObject response = new JSONObject();
         response.put("messagetype", "drawncards");
