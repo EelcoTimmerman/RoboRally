@@ -62,3 +62,7 @@ function createLaserImage(laser: Laser){
     }
     return <Colorize style={style}/>;
 }
+
+export function BeamElement({direction, firepower}: Laserbeam){
+    return(<div className="laserbeamHorizontal" style={{backgroundColor: "red", zIndex: 4}}></div>);
+}

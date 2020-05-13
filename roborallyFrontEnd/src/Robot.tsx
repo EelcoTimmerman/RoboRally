@@ -26,7 +26,7 @@ export function RobotElement({robot, zIndex}: RobotElementProps){
         transform: "translate(-50%, -50%)",
         zIndex: zIndex,
     }
-    return (<div className="inner-square" style={style}>
+    return (<div className="robot" style={style}>
                 <div className={classname}></div>
             </div>);
 

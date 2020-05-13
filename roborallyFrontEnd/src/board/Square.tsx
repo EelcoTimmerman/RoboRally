@@ -1,56 +1,106 @@
 import React, { useState } from "react";
 import { Robot, RobotElement } from "./../Robot";
-import { Laser, Laserbeam, LaserElement } from "./Laser";
+import { Laser, Laserbeam, LaserElement, BeamElement } from "./Laser";
 import { Flag, Rotate90DegreesCcw, RotateLeft, RotateRight, Brightness1, KeyboardArrowUp, KeyboardArrowRight, KeyboardArrowDown, KeyboardArrowLeft } from "@material-ui/icons";
 import { Badge } from "@material-ui/core";
-export interface Square{
+export class Square{
     type: string;
     northwall: boolean;
     eastwall: boolean;
     southwall: boolean;
     westwall: boolean;
     robot: Robot | undefined;
-    lasers: Laser[];
-    laserbeams: Laserbeam[];
-}
+    private lasers: Laser[];
+    private laserbeams: Laserbeam[];
 
-interface SquareElementProps{
-    square: Square,
-    rowNumber: number,
-    columnNumber: number,
-}
-
-export function SquareElement({square, rowNumber, columnNumber}: SquareElementProps){
-    const [ squareImageZIndex, setSquareImageZIndex ] = useState<number>(1);
-    const [ robotZIndex, setRobotZIndex ] = useState<number>(2);
-    let style = createStyle(square, columnNumber, rowNumber);
-    let squareImage = createImage(square.type, squareImageZIndex);
-    let robotElement: JSX.Element = <div></div>;
-    if(square.robot != undefined){
-        robotElement = <RobotElement robot={square.robot} zIndex={robotZIndex}/>;
+    constructor(type: string, northwall: boolean, eastwall: boolean, southwall: boolean, westwall: boolean){
+        this.type = type;
+        this.northwall = northwall;
+        this.eastwall = eastwall;
+        this.southwall = southwall;
+        this.westwall = westwall;
+        this.lasers = [];
+        this.laserbeams = [];
     }
 
-    let laserElements: JSX.Element[] = [];
-    if(square.lasers != undefined){
-        square.lasers.forEach(laser => {
-            laserElements.push(<LaserElement laser={laser} key={laser.orientation + laser.xCoordinate + laser.yCoordinate}/>);        
-        });
+    public addLaser(laser: Laser) {
+        if(this.lasers == undefined){
+            this.lasers = [laser];
+        }
+        else{
+            this.lasers.push(laser);
+        }
     }
 
-    return (<div key={(columnNumber + 1) * (rowNumber + 1)} style={style} onMouseOver={mouseOver} onMouseOut={mouseLeave}>
-            {squareImage}
-            {robotElement}
-            {laserElements}
-        </div>);
-
-    function mouseOver(){
-        setSquareImageZIndex(3);
-        setRobotZIndex(-1);
+    public addLaserbeam(beam: Laserbeam){
+        if(this.laserbeams == undefined){
+            this.laserbeams = [beam];
+        }
+        else{
+            this.laserbeams.push(beam);
+        }
     }
 
-    function mouseLeave(){
-        setSquareImageZIndex(1);
-        setRobotZIndex(2);
+    public getLasers(){
+        if(this.lasers == undefined){
+            return [];
+        }
+        else{
+            return this.lasers;
+        }
+    }
+
+    public getLaserbeams(){
+        if(this.laserbeams == undefined){
+            return [];
+        }
+        else{
+            return this.laserbeams;
+        }
+    }
+
+    public render(rowNumber: number, columnNumber: number){
+        const [ squareImageZIndex, setSquareImageZIndex ] = useState<number>(1);
+        const [ robotZIndex, setRobotZIndex ] = useState<number>(2);
+        let style = createStyle(this, columnNumber, rowNumber);
+    
+        let squareImage = createImage(this.type, squareImageZIndex);
+    
+        let robotElement: JSX.Element = <div></div>;
+        if(this.robot != undefined){
+            robotElement = <RobotElement robot={this.robot} zIndex={robotZIndex}/>;
+        }
+    
+        let laserElements = this.getLasers().map(laser => <LaserElement laser={laser} key={laser.orientation + laser.xCoordinate + laser.yCoordinate}/>);
+    
+        let beamElements = this.getLaserbeams().map(beam => <BeamElement direction={beam.direction} firepower={beam.firepower} key={beam.direction + rowNumber + columnNumber}/>);
+    
+        return (<div 
+                    key={"" + rowNumber + columnNumber} 
+                    style={style} 
+                    onMouseOver={mouseOver} 
+                    onMouseOut={mouseLeave}>
+                {squareImage}
+                {robotElement}
+                {laserElements}
+                {beamElements}
+            </div>);
+    
+        function mouseOver(){
+            setSquareImageZIndex(3);
+            setRobotZIndex(-1);
+        }
+    
+        function mouseLeave(){
+            setSquareImageZIndex(1);
+            setRobotZIndex(2);
+        }
+    }
+
+    reset(){
+        this.robot = undefined;
+        this.laserbeams = [];
+        this.lasers = [];
     }
 }
 

@@ -51,7 +51,7 @@ export function App() {
 
             tempwebsocket.onmessage = function(event: WebSocketMessageEvent){
                 let message: incomingMessage = JSON.parse(event.data);
-                if(message.messagetype == "boardstate") setBoard(message.body);
+                if(message.messagetype == "boardstate") createBoard(message.body);
                 else if(message.messagetype == "robots") setRobots(message.body);
                 else if(message.messagetype == "powerstatus") setPowerstatus(message.body);
                 else if(message.messagetype == "lasers") setLasers(message.body);
@@ -64,6 +64,11 @@ export function App() {
         }
 
         setWebsocket(tempwebsocket);
+    }
+
+    function createBoard(squares: Square[][]){
+        let board = squares.map(row => row.map(square => new Square(square.type, square.northwall, square.eastwall, square.southwall, square.westwall)));
+        setBoard(board);
     }
 
     async function programCard(cardnr:number){

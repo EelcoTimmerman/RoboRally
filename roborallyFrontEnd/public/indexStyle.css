@@ -33,9 +33,18 @@ html {
   border-color: darkgray;
 }
 
-.inner-square {
+.robot {
   width: 70px;
   height: 70px;
+}
+
+.laserbeamHorizontal{
+  width: 200px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  left: 0px;
+  transform: translate(0, -50%);
 }
 
 .North-arrow {
