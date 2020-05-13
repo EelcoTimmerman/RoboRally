@@ -2,6 +2,7 @@ package nl.sogyo.roborally.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,6 +18,7 @@ public class TestRoborally {
     private Board SLOWCONVEYORBELTTESTBOARDOTHER = null;
     private Board GEARTESTBOARD = null;
     private Board ROBOTLASERTESTBOARDWALL = null;
+    private Board BOARDLASERTESTBOARD = null;
 
     @Before
     public void initializeBoards(){
@@ -26,6 +28,7 @@ public class TestRoborally {
         SLOWCONVEYORBELTTESTBOARDOTHER = BoardFactory.createSlowConveyorbeltTestBoardOther();
         GEARTESTBOARD = BoardFactory.createGearTestBoard();
         ROBOTLASERTESTBOARDWALL = BoardFactory.createRobotLaserWallTestBoard();
+        BOARDLASERTESTBOARD = BoardFactory.createBoardlaserTestBoard();
     }
 
     @Test
@@ -745,6 +748,28 @@ public class TestRoborally {
     }
 
     @Test
+    public void testRobotLaserEdgeCase(){
+        Robot robot1 = new Robot(0,0, Direction.EAST);
+        Robot robot2 = new Robot(3,0, Direction.SOUTH);
+        Robot robot3 = new Robot(3,3, Direction.WEST);
+        Robot robot4 = new Robot(0,3, Direction.NORTH);
+        Roborally roborally = new Roborally(TESTBOARD4X4);
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        roborally.addRobot(robot3);
+        roborally.addRobot(robot4);
+        robot1.program(new DoNothingCard());
+        robot2.program(new DoNothingCard());
+        robot3.program(new DoNothingCard());
+        robot4.program(new DoNothingCard());
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(8, robot1.getHealth());
+        assertEquals(8, robot2.getHealth());
+        assertEquals(8, robot3.getHealth());
+        assertEquals(8, robot4.getHealth());
+    }
+
+    @Test
     public void testRobotPoweredDownDoesNotMove(){
         Robot robot1 = new Robot(0,1, Direction.EAST);
         Robot robot2 = new Robot(2,2, Direction.WEST);
@@ -786,6 +811,23 @@ public class TestRoborally {
         roborally.addRobot(robot);
         roborally.playRoundIfAllRobotsReady();
         assertEquals(9, robot.getHealth());
+    }
+
+    @Test
+    public void testBoardLaserStopsAtBoardEdge(){
+        Robot robot = new Robot();
+        robot.program(new DoNothingCard());
+        Roborally roborally = new Roborally(BOARDLASERTESTBOARD, robot);
+        roborally.playRoundIfAllRobotsReady();
+    }
+
+    @Test
+    public void testBoardLaserDamage(){
+        Robot robot = new Robot(0,0);
+        Roborally roborally = new Roborally(BOARDLASERTESTBOARD, robot);
+        robot.program(new DoNothingCard());
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(8, robot.getHealth());
     }
 
 }

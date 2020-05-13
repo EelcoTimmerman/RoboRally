@@ -42,14 +42,14 @@ public class TestBoard{
 
     @Test
     public void testLaserTestBoard(){
-        Board board = BoardFactory.createLaserTestBoard();
+        Board board = BoardFactory.createBoardlaserTestBoard();
         assert(board.isRectangular());
         assert(board.hasConsistentWalls());
     }
 
     @Test
     public void testAllLasersOnWallTrue(){
-        Board board = BoardFactory.createLaserTestBoard();
+        Board board = BoardFactory.createBoardlaserTestBoard();
         assert(board.allLasersOnWalls());
     }
 

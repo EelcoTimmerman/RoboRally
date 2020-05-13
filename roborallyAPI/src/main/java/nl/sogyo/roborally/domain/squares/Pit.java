@@ -2,7 +2,15 @@ package nl.sogyo.roborally.domain.squares;
 
 import nl.sogyo.roborally.domain.robots.Robot;
 
-public class Pit extends Square {
+public class Pit extends Square{
+
+    public Pit(){
+    }
+
+    public Pit(String walls){
+        super(walls);
+    }
+    
     @Override
     public String getType() {
         return "Pit";

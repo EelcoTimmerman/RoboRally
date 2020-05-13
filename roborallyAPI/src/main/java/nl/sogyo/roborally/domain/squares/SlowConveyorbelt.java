@@ -6,6 +6,13 @@ import nl.sogyo.roborally.domain.robots.Robot;
 public class SlowConveyorbelt extends Square{
     private Direction movementDirection;
 
+    public SlowConveyorbelt(){
+    }
+
+    public SlowConveyorbelt(String walls){
+        super(walls);
+    }
+
     public SlowConveyorbelt(Direction direction){
         this.movementDirection = direction;
     }

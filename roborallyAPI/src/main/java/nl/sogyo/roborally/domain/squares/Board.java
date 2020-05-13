@@ -7,21 +7,21 @@ import nl.sogyo.roborally.domain.elements.Laser;
 
 public class Board{
 
-	private ArrayList<ArrayList<Square>> board;
+	private ArrayList<ArrayList<Square>> squares;
 	private ArrayList<Laser> lasers;
 
 	public ArrayList<ArrayList<Square>> getBoard(){
-		return this.board;
+		return this.squares;
 	}
 
 
 	public Board(){
-		this.board = new ArrayList<>();
+		this.squares = new ArrayList<>();
 		this.lasers = new ArrayList<>();
 	}
 
 	public void addRow(ArrayList<Square> row){
-		this.board.add(row);
+		this.squares.add(row);
 	}
 
 	public void addLaser(Laser laser){
@@ -40,14 +40,14 @@ public class Board{
 	}
 
 	public boolean isRectangular(){
-		for(ArrayList<Square> row : this.board){
+		for(ArrayList<Square> row : this.squares){
 			if(row.size() != this.getWidth()) return false;
 		}
 		return true;
 	}
 
 	private boolean eastNeighboursHaveConsistentHorizontalWalls(boolean mustHaveWestWall, int xCoordinate, int yCoordinate){
-		boolean stillOnBoard = this.board.get(0).size() > xCoordinate;
+		boolean stillOnBoard = this.squares.get(0).size() > xCoordinate;
 		boolean consistent = true;
 		if(stillOnBoard){
 			consistent = this.getSquare(xCoordinate, yCoordinate).hasWallAt(Direction.WEST) == mustHaveWestWall;
@@ -57,7 +57,7 @@ public class Board{
 	}
 
 	private boolean southNeighboursHaveConsistenVerticalWalls(boolean mustHaveNorthWall, int xCoordinate, int yCoordinate){
-		boolean stillOnBoard = this.board.size() > yCoordinate;
+		boolean stillOnBoard = this.squares.size() > yCoordinate;
 		boolean consistent = true;
 		if(stillOnBoard){
 			consistent = this.getSquare(xCoordinate, yCoordinate).hasWallAt(Direction.NORTH) == mustHaveNorthWall;
@@ -76,14 +76,18 @@ public class Board{
 	}
 
 	public int getWidth(){
-		return this.board.get(0).size();
+		return this.squares.get(0).size();
 	}
 
 	public int getHeight(){
-		return this.board.size();
+		return this.squares.size();
 	}	
 
 	public Square getSquare(int x, int y){
-		return this.board.get(y).get(x);
+		return this.squares.get(y).get(x);
+	}
+
+	public ArrayList<Laser> getLasers(){
+		return lasers;
 	}
 }

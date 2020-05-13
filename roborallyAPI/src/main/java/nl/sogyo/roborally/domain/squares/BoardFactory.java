@@ -67,7 +67,7 @@ public class BoardFactory{
 		return simpleBoard;
 	}
 
-	public static Board createLaserTestBoard(){
+	public static Board createBoardlaserTestBoard(){
 		Board laserTestBoard = new Board();
 		Square square00 = new EmptySquare();
 		Square square10 = new EmptySquare();
@@ -291,54 +291,30 @@ public class BoardFactory{
 	public static Board createTESTBOARD4X4(){
 		Board defaultBoard = new Board();
 
-		Square square00 = new EmptySquare();
-		Square square10 = new EmptySquare();
-		Square square20 = new EmptySquare();
-		Square square30 = new EmptySquare();
-		
-		Square square01 = new EmptySquare();
-		Square square11 = new EmptySquare();
-		Square square21 = new EmptySquare();
-		Square square31 = new EmptySquare();
-		
-		Square square02 = new EmptySquare();
-		Square square12 = new EmptySquare();
-		Square square22 = new EmptySquare();
-		Square square32 = new EmptySquare();
-		
-		Square square03 = new EmptySquare();
-		Square square13 = new EmptySquare();
-		Square square23 = new EmptySquare();
-		Square square33 = new Checkpoint();
-
-		square20.northWall = true;
-
-		square01.westWall = true;
-
-		square32.eastWall = true;
-
-		square13.southWall = true;
-
 		ArrayList<Square> row1 = new ArrayList<>();
-		row1.add(square00);
-		row1.add(square10);
-		row1.add(square20);
-		row1.add(square30);
+		row1.add(new EmptySquare());
+		row1.add(new EmptySquare());
+		row1.add(new EmptySquare("N"));
+		row1.add(new EmptySquare());
+
+		
 		ArrayList<Square> row2 = new ArrayList<>();
-		row2.add(square01);
-		row2.add(square11);
-		row2.add(square21);
-		row2.add(square31);
+		row2.add(new EmptySquare("W"));
+		row2.add(new EmptySquare());
+		row2.add(new EmptySquare());
+		row2.add(new EmptySquare());
+		
 		ArrayList<Square> row3 = new ArrayList<>();
-		row3.add(square02);
-		row3.add(square12);
-		row3.add(square22);
-		row3.add(square32);
+		row3.add(new EmptySquare());
+		row3.add(new EmptySquare());
+		row3.add(new EmptySquare());
+		row3.add(new EmptySquare("E"));
+		
 		ArrayList<Square> row4 = new ArrayList<>();
-		row4.add(square03);
-		row4.add(square13);
-		row4.add(square23);
-		row4.add(square33);
+		row4.add(new EmptySquare());
+		row4.add(new EmptySquare("S"));
+		row4.add(new EmptySquare());
+		row4.add(new Checkpoint());
 
 		defaultBoard.addRow(row1);
 		defaultBoard.addRow(row2);

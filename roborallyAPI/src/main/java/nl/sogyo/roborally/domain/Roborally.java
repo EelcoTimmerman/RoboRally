@@ -3,8 +3,8 @@ package nl.sogyo.roborally.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import nl.sogyo.roborally.domain.cards.Card;
+import nl.sogyo.roborally.domain.elements.Laser;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.*;
 
@@ -66,6 +66,7 @@ public class Roborally{
         activateBoardElements(Gear180.class);
         activateBoardElements(GearRight.class);
         activateBoardElements(GearLeft.class);
+        fireBoardLasers();
         fireRobotLasers();
         activateBoardElements(Checkpoint.class);
     }
@@ -80,6 +81,12 @@ public class Roborally{
             if(elementTypeToActivate.isInstance(position)){
                 position.doSquareAction(robot, board);
             }
+        }
+    }
+
+    private void fireBoardLasers(){
+        for(Laser laser : board.getLasers()){
+            laser.fire(robots, board);
         }
     }
 
