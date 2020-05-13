@@ -52,10 +52,11 @@ public class Roborally{
     }
 
     private void playRound(){
-        robots.sort(Robot.COMPARE_BY_CARD);
         for(int cardNr=0;cardNr<5;cardNr++){
+            robots.sort(Robot.COMPARE_BY_CARD);
             for(Robot robot : robots){
                 robotPlaysCard(robot, cardNr);
+                robot.updateCurrentCard();
             }
         }
         //This keeps the order of the robots consistent for the frontend.

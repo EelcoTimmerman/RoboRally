@@ -30,6 +30,8 @@ public class Robot{
     String name = "defaultname";
     String colour = "orange";
     ActivityLevel activitylevel = ActivityLevel.ACTIVE;
+
+    private int currentCardIndex = 0;
     
     public Robot(){
     }
@@ -63,6 +65,16 @@ public class Robot{
 
     public Card getCard(int CardNr){
         return this.cards[CardNr];
+    }
+
+    private Card getCurrentCard(){
+        int index = this.currentCardIndex;
+        return this.cards[index];
+    }
+
+    public void updateCurrentCard(){
+        if(this.currentCardIndex<4)this.currentCardIndex++;
+        else  this.currentCardIndex = 0;
     }
 
     public int getXCoordinate(){
@@ -202,7 +214,7 @@ public class Robot{
     public static Comparator<Robot> COMPARE_BY_CARD = new Comparator<Robot>(){
         @Override
         public int compare(Robot robot1, Robot robot2) {
-            return robot1.getCard().getSpeed() - robot2.getCard().getSpeed();
+            return robot1.getCurrentCard().getSpeed() - robot2.getCurrentCard().getSpeed();
         }
     };
     
@@ -231,7 +243,9 @@ public class Robot{
 
     public void shutDown(){
         this.activitylevel = ActivityLevel.INACTIVE;
-        this.card = new DoNothingCard();
+        for(int i=0;i<5;i++){
+            this.cards[i] = new DoNothingCard();
+        }
         this.health = 9;
     }
 
