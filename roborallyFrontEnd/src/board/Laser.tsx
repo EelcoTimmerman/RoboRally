@@ -13,7 +13,10 @@ export interface Laserbeam{
     firepower: number,
 }
 
-export function createLaserElement(laser: Laser){
+interface LaserElementProps{
+    laser: Laser,
+}
+export function LaserElement({laser}: LaserElementProps){
     let style : React.CSSProperties = {
         position: "absolute",
         margin: "0px",
@@ -39,8 +42,7 @@ export function createLaserElement(laser: Laser){
                         break;
     }
     let image = createLaserImage(laser);
-    let key = laser.orientation + laser.xCoordinate + laser.yCoordinate;
-    return (<div style={style} key={key}>
+    return (<div style={style}>
         {image}
     </div>
     );
