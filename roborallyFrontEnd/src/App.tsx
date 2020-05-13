@@ -7,18 +7,19 @@ import { Robot } from "./Robot";
 import { incomingMessage } from "./incomingMessage";
 import { PlayerList } from "./PlayerList";
 import { Powerbutton } from "./Powerbutton";
+import { Laser } from "./board/Laser";
 
 export function App() {
     const [ board, setBoard ] = useState<Square[][] | undefined>(undefined);
     const [ robots, setRobots ] = useState<Robot[] | undefined>(undefined);
     const [ websocket, setWebsocket ] = useState<WebSocket | undefined>(undefined);
     const [ powerstatus, setPowerstatus ] = useState("Active");
+    const [ lasers, setLasers ] = useState<Laser[] | undefined>(undefined);
 
     let cards = showCards();
-
-    if(board != undefined && robots != undefined){
+    if(board != undefined && robots != undefined && lasers != undefined){
         return (<div>
-                    <Board squares = {board} robots={robots}></Board>
+                    <Board squares = {board} robots={robots} lasers={lasers}></Board>
                     <button onClick={() => programCard(0)}>Forward</button>
                     <button onClick={() => programCard(1)}>Right</button>
                     <button onClick={() => programCard(2)}>Left</button>
@@ -32,10 +33,10 @@ export function App() {
                 </div>);
     }
     else{
-        return <Startscreen login={getGameState}></Startscreen>;
+        return <Startscreen login={initialiseConnection}></Startscreen>;
     }
     
-    async function getGameState(name: string){
+    async function initialiseConnection(name: string){
         if (websocket !== undefined && websocket.readyState !== WebSocket.CLOSED) {
             return;
         }
@@ -53,6 +54,7 @@ export function App() {
                 if(message.messagetype == "boardstate") setBoard(message.body);
                 else if(message.messagetype == "robots") setRobots(message.body);
                 else if(message.messagetype == "powerstatus") setPowerstatus(message.body);
+                else if(message.messagetype == "lasers") setLasers(message.body);
             };
 
             tempwebsocket.onclose = function(event: WebSocketCloseEvent){

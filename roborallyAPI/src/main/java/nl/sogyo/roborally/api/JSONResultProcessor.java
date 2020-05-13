@@ -7,6 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import nl.sogyo.roborally.domain.*;
+import nl.sogyo.roborally.domain.elements.Laser;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.*;
 
@@ -33,6 +34,16 @@ public class JSONResultProcessor {
         JSONObject response = new JSONObject();
         response.put("messagetype", "robots");
         response.put("body", robots);
+        return response.toJSONString();
+    }
+
+    public String createLasersResponse(Roborally roborally){
+        ArrayList<Laser> lasers = roborally.getBoard().getLasers();
+        JSONArray jsonLasers = createJSONLasers(lasers);
+
+        JSONObject response = new JSONObject();
+        response.put("messagetype", "lasers");
+        response.put("body", jsonLasers);
         return response.toJSONString();
     }
 
@@ -64,7 +75,6 @@ public class JSONResultProcessor {
         result.put("eastwall", square.hasWallAt(Direction.EAST));
         result.put("southwall", square.hasWallAt(Direction.SOUTH));
         result.put("westwall", square.hasWallAt(Direction.WEST));
-        result.put("robot", null);
         return result;
     }
 
@@ -78,6 +88,23 @@ public class JSONResultProcessor {
         result.put("ready", robot.isReady());
         result.put("hitpoints", robot.getHealth());
         result.put("status", robot.getActivitylevel().toString());
+        return result;
+    }
+
+    private JSONArray createJSONLasers(ArrayList<Laser> lasers){
+        JSONArray jsonLasers = new JSONArray();
+        for(Laser laser : lasers){
+            jsonLasers.add(createJSONLaser(laser));
+        }
+        return jsonLasers;
+    }
+
+    private JSONObject createJSONLaser(Laser laser){
+        JSONObject result = new JSONObject();
+        result.put("orientation", laser.getOrientation().toString());
+        result.put("xCoordinate", laser.getxCoordinate());
+        result.put("yCoordinate", laser.getyCoordinate());
+        result.put("firepower", laser.getFirepower());
         return result;
     }
 }

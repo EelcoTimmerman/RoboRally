@@ -38,8 +38,6 @@ export function showCards(){
 function showcard(card: Card, index: number){
   const classes = useStyles();
   return (
-    <div>
       <div key={index} className={classes.paper}>{card.type}</div>
-    </div>
   )
 }

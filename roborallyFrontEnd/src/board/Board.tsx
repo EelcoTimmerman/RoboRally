@@ -1,15 +1,20 @@
 import React, { Component } from "react";
 import { Square } from "./Square";
 import { Robot } from "../Robot";
+import { Laser, createLaserElement } from "./Laser";
 
 interface BoardProps{
     squares: Square[][];
     robots: Robot[];
+    lasers: Laser[];
 }
-export function Board({ squares, robots }: BoardProps){
+export function Board({ squares, robots, lasers }: BoardProps){
     let squaresCopy = JSON.parse(JSON.stringify(squares));
     for(let i = 0; i < robots.length; i++){
-        AddRobotToBoard(robots[i], squaresCopy);
+        addRobotToBoard(robots[i], squaresCopy);
+    }
+    for(let i = 0; i < lasers.length; i++){
+        addLaserToBoard(lasers[i], squaresCopy);
     }
     let board = squaresCopy.map((row: Square[], index: number) => 
         createRow(row, index)
@@ -27,6 +32,7 @@ function createRow(row: Square[], rowNumber: number):JSX.Element[]{
 
 function createSquare(square: Square, rowNumber: number, columnNumber: number){
     let style: React.CSSProperties = {
+        position: "relative",
         gridColumnStart: columnNumber + 1,
         gridRowStart: rowNumber + 1,
     }
@@ -56,14 +62,32 @@ function createSquare(square: Square, rowNumber: number, columnNumber: number){
         robotElement = createRobot(square.robot);
     }
 
+    let laserElements: JSX.Element[] = [];
+    if(square.lasers != undefined){
+        square.lasers.forEach(laser => {
+            laserElements.push(createLaserElement(laser));        
+        });
+    }
+
     return (<div key={(columnNumber + 1) * (rowNumber + 1)} style={style}>
             {squareText}
             {robotElement}
+            {laserElements}
         </div>);
 }
 
-function AddRobotToBoard(robot: Robot, board: Square[][]){
+function addRobotToBoard(robot: Robot, board: Square[][]){
     board[robot.yCoordinate][robot.xCoordinate].robot = robot;
+}
+
+function addLaserToBoard(laser: Laser, board: Square[][]){
+    let square = board[laser.yCoordinate][laser.xCoordinate];
+    if(square.lasers == undefined){
+        square.lasers = [laser];
+    }
+    else{
+        square.lasers.push(laser);
+    }
 }
 
 function createRobot(robot: Robot):JSX.Element{
