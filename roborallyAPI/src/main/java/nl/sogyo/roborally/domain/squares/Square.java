@@ -9,17 +9,10 @@ public abstract class Square{
     protected boolean southWall;
     protected boolean westWall;
 
-    public boolean hasWallAt(Direction direction){
-        switch(direction){
-            case NORTH: return northWall;
-            case EAST: return eastWall;
-            case SOUTH: return southWall;
-            case WEST: return westWall;
-            default: throw new RuntimeException("Somehow there are more than four directions.");
-        }
+    public Square(){
     }
-	
-	protected void setWalls(String walls){
+
+    public Square(String walls){
 		if(walls.contains("N")){
 			this.northWall = true;
 		}
@@ -32,6 +25,16 @@ public abstract class Square{
 		if(walls.contains("W")){
 			this.westWall = true;
 		}
+    }
+
+    public boolean hasWallAt(Direction direction){
+        switch(direction){
+            case NORTH: return northWall;
+            case EAST: return eastWall;
+            case SOUTH: return southWall;
+            case WEST: return westWall;
+            default: throw new RuntimeException("Somehow there are more than four directions.");
+        }
     }
     
     public abstract String getType();

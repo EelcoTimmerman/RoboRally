@@ -5,7 +5,10 @@ import nl.sogyo.roborally.domain.robots.Robot;
 public class EmptySquare extends Square{
 
    public EmptySquare(){
+   }
 
+   public EmptySquare(String walls){
+      super(walls);
    }
 
    @Override

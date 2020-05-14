@@ -40,6 +40,13 @@ public class Robot{
         else this.colour = "orange";
     }
 
+    public Robot(int xCoordinate, int yCoordinate, String name, int colourNr){
+        this(xCoordinate, yCoordinate);
+        this.name = name;
+        if(colourNr < 6) this.colour = colours[colourNr];
+        else this.colour = "orange";
+    }
+
     public Robot(int xCoordinate, int yCoordinate){
         this.xCoordinate = xCoordinate;
         this.respawnX = xCoordinate;
@@ -89,8 +96,18 @@ public class Robot{
         return activitylevel;
     }
 
-    public void takeDamage(int firepower){
-        this.health -= firepower;
+    public boolean takeDamageIfHit(int xCoordinate, int yCoordinate, int damage){
+        if(this.xCoordinate == xCoordinate && this.yCoordinate == yCoordinate){
+            takeDamage(damage);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public void takeDamage(int damage){
+        this.health -= damage;
     }
 
     public boolean isAt(int xCoordinate, int yCoordinate){
@@ -245,17 +262,19 @@ public class Robot{
     private void fireNorth(List<Robot> robots, Board board){
         int xCoordinate = this.xCoordinate;
         int yCoordinate = this.yCoordinate;
-        while(yCoordinate > 0){
-            Square currentSquare = board.getSquare(xCoordinate, yCoordinate);
-            if(currentSquare.hasWallAt(Direction.NORTH)){
-                break;
-            }
+        Square currentSquare = board.getSquare(xCoordinate, yCoordinate);
+        if(!currentSquare.hasWallAt(Direction.NORTH)){
             yCoordinate--;
-            for(Robot robot : robots){
-                if(robot.isAt(xCoordinate, yCoordinate)){
-                    robot.takeDamage(1);
-                    yCoordinate = -1;
+            while(yCoordinate >= 0){
+                boolean hitRobot = false;
+                for(Robot robot : robots){
+                    hitRobot |= robot.takeDamageIfHit(xCoordinate, yCoordinate, 1);
                 }
+                currentSquare = board.getSquare(xCoordinate, yCoordinate);
+                if(hitRobot || currentSquare.hasWallAt(Direction.NORTH)){
+                    break;
+                }
+                yCoordinate--;
             }
         }
     }
@@ -263,55 +282,61 @@ public class Robot{
     private void fireEast(List<Robot> robots, Board board){
         int xCoordinate = this.xCoordinate;
         int yCoordinate = this.yCoordinate;
-        while(xCoordinate < board.getWidth() - 1){
-            Square currentSquare = board.getSquare(xCoordinate, yCoordinate);
-            if(currentSquare.hasWallAt(Direction.EAST)){
-                break;
-            }
+        Square currentSquare = board.getSquare(xCoordinate, yCoordinate);
+        if(!currentSquare.hasWallAt(Direction.EAST)){
             xCoordinate++;
-            for(Robot robot : robots){
-                if(robot.isAt(xCoordinate, yCoordinate)){
-                    robot.takeDamage(1);
-                    xCoordinate = board.getWidth();
+            while(xCoordinate < board.getWidth()){
+                boolean hitRobot = false;
+                for(Robot robot : robots){
+                    hitRobot |= robot.takeDamageIfHit(xCoordinate, yCoordinate, 1);
                 }
+                currentSquare = board.getSquare(xCoordinate, yCoordinate);
+                if(hitRobot || currentSquare.hasWallAt(Direction.EAST)){
+                    break;
+                }
+                xCoordinate++;
             }
-        }        
+        }       
     }
 
     private void fireSouth(List<Robot> robots, Board board){
         int xCoordinate = this.xCoordinate;
         int yCoordinate = this.yCoordinate;
-        while(yCoordinate < board.getHeight() - 1){
-            Square currentSquare = board.getSquare(xCoordinate, yCoordinate);
-            if(currentSquare.hasWallAt(Direction.SOUTH)){
-                break;
-            }
+        Square currentSquare = board.getSquare(xCoordinate, yCoordinate);
+        if(!currentSquare.hasWallAt(Direction.SOUTH)){
             yCoordinate++;
-            for(Robot robot : robots){
-                if(robot.isAt(xCoordinate, yCoordinate)){
-                    robot.takeDamage(1);
-                    yCoordinate = board.getHeight();
+            while(yCoordinate < board.getHeight()){
+                boolean hitRobot = false;
+                for(Robot robot : robots){
+                    hitRobot |= robot.takeDamageIfHit(xCoordinate, yCoordinate, 1);
                 }
+                currentSquare = board.getSquare(xCoordinate, yCoordinate);
+                if(hitRobot || currentSquare.hasWallAt(Direction.SOUTH)){
+                    break;
+                }
+                yCoordinate++;
             }
-        }        
+        }       
     }
 
     private void fireWest(List<Robot> robots, Board board){
         int xCoordinate = this.xCoordinate;
         int yCoordinate = this.yCoordinate;
-        while(xCoordinate > 0){
-            Square currentSquare = board.getSquare(xCoordinate, yCoordinate);
-            if(currentSquare.hasWallAt(Direction.WEST)){
-                break;
-            }
+        Square currentSquare = board.getSquare(xCoordinate, yCoordinate);
+        if(!currentSquare.hasWallAt(Direction.WEST)){
             xCoordinate--;
-            for(Robot robot : robots){
-                if(robot.isAt(xCoordinate, yCoordinate)){
-                    robot.takeDamage(1);
-                    xCoordinate = -1;
+            while(xCoordinate >= 0){
+                boolean hitRobot = false;
+                for(Robot robot : robots){
+                    hitRobot |= robot.takeDamageIfHit(xCoordinate, yCoordinate, 1);
                 }
+                currentSquare = board.getSquare(xCoordinate, yCoordinate);
+                if(hitRobot || currentSquare.hasWallAt(Direction.WEST)){
+                    break;
+                }
+                xCoordinate--;
             }
-        }
+        }  
     }
 
     public void turnOnOrOff(){

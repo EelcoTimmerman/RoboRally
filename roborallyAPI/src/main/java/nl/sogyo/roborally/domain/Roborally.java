@@ -3,8 +3,8 @@ package nl.sogyo.roborally.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import nl.sogyo.roborally.domain.cards.Card;
+import nl.sogyo.roborally.domain.elements.Laser;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.*;
 
@@ -14,20 +14,15 @@ public class Roborally{
     Board board;
     
     public Roborally(){
-        this.board = new Board("ES-X*ES-X*ES-N*ES-X*||*ES-W*ES-x*ES-x*ES-x*||*ES-x*ES-x*ES-x*ES-E*||*ES-x*ES-S*ES-x*CH-x");
+        this.board = BoardFactory.createTESTBOARD4X4();
     }
 
     public Roborally(Robot robot){
         this.robots.add(robot);
     }
 
-    public Roborally(String boardString){
-        this.board = new Board(boardString);
-    }
-
-    public Roborally(String boardString, Robot robot){
-        this.board = new Board(boardString);
-        this.robots.add(robot);
+    public Roborally(Board board){
+        this.board = board;
     }
 
     public Roborally(Board board, Robot robot){
@@ -71,6 +66,7 @@ public class Roborally{
         activateBoardElements(Gear180.class);
         activateBoardElements(GearRight.class);
         activateBoardElements(GearLeft.class);
+        fireBoardLasers();
         fireRobotLasers();
         activateBoardElements(Checkpoint.class);
     }
@@ -85,6 +81,12 @@ public class Roborally{
             if(elementTypeToActivate.isInstance(position)){
                 position.doSquareAction(robot, board);
             }
+        }
+    }
+
+    private void fireBoardLasers(){
+        for(Laser laser : board.getLasers()){
+            laser.fire(robots, board);
         }
     }
 
