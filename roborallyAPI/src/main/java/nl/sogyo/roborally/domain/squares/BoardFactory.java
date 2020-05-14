@@ -103,12 +103,14 @@ public class BoardFactory{
 		laserTestBoard.addRow(row3);
 
 		Laser laser1 = new Laser(0,0, Direction.SOUTH, 1);
-		Laser laser2 = new Laser(0,1, Direction.EAST, 1);
+		Laser laser2 = new Laser(0,1, Direction.EAST, 2);
 		Laser laser3 = new Laser(1,1, Direction.NORTH, 1);
+		Laser laser4 = new Laser(1,2, Direction.WEST, 3);
 
 		laserTestBoard.addLaser(laser1);
 		laserTestBoard.addLaser(laser2);
 		laserTestBoard.addLaser(laser3);
+		laserTestBoard.addLaser(laser4);
 
 		return laserTestBoard;
 	}

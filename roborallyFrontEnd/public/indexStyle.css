@@ -9,7 +9,6 @@ html {
     display: grid;
     grid-auto-columns: min-content;
     background-color: #2196F3;
-    padding: 10px;
     width: min-content;
     height: 100%;
 }
@@ -39,12 +38,23 @@ html {
 }
 
 .laserbeamHorizontal{
-  width: 200px;
-  height: 10px;
+  background-color: white;
+  border-style: solid none solid none;
+  border-width: 3px;
+  height: 8px;
   position: absolute;
   top: 50%;
-  left: 0px;
   transform: translate(0, -50%);
+}
+
+.laserbeamVertical{
+  background-color: white;
+  border-style: none solid none solid;
+  border-width: 3px;
+  width: 8px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 .North-arrow {

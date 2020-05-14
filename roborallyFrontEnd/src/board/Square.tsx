@@ -3,6 +3,7 @@ import { Robot, RobotElement } from "./../Robot";
 import { Laser, Laserbeam, LaserElement, BeamElement } from "./Laser";
 import { Flag, Rotate90DegreesCcw, RotateLeft, RotateRight, Brightness1, KeyboardArrowUp, KeyboardArrowRight, KeyboardArrowDown, KeyboardArrowLeft } from "@material-ui/icons";
 import { Badge } from "@material-ui/core";
+import zIndex from "@material-ui/core/styles/zIndex";
 export class Square{
     type: string;
     northwall: boolean;
@@ -59,9 +60,26 @@ export class Square{
         }
     }
 
+    getSituation(direction: string){
+        if(this.robot != undefined) return "robot";
+        else if(this.hasWallAt(direction)) return "wall";
+        else return "none";
+    }
+
+    hasWallAt(direction: string){
+        switch(direction){
+            case "North": return this.northwall;
+            case "East": return this.eastwall;
+            case "South": return this.southwall;
+            case "West": return this.westwall;
+        }
+        return false;
+    }
+
     public render(rowNumber: number, columnNumber: number){
         const [ squareImageZIndex, setSquareImageZIndex ] = useState<number>(1);
         const [ robotZIndex, setRobotZIndex ] = useState<number>(2);
+        const [ beamZIndex, setBeamZIndex ] = useState<number>(1);
         let style = createStyle(this, columnNumber, rowNumber);
     
         let squareImage = createImage(this.type, squareImageZIndex);
@@ -72,8 +90,8 @@ export class Square{
         }
     
         let laserElements = this.getLasers().map(laser => <LaserElement laser={laser} key={laser.orientation + laser.xCoordinate + laser.yCoordinate}/>);
-    
-        let beamElements = this.getLaserbeams().map(beam => <BeamElement direction={beam.direction} firepower={beam.firepower} key={beam.direction + rowNumber + columnNumber}/>);
+
+        let beamElements = this.getLaserbeams().map(beam => <BeamElement beam={beam} zIndex={beamZIndex} situation={this.getSituation(beam.direction)} key={beam.direction + rowNumber + columnNumber}/>);
     
         return (<div 
                     key={"" + rowNumber + columnNumber} 
@@ -89,11 +107,13 @@ export class Square{
         function mouseOver(){
             setSquareImageZIndex(3);
             setRobotZIndex(-1);
+            setBeamZIndex(-1);
         }
     
         function mouseLeave(){
             setSquareImageZIndex(1);
             setRobotZIndex(2);
+            setBeamZIndex(1);
         }
     }
 
@@ -107,26 +127,22 @@ export class Square{
 function createStyle(square: Square, columnNumber: number, rowNumber: number){
     let style: React.CSSProperties = {
         position: "relative",
+        borderWidth: "10px",
         gridColumnStart: columnNumber + 1,
         gridRowStart: rowNumber + 1,
     }
-    let borderwidth = "20px";
     let bordercolour = "rgb(153, 153, 8)";
 
     if(square.northwall){
-        style.borderTopWidth = borderwidth;
         style.borderTopColor = bordercolour;
     }
     if(square.eastwall){
-        style.borderRightWidth = borderwidth;
         style.borderRightColor = bordercolour;
     }
     if(square.southwall){
-        style.borderBottomWidth = borderwidth;
         style.borderBottomColor = bordercolour;
     }
     if(square.westwall){
-        style.borderLeftWidth = borderwidth;
         style.borderLeftColor = bordercolour;
     }
     return style;

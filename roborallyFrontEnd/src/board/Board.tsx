@@ -48,6 +48,27 @@ function propagateLaserbeam(laser: Laser, xCoordinate: number, yCoordinate: numb
             propagateLaserbeam(laser, xCoordinate + 1, yCoordinate, board);
         }
     }
+    if(laser.orientation == "South"){
+        let currentSquare = board[yCoordinate][xCoordinate];
+        currentSquare.addLaserbeam({direction: "South", firepower: laser.firepower});
+        if(!currentSquare.southwall && currentSquare.robot == undefined && yCoordinate < board.length - 1){
+            propagateLaserbeam(laser, xCoordinate, yCoordinate + 1, board);
+        }
+    }
+    if(laser.orientation == "West"){
+        let currentSquare = board[yCoordinate][xCoordinate];
+        currentSquare.addLaserbeam({direction: "West", firepower: laser.firepower});
+        if(!currentSquare.eastwall && currentSquare.robot == undefined && xCoordinate > 0){
+            propagateLaserbeam(laser, xCoordinate - 1, yCoordinate, board);
+        }
+    }
+    if(laser.orientation == "North"){
+        let currentSquare = board[yCoordinate][xCoordinate];
+        currentSquare.addLaserbeam({direction: "North", firepower: laser.firepower});
+        if(!currentSquare.southwall && currentSquare.robot == undefined && yCoordinate > 0){
+            propagateLaserbeam(laser, xCoordinate, yCoordinate - 1, board);
+        }
+    }
 }
 
 function resetSquares(squares: Square[][]){

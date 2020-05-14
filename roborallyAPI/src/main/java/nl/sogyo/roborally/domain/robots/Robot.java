@@ -40,6 +40,13 @@ public class Robot{
         else this.colour = "orange";
     }
 
+    public Robot(int xCoordinate, int yCoordinate, String name, int colourNr){
+        this(xCoordinate, yCoordinate);
+        this.name = name;
+        if(colourNr < 6) this.colour = colours[colourNr];
+        else this.colour = "orange";
+    }
+
     public Robot(int xCoordinate, int yCoordinate){
         this.xCoordinate = xCoordinate;
         this.respawnX = xCoordinate;

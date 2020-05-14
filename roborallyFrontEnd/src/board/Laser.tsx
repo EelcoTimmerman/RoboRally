@@ -13,6 +13,12 @@ export interface Laserbeam{
     firepower: number,
 }
 
+interface LaserbeamProps{
+    beam: Laserbeam,
+    zIndex: number,
+    situation: string,
+}
+
 interface LaserElementProps{
     laser: Laser,
 }
@@ -21,24 +27,33 @@ export function LaserElement({laser}: LaserElementProps){
         position: "absolute",
         margin: "0px",
         padding: "0px",
+        zIndex: 5,
     }
 
     switch(laser.orientation){
         case "South":   style.top = "-9px";
                         style.left = "50%";
                         style.transform = "translate(-50%)";
+                        style.width = "30px";
+                        style.height = "37px";
                         break;
         case "West":    style.top = "50%";
-                        style.right = "-6px";
+                        style.right = "-9px";
                         style.transform = "translate(0, -50%)";
+                        style.width = "37px";
+                        style.height = "30px";
                         break;
-        case "North":   style.bottom = "-13px";
+        case "North":   style.bottom = "-15px";
                         style.left = "50%";
                         style.transform = "translate(-50%)";
+                        style.width = "30px";
+                        style.height = "37px";
                         break;
         case "East":    style.top = "50%";
-                        style.left = "-6px";
+                        style.left = "-13px";
                         style.transform = "translate(0, -50%)";
+                        style.width = "37px";
+                        style.height = "30px";
                         break;
     }
     let image = createLaserImage(laser);
@@ -49,7 +64,9 @@ export function LaserElement({laser}: LaserElementProps){
 }
 
 function createLaserImage(laser: Laser){
-    let style : React.CSSProperties = {};
+    let style : React.CSSProperties = {
+        fontSize: 30,
+    };
     switch(laser.orientation){
         case "North":   style.transform = "rotate(135deg)";
                         break;
@@ -63,6 +80,28 @@ function createLaserImage(laser: Laser){
     return <Colorize style={style}/>;
 }
 
-export function BeamElement({direction, firepower}: Laserbeam){
-    return(<div className="laserbeamHorizontal" style={{backgroundColor: "red", zIndex: 4}}></div>);
+export function BeamElement({beam, zIndex, situation}: LaserbeamProps){
+    let beamLength = "0px";
+    switch(situation){
+        case "robot":   beamLength = "90px";
+                        break;
+        case "wall":    beamLength = "180px";
+                        break;
+        case "none":    beamLength = "201px";
+    }
+    let beamColor = "red";
+    if(beam.firepower == 2) beamColor = "blue";
+    if(beam.firepower == 3) beamColor = "purple";
+    if(beam.direction == "East"){
+        return(<div className="laserbeamHorizontal" style={{borderColor: beamColor, zIndex: zIndex, width: beamLength, left: "0px"}}></div>);
+    }
+    else if(beam.direction == "South"){
+        return(<div className="laserbeamVertical" style={{borderColor: beamColor, zIndex: zIndex, height: beamLength, top: "0px"}}></div>);
+    }
+    else if(beam.direction == "West"){
+        return(<div className="laserbeamHorizontal" style={{borderColor: beamColor, zIndex: zIndex, width: beamLength, right: "0px"}}></div>);
+    }
+    else{
+        return(<div className="laserbeamVertical" style={{borderColor: beamColor, zIndex: zIndex, height: beamLength, bottom: "0px"}}></div>);
+    }
 }
