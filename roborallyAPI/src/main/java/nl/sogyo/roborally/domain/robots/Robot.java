@@ -6,22 +6,34 @@ import java.util.List;
 
 //import jdk.javadoc.internal.doclets.toolkit.resources.doclets;
 import nl.sogyo.roborally.domain.Direction;
-import nl.sogyo.roborally.domain.cards.*;
+import nl.sogyo.roborally.domain.cards.DoNothingCard;
+import nl.sogyo.roborally.domain.cards.Card;
+import nl.sogyo.roborally.domain.cards.Deck;
+import nl.sogyo.roborally.domain.cards.MoveBackCard;
+import nl.sogyo.roborally.domain.cards.MoveOneCard;
+import nl.sogyo.roborally.domain.cards.MoveThreeCard;
+import nl.sogyo.roborally.domain.cards.MoveTwoCard;
+import nl.sogyo.roborally.domain.cards.RotateLeftCard;
+import nl.sogyo.roborally.domain.cards.RotateRightCard;
+import nl.sogyo.roborally.domain.cards.UTurnCard;
+import nl.sogyo.roborally.domain.squares.Board;
+import nl.sogyo.roborally.domain.squares.Square;
 
 public class Robot{
     private final String[] colours = {"green", "black", "purple", "blue", "red", "brown"};
-    List<ICard> hand = new ArrayList<ICard>();
+    List<Card> hand = new ArrayList<Card>();
 
-    Direction orientation = Direction.NORTH;;
-    ICard card = new DoNothingCard();
+    Direction orientation = Direction.NORTH;
+    Card card = new DoNothingCard();
     int health = 9;
     int xCoordinate;
     int yCoordinate;
     int respawnX;
     int respawnY;
     boolean ready = false;
-    String name;
-    String colour;
+    String name = "defaultname";
+    String colour = "orange";
+    ActivityLevel activitylevel = ActivityLevel.ACTIVE;
     
     public Robot(){
     }
@@ -40,10 +52,7 @@ public class Robot{
     }
 
     public Robot(int xCoordinate, int yCoordinate, Direction orientation){
-        this.xCoordinate = xCoordinate;
-        this.respawnX = xCoordinate;
-        this.yCoordinate = yCoordinate;
-        this.respawnY = yCoordinate;
+        this(xCoordinate, yCoordinate);
         this.orientation = orientation;
     }
 
@@ -55,7 +64,7 @@ public class Robot{
         return name;
     }
 
-    public ICard getCard(){
+    public Card getCard(){
         return this.card;
     }
 
@@ -79,8 +88,22 @@ public class Robot{
         this.orientation = newOrientation;
     }
 
-    public void takeDamage(int firepower){
-        this.health -= firepower;
+    public ActivityLevel getActivitylevel() {
+        return activitylevel;
+    }
+
+    public boolean takeDamageIfHit(int xCoordinate, int yCoordinate, int damage){
+        if(this.xCoordinate == xCoordinate && this.yCoordinate == yCoordinate){
+            takeDamage(damage);
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public void takeDamage(int damage){
+        this.health -= damage;
     }
 
     public boolean isAt(int xCoordinate, int yCoordinate){
@@ -116,28 +139,30 @@ public class Robot{
         }
     }
 
-    public void program(ICard card){
-        this.card = card;
-        this.ready = true;
+    public void program(Card card){
+        if(this.activitylevel != ActivityLevel.INACTIVE){
+            this.card = card;
+            this.ready = true;
+        }
     }
 
     public void program(int cardnr){
         switch(cardnr){
-            case 0: this.card = new MoveOneCard();
+            case 0: program(new MoveOneCard());
                     break;
-            case 1: this.card = new RotateRightCard();
+            case 1: program(new RotateRightCard());
                     break;
-            case 2: this.card = new RotateLeftCard();
+            case 2: program(new RotateLeftCard());
                     break;
-            case 3: this.card = new UTurnCard();
+            case 3: program(new UTurnCard());
                     break;
-            case 4: this.card = new MoveTwoCard();
+            case 4: program(new MoveTwoCard());
                     break;
-            case 5: this.card = new MoveThreeCard();
+            case 5: program(new MoveThreeCard());
                     break;
-            case 6: this.card = new MoveBackCard();
+            case 6: program(new MoveBackCard());
                     break;
-            case 7: this.card = new DoNothingCard();
+            case 7: program(new DoNothingCard());
                     break;
             default: throw new RuntimeException("Invalid cardnr");
         }
@@ -203,15 +228,130 @@ public class Robot{
         this.hand = deck.createHand(9-getHealth());
     }
     
-    public List<ICard> getHand(){
+    public List<Card> getHand(){
         return this.hand;
     }
 
     public void addHandToDiscardPile(Deck deck){
-        for(ICard card:this.hand){
+        for(Card card : this.hand){
             deck.getDiscardPile().add(card);
         }
         this.hand.clear();
     }
 
+    public boolean isInactive(){
+        return this.activitylevel == ActivityLevel.INACTIVE;
+    }
+
+    public boolean isPoweringDown(){
+        return this.activitylevel == ActivityLevel.POWERINGDOWN;
+    }
+
+    public void shutDown(){
+        this.activitylevel = ActivityLevel.INACTIVE;
+        this.card = new DoNothingCard();
+        this.health = 9;
+    }
+
+    public void activate(){
+        this.activitylevel = ActivityLevel.ACTIVE;
+    }
+
+    public void fireLaser(List<Robot> robots, Board board){
+        switch(this.orientation){
+            case NORTH: fireNorth(robots, board);
+                        break;
+            case EAST: fireEast(robots, board);
+                        break;                        
+            case SOUTH: fireSouth(robots, board);
+                        break;            
+            case WEST: fireWest(robots, board);
+                        break;
+        }
+    }
+
+    private void fireNorth(List<Robot> robots, Board board){
+        int xCoordinate = this.xCoordinate;
+        int yCoordinate = this.yCoordinate;
+        Square currentSquare = board.getSquare(xCoordinate, yCoordinate);
+        if(!currentSquare.hasWallAt(Direction.NORTH)){
+            yCoordinate--;
+            while(yCoordinate >= 0){
+                boolean hitRobot = false;
+                for(Robot robot : robots){
+                    hitRobot |= robot.takeDamageIfHit(xCoordinate, yCoordinate, 1);
+                }
+                currentSquare = board.getSquare(xCoordinate, yCoordinate);
+                if(hitRobot || currentSquare.hasWallAt(Direction.NORTH)){
+                    break;
+                }
+                yCoordinate--;
+            }
+        }
+    }
+
+    private void fireEast(List<Robot> robots, Board board){
+        int xCoordinate = this.xCoordinate;
+        int yCoordinate = this.yCoordinate;
+        Square currentSquare = board.getSquare(xCoordinate, yCoordinate);
+        if(!currentSquare.hasWallAt(Direction.EAST)){
+            xCoordinate++;
+            while(xCoordinate < board.getWidth()){
+                boolean hitRobot = false;
+                for(Robot robot : robots){
+                    hitRobot |= robot.takeDamageIfHit(xCoordinate, yCoordinate, 1);
+                }
+                currentSquare = board.getSquare(xCoordinate, yCoordinate);
+                if(hitRobot || currentSquare.hasWallAt(Direction.EAST)){
+                    break;
+                }
+                xCoordinate++;
+            }
+        }       
+    }
+
+    private void fireSouth(List<Robot> robots, Board board){
+        int xCoordinate = this.xCoordinate;
+        int yCoordinate = this.yCoordinate;
+        Square currentSquare = board.getSquare(xCoordinate, yCoordinate);
+        if(!currentSquare.hasWallAt(Direction.SOUTH)){
+            yCoordinate++;
+            while(yCoordinate < board.getHeight()){
+                boolean hitRobot = false;
+                for(Robot robot : robots){
+                    hitRobot |= robot.takeDamageIfHit(xCoordinate, yCoordinate, 1);
+                }
+                currentSquare = board.getSquare(xCoordinate, yCoordinate);
+                if(hitRobot || currentSquare.hasWallAt(Direction.SOUTH)){
+                    break;
+                }
+                yCoordinate++;
+            }
+        }       
+    }
+
+    private void fireWest(List<Robot> robots, Board board){
+        int xCoordinate = this.xCoordinate;
+        int yCoordinate = this.yCoordinate;
+        Square currentSquare = board.getSquare(xCoordinate, yCoordinate);
+        if(!currentSquare.hasWallAt(Direction.WEST)){
+            xCoordinate--;
+            while(xCoordinate >= 0){
+                boolean hitRobot = false;
+                for(Robot robot : robots){
+                    hitRobot |= robot.takeDamageIfHit(xCoordinate, yCoordinate, 1);
+                }
+                currentSquare = board.getSquare(xCoordinate, yCoordinate);
+                if(hitRobot || currentSquare.hasWallAt(Direction.WEST)){
+                    break;
+                }
+                xCoordinate--;
+            }
+        }  
+    }
+
+    public void turnOnOrOff(){
+        if(this.activitylevel == ActivityLevel.ACTIVE) this.activitylevel = ActivityLevel.POWERINGDOWN;
+        else if(this.activitylevel == ActivityLevel.POWERINGDOWN) this.activitylevel = ActivityLevel.ACTIVE;
+    }
 }

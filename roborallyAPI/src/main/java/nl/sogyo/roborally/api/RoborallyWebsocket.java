@@ -42,6 +42,11 @@ public class RoborallyWebsocket{
             String cards = new JSONResultProcessor().createCardsResponse(roborally, robots.get(session));
             session.getBasicRemote().sendText(cards);
         }
+        else if(message.equals("switchpower")){
+            Robot robot = robots.get(session);
+            robot.turnOnOrOff();
+            updatePlayerPowerStatus(session);
+        }
         else{
             int cardnr = Integer.parseInt(message);
             Robot robot = robots.get(session);
@@ -70,7 +75,14 @@ public class RoborallyWebsocket{
         String robots = new JSONResultProcessor().createRobotsResponse(roborally);
         for(Session player : players){
             player.getBasicRemote().sendText(robots);
+            updatePlayerPowerStatus(player);
         }
+    }
+
+    private void updatePlayerPowerStatus(Session session)throws IOException{
+        Robot robot = robots.get(session);
+        String powerstatusresponse = new JSONResultProcessor().createPowerstatusResponse(robot);
+        session.getBasicRemote().sendText(powerstatusresponse);
     }
 
 }

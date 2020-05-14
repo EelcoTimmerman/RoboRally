@@ -3,6 +3,7 @@ package nl.sogyo.roborally.domain;
 import nl.sogyo.roborally.domain.cards.Deck;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.Board;
+import nl.sogyo.roborally.domain.squares.BoardFactory;
 
 import org.junit.Test;
 
@@ -20,7 +21,7 @@ public class TestDeck{
     @Test
     public void TestCreateDeck1(){
         Deck deck = new Deck();
-        List<ICard> cardsInHand = deck.createHand(0);
+        List<Card> cardsInHand = deck.createHand(0);
         assert(cardsInHand.size() == 9);
         assert(deck.getDeck().size() == 84-9);
     }
@@ -48,8 +49,7 @@ public class TestDeck{
 
     @Test
     public void TestPlayRoundReducesDeck(){
-        String boardString = "ES-X*ES-X*||*ES-X*CH-X";
-        Board board = new Board(boardString);
+        Board board = BoardFactory.createSimpleBoard();
         Robot robot1 = new Robot("eelco",1);
         Robot robot2 = new Robot("said",2);
         Roborally roborally = new Roborally(board, robot1);
@@ -79,8 +79,7 @@ public class TestDeck{
 
     @Test
     public void TestThatRobot2CannotDrawTheCardThatRobot1Has(){
-        String boardString = "ES-X*ES-X*||*ES-X*CH-X";
-        Board board = new Board(boardString);
+        Board board = BoardFactory.createSimpleBoard();
         Robot robot1 = new Robot("e",1);
         Robot robot2 = new Robot("r",2);
         Roborally roborally = new Roborally(board, robot1);
@@ -93,18 +92,18 @@ public class TestDeck{
             robot2.addHandToDiscardPile(deck);
         }
         robot1.setHand(deck);
-        List<ICard> cardsR1 = robot1.getHand();
+        List<Card> cardsR1 = robot1.getHand();
         assert(deck.getDeck().size() == 3);
         robot2.setHand(deck);
-        List<ICard> cardsR2 = robot2.getHand();
+        List<Card> cardsR2 = robot2.getHand();
         assert(deck.getDeck().size() == (72-6));//discard pile minus the number of cards that r2 draws
         assert(cardsAreNotObtainedInList(cardsR1,deck.getDeck()));
         assert(cardsAreNotObtainedInList(cardsR1,cardsR2));
     }
 
-    private boolean cardsAreNotObtainedInList(List<ICard> cards, List<ICard> cardList){
-        for(ICard card:cards){
-            for(ICard deckCard:cardList){
+    private boolean cardsAreNotObtainedInList(List<Card> cards, List<Card> cardList){
+        for(Card card:cards){
+            for(Card deckCard:cardList){
                 if(card.equals(deckCard)){
                     return false;
                 }

@@ -1,29 +1,25 @@
 package nl.sogyo.roborally.domain.cards;
 
+import java.util.List;
+
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.Board;
 
-public class RotateLeftCard implements ICard{
-    private String name = "RotateLeftCard";
-    private int speed;
+public class RotateLeftCard extends Card{
 
-    public RotateLeftCard(){}
-
-    public RotateLeftCard(int speed){
-        this.speed = speed;
+    public RotateLeftCard() {
+        super();
     }
 
-    public void doCardAction(Robot robot, Board board){    
+    public RotateLeftCard(int speed) {
+        super(speed);
+    }
+
+    public void doCardAction(Robot robot, Board board, List<Robot> robots) {
         robot.turnLeft();    
     }
 
-    @Override
-    public int getSpeed(){
-        return this.speed;
-    }
-
-    @Override
     public String getName(){
-        return this.name;
+        return "RotateLeftCard";
     }
 }

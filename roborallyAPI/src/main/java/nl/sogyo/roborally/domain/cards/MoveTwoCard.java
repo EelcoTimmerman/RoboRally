@@ -1,50 +1,30 @@
 package nl.sogyo.roborally.domain.cards;
 
+import java.util.List;
+
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.Board;
-import nl.sogyo.roborally.domain.squares.Pit;
-import nl.sogyo.roborally.domain.squares.Square;
 
-public class MoveTwoCard implements ICard{
-    private String name = "MoveTwoCard";
-    private int speed;
+public class MoveTwoCard extends Card{
 
-    public MoveTwoCard(){}
-
-    public MoveTwoCard(int speed){
-        this.speed = speed;        
+    public MoveTwoCard(){
+        super();
     }
 
-    public void doCardAction(Robot robot, Board board){
-        if(canMoveForward(robot, board)) robot.moveForward();
-        if(robotNotOnBoard(robot, board) || robotInPit(robot, board)) robot.respawn();
-        else{
-            if(canMoveForward(robot, board)) robot.moveForward();    
-            if(robotNotOnBoard(robot, board) || robotInPit(robot, board)) robot.respawn();
+    public MoveTwoCard(int speed){
+        super(speed);
+    }
+
+    public void doCardAction(Robot robot, Board board, List<Robot> robots){
+        boolean hasMoved = moveRobotInDirectionIfPossible(robot, robot.getOrientation(), board, robots);
+        boolean hasRespawned = respawnIfNecessary(robot, board);
+        if(hasMoved && !hasRespawned){
+            moveRobotInDirectionIfPossible(robot, robot.getOrientation(), board, robots);
+            respawnIfNecessary(robot, board);
         }
     }
 
-    private boolean robotInPit(Robot robot, Board board){
-        Square currentPosition = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
-        return (currentPosition instanceof Pit);
-    }
-
-    private boolean robotNotOnBoard(Robot robot, Board board){
-        return robot.getXCoordinate() < 0 || robot.getYCoordinate() < 0 || robot.getXCoordinate() >= board.getWidth() || robot.getYCoordinate() >= board.getHeight();
-    }
-
-    private boolean canMoveForward(Robot robot, Board board){
-        Square currentPosition = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
-        return !currentPosition.hasWallAt(robot.getOrientation());
-    }
-
-    @Override
-    public int getSpeed(){
-        return this.speed;
-    }
-
-    @Override
     public String getName(){
-        return this.name;
+        return "MoveTwoCard";
     }
 }

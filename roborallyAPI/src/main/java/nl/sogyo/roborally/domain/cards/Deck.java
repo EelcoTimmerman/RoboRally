@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.*;
 
 public class Deck {
-    List<ICard> cardsInDeck = new ArrayList<ICard>();
-    List<ICard> discardPile= new ArrayList<ICard>();
+    List<Card> cardsInDeck = new ArrayList<Card>();
+    List<Card> discardPile= new ArrayList<Card>();
      
 
     public Deck(){
@@ -22,18 +22,18 @@ public class Deck {
         }
     }
     
-    public List<ICard> getDeck(){
+    public List<Card> getDeck(){
         return this.cardsInDeck;
     }
 
-    public List<ICard> getDiscardPile(){
+    public List<Card> getDiscardPile(){
         return this.discardPile;
     }
 
-    private List<ICard> addCardToDeck(List<ICard> cards, String line){
+    private List<Card> addCardToDeck(List<Card> cards, String line){
         int speed = Integer.parseInt(line.split(" ")[0]);
         String type = line.split(" ", 2)[1];
-        ICard card;
+        Card card;
         switch(type){
             case "U Turn": card = new UTurnCard(speed); break;
             case "Rotate Left": card = new RotateLeftCard(speed); break;
@@ -48,19 +48,19 @@ public class Deck {
         return cards;
     }
        
-    public List<ICard> createHand(int damage){
-        List<ICard> hand = new ArrayList<ICard>();
+    public List<Card> createHand(int damage){
+        List<Card> hand = new ArrayList<Card>();
         for(int i = 0; i < (9-damage);i++){       
             hand.add(getRandomCard());
         }
         return hand;
     }
 
-    private ICard getRandomCard(){
+    private Card getRandomCard(){
         if(this.cardsInDeck.isEmpty()) replenishDeckWithDiscardPile();
         Random rand = new Random();
         int cardIndex = rand.nextInt(cardsInDeck.size());
-        ICard randCard = this.cardsInDeck.get(cardIndex);
+        Card randCard = this.cardsInDeck.get(cardIndex);
         this.cardsInDeck.remove(randCard);
         return randCard;
     }
@@ -69,7 +69,7 @@ public class Deck {
         if(this.discardPile.isEmpty()){
             throw new RuntimeException("Trying to obtain cards from an empty deck..");
         }
-        for(ICard card1: this.discardPile){
+        for(Card card1: this.discardPile){
             this.cardsInDeck.add(card1);
         }
         this.discardPile.clear();

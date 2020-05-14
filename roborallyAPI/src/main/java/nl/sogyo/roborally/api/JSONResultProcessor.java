@@ -7,7 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import nl.sogyo.roborally.domain.*;
-import nl.sogyo.roborally.domain.cards.ICard;
+import nl.sogyo.roborally.domain.cards.Card;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.*;
 
@@ -24,7 +24,7 @@ public class JSONResultProcessor {
     }
 
     public String createCardsResponse(Roborally rRally, Robot robot){
-        List<ICard> hand = robot.getHand();
+        List<Card> hand = robot.getHand();
         JSONArray cards = createJSONCards(hand);
         JSONObject response = new JSONObject();
         response.put("messagetype", "drawncards");
@@ -44,16 +44,23 @@ public class JSONResultProcessor {
         response.put("body", robots);
         return response.toJSONString();
     }
+
+    public String createPowerstatusResponse(Robot robot){
+        JSONObject response = new JSONObject();
+        response.put("messagetype", "powerstatus");
+        response.put("body", robot.getActivitylevel().toString());
+        return response.toJSONString();
+    }
  
-    private JSONArray createJSONCards(List<ICard> cards){
+    private JSONArray createJSONCards(List<Card> cards){
         JSONArray jsonCards = new JSONArray();
-        for(ICard card : cards){
+        for(Card card : cards){
             jsonCards.add(createJSONCard(card));
         }
         return jsonCards;
     }
 
-    private JSONObject createJSONCard(ICard card){
+    private JSONObject createJSONCard(Card card){
         JSONObject jsonCard = new JSONObject();
         jsonCard.put("name", card.getName());
         jsonCard.put("speed", card.getSpeed());
@@ -93,6 +100,8 @@ public class JSONResultProcessor {
         result.put("xCoordinate", robot.getXCoordinate());
         result.put("yCoordinate", robot.getYCoordinate());
         result.put("ready", robot.isReady());
+        result.put("hitpoints", robot.getHealth());
+        result.put("status", robot.getActivitylevel().toString());
         return result;
     }
 }
