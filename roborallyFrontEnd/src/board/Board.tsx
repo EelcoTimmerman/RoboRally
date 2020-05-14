@@ -58,14 +58,14 @@ function propagateLaserbeam(laser: Laser, xCoordinate: number, yCoordinate: numb
     if(laser.orientation == "West"){
         let currentSquare = board[yCoordinate][xCoordinate];
         currentSquare.addLaserbeam({direction: "West", firepower: laser.firepower});
-        if(!currentSquare.eastwall && currentSquare.robot == undefined && xCoordinate > 0){
+        if(!currentSquare.westwall && currentSquare.robot == undefined && xCoordinate > 0){
             propagateLaserbeam(laser, xCoordinate - 1, yCoordinate, board);
         }
     }
     if(laser.orientation == "North"){
         let currentSquare = board[yCoordinate][xCoordinate];
         currentSquare.addLaserbeam({direction: "North", firepower: laser.firepower});
-        if(!currentSquare.southwall && currentSquare.robot == undefined && yCoordinate > 0){
+        if(!currentSquare.northwall && currentSquare.robot == undefined && yCoordinate > 0){
             propagateLaserbeam(laser, xCoordinate, yCoordinate - 1, board);
         }
     }

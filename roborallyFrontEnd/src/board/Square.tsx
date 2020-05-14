@@ -112,8 +112,8 @@ export class Square{
     
         function mouseLeave(){
             setSquareImageZIndex(1);
-            setRobotZIndex(2);
-            setBeamZIndex(1);
+            setRobotZIndex(3);
+            setBeamZIndex(2);
         }
     }
 

@@ -21,7 +21,7 @@ import nl.sogyo.roborally.domain.squares.BoardFactory;
 
 @ServerEndpoint(value = "/websocket")
 public class RoborallyWebsocket{
-    private static final Roborally roborally = new Roborally(BoardFactory.createBoardlaserTestBoard());
+    private static final Roborally roborally = new Roborally(BoardFactory.createSmallCompleteBoard());
     private static final List<Session> players = new ArrayList<>();
     private static final Map<Session, Robot> robots = new HashMap<>();
     
@@ -35,7 +35,7 @@ public class RoborallyWebsocket{
         System.out.println("Message recieved: " + message);
         if(message.contains("initialize")){
             String name = message.split(" ")[1];
-            Robot robot = new Robot(0, 1, name, robots.size());
+            Robot robot = new Robot(name, robots.size());
             robots.put(session, robot);
             roborally.addRobot(robot);
             players.add(session);
