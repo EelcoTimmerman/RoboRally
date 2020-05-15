@@ -51,10 +51,8 @@ public class RoborallyWebsocket{
         }
         else{
             int cardnr = Integer.parseInt(message);
-            //future: int[] cardnrs = Integer.parseInt(message);
-            int[] cardnrs = {cardnr,3,3,3,3};
             Robot robot = robots.get(session);
-            robot.program(cardnrs);
+            robot.program(cardnr);
             roborally.playRoundIfAllRobotsReady();
         }
         updateAllPlayers();
