@@ -57,28 +57,24 @@ public class Roborally{
             for(Robot robot : robots){
                 robotPlaysCard(robot, cardNr);
             }
+            activateBoardElements(SlowConveyorbelt.class);
+            activateBoardElements(Gear180.class);
+            activateBoardElements(GearRight.class);
+            activateBoardElements(GearLeft.class);
+            fireRobotLasers();
+            activateBoardElements(Checkpoint.class);
         }
         //This keeps the order of the robots consistent for the frontend.
         robots.sort(Robot.COMPARE_BY_NAME);
-
-        activateBoardElements(SlowConveyorbelt.class);
-        activateBoardElements(Gear180.class);
-        activateBoardElements(GearRight.class);
-        activateBoardElements(GearLeft.class);
-        fireRobotLasers();
-        activateBoardElements(Checkpoint.class);
+        for(Robot robot : robots){
+            robot.cyclePowerState();
+        }
     }
 
     private void robotPlaysCard(Robot robot, int cardNr){
         Card playingCard = robot.getCard(cardNr);
         playingCard.doCardAction(robot, board, robots);
         robot.unready();
-        if(robot.isInactive()){
-            robot.activate();
-        }
-        if(robot.isPoweringDown()){
-            robot.shutDown();
-        }
         robot.updateCurrentCard();
     }
 

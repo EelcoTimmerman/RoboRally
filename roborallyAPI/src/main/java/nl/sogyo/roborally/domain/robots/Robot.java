@@ -172,7 +172,11 @@ public class Robot{
             }
         }
         this.ready = true;
+    }
 
+    public void program(int cardnr){
+        int[] cardnrs = {cardnr, 7, 7, 7, 7};
+        program(cardnrs);
     }
 
     public void program(Card[] cards){
@@ -182,7 +186,12 @@ public class Robot{
             }
         }
          this.ready = true;
-     }
+    }
+
+    public void program(Card card){
+        Card[] cards = {card, new DoNothingCard(), new DoNothingCard(), new DoNothingCard(), new DoNothingCard()};
+        program(cards);
+    }
 
     
 
@@ -260,6 +269,15 @@ public class Robot{
 
     public void activate(){
         this.activitylevel = ActivityLevel.ACTIVE;
+    }
+
+    public void cyclePowerState(){
+        if(this.activitylevel == ActivityLevel.POWERINGDOWN){
+            this.shutDown();
+        }
+        else if(this.activitylevel == ActivityLevel.INACTIVE){
+            this.activate();
+        }
     }
 
     public void fireLaser(List<Robot> robots, Board board){

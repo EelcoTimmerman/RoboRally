@@ -679,7 +679,7 @@ public class TestRoborally {
         robot1.program(7);
         robot2.program(7);
         roborally.playRoundIfAllRobotsReady();
-        assertEquals(8, robot1.getHealth());
+        assertEquals(4, robot1.getHealth());
     }
     
     @Test
@@ -692,7 +692,7 @@ public class TestRoborally {
         robot1.program(7);
         robot2.program(7);
         roborally.playRoundIfAllRobotsReady();
-        assertEquals(8, robot1.getHealth());
+        assertEquals(4, robot1.getHealth());
     }
     
     @Test
@@ -705,7 +705,7 @@ public class TestRoborally {
         robot1.program(7);
         robot2.program(7);
         roborally.playRoundIfAllRobotsReady();
-        assertEquals(8, robot1.getHealth());
+        assertEquals(4, robot1.getHealth());
     }
     
     @Test
@@ -718,7 +718,7 @@ public class TestRoborally {
         robot1.program(7);
         robot2.program(7);
         roborally.playRoundIfAllRobotsReady();
-        assertEquals(8, robot1.getHealth());
+        assertEquals(4, robot1.getHealth());
     }
     
     @Test
@@ -799,7 +799,7 @@ public class TestRoborally {
         robot2.program(7);
         robot3.program(7);
         roborally.playRoundIfAllRobotsReady();
-        assertEquals(8, robot1.getHealth());
+        assertEquals(4, robot1.getHealth());
         assertEquals(9, robot3.getHealth());
 
     }
