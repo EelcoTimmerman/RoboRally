@@ -52,19 +52,23 @@ public class Roborally{
             for(Robot robot : robots){
                 robotPlaysCard(robot, cardNr);
             }
-            activateBoardElements(SlowConveyorbelt.class);
-            activateBoardElements(Gear180.class);
-            activateBoardElements(GearRight.class);
-            activateBoardElements(GearLeft.class);
-            fireBoardLasers();
-            fireRobotLasers();
-            activateBoardElements(Checkpoint.class);
+            activateAllBoardElements();
         }
         //This keeps the order of the robots consistent for the frontend.
         robots.sort(Robot.COMPARE_BY_NAME);
         for(Robot robot : robots){
             robot.cyclePowerState();
         }
+    }
+
+    void activateAllBoardElements(){
+        activateBoardElements(SlowConveyorbelt.class);
+        activateBoardElements(Gear180.class);
+        activateBoardElements(GearRight.class);
+        activateBoardElements(GearLeft.class);
+        fireBoardLasers();
+        fireRobotLasers();
+        activateBoardElements(Checkpoint.class);
     }
 
     private void robotPlaysCard(Robot robot, int cardNr){

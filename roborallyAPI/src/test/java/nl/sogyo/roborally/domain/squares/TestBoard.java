@@ -114,4 +114,12 @@ public class TestBoard{
         assert(smallCompleteBoard.hasConsistentWalls());
         assert(smallCompleteBoard.allLasersOnWalls());
     }
+
+    @Test
+    public void testSlowConveyorbeltRotationTestBoard(){
+        Board slowConveyorbeltRotationTestBoard = BoardFactory.createSlowConveyorbeltRotationTestBoard();
+        assert(slowConveyorbeltRotationTestBoard.isRectangular());
+        assert(slowConveyorbeltRotationTestBoard.hasConsistentWalls());
+        assert(slowConveyorbeltRotationTestBoard.allLasersOnWalls());
+    }
 }
