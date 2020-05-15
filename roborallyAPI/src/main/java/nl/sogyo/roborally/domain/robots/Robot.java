@@ -20,7 +20,7 @@ public class Robot{
     private final String[] colours = {"green", "black", "purple", "blue", "red", "brown"};
 
     Direction orientation = Direction.NORTH;
-    Card card = new DoNothingCard();
+    Card[] cards = {new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
     int health = 9;
     int xCoordinate;
     int yCoordinate;
@@ -30,6 +30,8 @@ public class Robot{
     String name = "defaultname";
     String colour = "orange";
     ActivityLevel activitylevel = ActivityLevel.ACTIVE;
+
+    private int currentCardIndex = 0;
     
     public Robot(){
     }
@@ -68,8 +70,17 @@ public class Robot{
         return name;
     }
 
-    public Card getCard(){
-        return this.card;
+    public Card getCard(int CardNr){
+        return this.cards[CardNr];
+    }
+
+    private Card getCurrentCard(){
+        return this.cards[this.currentCardIndex];
+    }
+
+    public void updateCurrentCard(){
+        if(this.currentCardIndex<4) this.currentCardIndex++;
+        else  this.currentCardIndex = 0;
     }
 
     public int getXCoordinate(){
@@ -143,35 +154,64 @@ public class Robot{
         }
     }
 
-    public void program(Card card){
-        if(this.activitylevel != ActivityLevel.INACTIVE){
-            this.card = card;
-            this.ready = true;
-        }
+    public void programOneCard(Card card, int index){
+        this.cards[index] = card;
     }
 
-    public void program(int cardnr){
+    public void programOneCard(int cardnr, int index){
         switch(cardnr){
-            case 0: program(new MoveOneCard());
+            case 0: programOneCard(new MoveOneCard(), index);
                     break;
-            case 1: program(new RotateRightCard());
+            case 1: programOneCard(new RotateRightCard(), index);
                     break;
-            case 2: program(new RotateLeftCard());
+            case 2: programOneCard(new RotateLeftCard(), index);
                     break;
-            case 3: program(new UTurnCard());
+            case 3: programOneCard(new UTurnCard(), index);
                     break;
-            case 4: program(new MoveTwoCard());
+            case 4: programOneCard(new MoveTwoCard(), index);
                     break;
-            case 5: program(new MoveThreeCard());
+            case 5: programOneCard(new MoveThreeCard(), index);
                     break;
-            case 6: program(new MoveBackCard());
+            case 6: programOneCard(new MoveBackCard(), index);
                     break;
-            case 7: program(new DoNothingCard());
+            case 7: programOneCard(new DoNothingCard(), index);
                     break;
             default: throw new RuntimeException("Invalid cardnr");
         }
+    }
+
+    public void program(int[] cardnrs){
+        if(this.activitylevel != ActivityLevel.INACTIVE){
+            int cardPosition = 0;
+            for(int cardNr:cardnrs){
+                programOneCard(cardNr, cardPosition);
+                cardPosition++;
+            }
+        }
         this.ready = true;
     }
+
+    public void program(int cardnr){
+        int[] cardnrs = {cardnr, 7, 7, 7, 7};
+        program(cardnrs);
+    }
+
+    public void program(Card[] cards){
+        if(this.activitylevel != ActivityLevel.INACTIVE){
+            for(int cardPosition = 0;cardPosition<5;cardPosition++){
+                programOneCard(cards[cardPosition], cardPosition);
+            }
+        }
+         this.ready = true;
+    }
+
+    public void program(Card card){
+        Card[] cards = {card, new DoNothingCard(), new DoNothingCard(), new DoNothingCard(), new DoNothingCard()};
+        program(cards);
+    }
+
+    
+
 
     public void turnRight(){
         this.orientation = this.orientation.getRight();
@@ -209,7 +249,7 @@ public class Robot{
     public static Comparator<Robot> COMPARE_BY_CARD = new Comparator<Robot>(){
         @Override
         public int compare(Robot robot1, Robot robot2) {
-            return robot1.getCard().getSpeed() - robot2.getCard().getSpeed();
+            return robot1.getCurrentCard().getSpeed() - robot2.getCurrentCard().getSpeed();
         }
     };
     
@@ -238,12 +278,23 @@ public class Robot{
 
     public void shutDown(){
         this.activitylevel = ActivityLevel.INACTIVE;
-        this.card = new DoNothingCard();
+        for(int i=0;i<5;i++){
+            this.cards[i] = new DoNothingCard();
+        }
         this.health = 9;
     }
 
     public void activate(){
         this.activitylevel = ActivityLevel.ACTIVE;
+    }
+
+    public void cyclePowerState(){
+        if(this.activitylevel == ActivityLevel.POWERINGDOWN){
+            this.shutDown();
+        }
+        else if(this.activitylevel == ActivityLevel.INACTIVE){
+            this.activate();
+        }
     }
 
     public void fireLaser(List<Robot> robots, Board board){

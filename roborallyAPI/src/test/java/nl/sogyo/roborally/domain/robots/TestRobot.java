@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.Card;
+import nl.sogyo.roborally.domain.cards.DoNothingCard;
 import nl.sogyo.roborally.domain.cards.MoveBackCard;
 import nl.sogyo.roborally.domain.cards.MoveOneCard;
 
@@ -67,17 +68,18 @@ public class TestRobot{
     @Test
     public void testProgramRobotMoveForward(){
         Robot robot = new Robot();
-        Card card1 = new MoveOneCard();
-        robot.program(card1);
-        Card card2 = robot.getCard();
-        assertEquals(card1, card2);
+        Card[] cards = {new MoveOneCard(), new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
+        robot.program(cards) ;
+        Card card2 = robot.getCard(0);
+        assertEquals(cards[0], card2);
     }
 
     @Test
     public void testProgramRobotMoveBackward(){
         Robot robot = new Robot();
-        robot.program(6);
-        assertTrue(robot.getCard() instanceof MoveBackCard);
+        int[] cardnrs = {6,7,7,7,7};
+        robot.program(cardnrs);
+        assertTrue(robot.getCard(0) instanceof MoveBackCard);
     }
 
 }
