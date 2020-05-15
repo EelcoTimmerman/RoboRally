@@ -1,17 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
 import { Square } from "./Square";
 import { Robot } from "../Robot";
+import { Laser } from "./Laser";
 
 interface BoardProps{
     squares: Square[][];
     robots: Robot[];
+    lasers: Laser[];
 }
-export function Board({ squares, robots }: BoardProps){
-    let squaresCopy = JSON.parse(JSON.stringify(squares));
+export function Board({ squares, robots, lasers }: BoardProps){
+    resetSquares(squares);
     for(let i = 0; i < robots.length; i++){
-        AddRobotToBoard(robots[i], squaresCopy);
+        addRobotToBoard(robots[i], squares);
     }
-    let board = squaresCopy.map((row: Square[], index: number) => 
+    for(let i = 0; i < lasers.length; i++){
+        addLaserToBoard(lasers[i], squares);
+    }
+    let board = squares.map((row: Square[], index: number) => 
         createRow(row, index)
     );
     return (
@@ -22,55 +27,52 @@ export function Board({ squares, robots }: BoardProps){
 }
 
 function createRow(row: Square[], rowNumber: number):JSX.Element[]{
-    return row.map((square: Square, index: number) => createSquare(square, rowNumber, index));
+    return row.map((square: Square, index: number) => square.render(rowNumber, index));
 }
 
-function createSquare(square: Square, rowNumber: number, columnNumber: number){
-    let style: React.CSSProperties = {
-        gridColumnStart: columnNumber + 1,
-        gridRowStart: rowNumber + 1,
-    }
-    let borderwidth = "20px";
-    let bordercolour = "rgb(153, 153, 8)";
-
-    if(square.northwall){
-        style.borderTopWidth = borderwidth;
-        style.borderTopColor = bordercolour;
-    }
-    if(square.eastwall){
-        style.borderRightWidth = borderwidth;
-        style.borderRightColor = bordercolour;
-    }
-    if(square.southwall){
-        style.borderBottomWidth = borderwidth;
-        style.borderBottomColor = bordercolour;
-    }
-    if(square.westwall){
-        style.borderLeftWidth = borderwidth;
-        style.borderLeftColor = bordercolour;
-    }
-
-    let squareText = square.type;
-    let robotElement: JSX.Element = <div></div>;
-    if(square.robot != undefined){
-        robotElement = createRobot(square.robot);
-    }
-
-    return (<div key={(columnNumber + 1) * (rowNumber + 1)} style={style}>
-            {squareText}
-            {robotElement}
-        </div>);
-}
-
-function AddRobotToBoard(robot: Robot, board: Square[][]){
+function addRobotToBoard(robot: Robot, board: Square[][]){
     board[robot.yCoordinate][robot.xCoordinate].robot = robot;
 }
 
-function createRobot(robot: Robot):JSX.Element{
-    let classname: string = robot.orientation + "-arrow";
-    return (<div className="inner-square" style={{backgroundColor: robot.colour}}>
-        <div className={classname}>
-            
-        </div>
-    </div>);
+function addLaserToBoard(laser: Laser, board: Square[][]){
+    let square = board[laser.yCoordinate][laser.xCoordinate];
+    square.addLaser(laser);
+    propagateLaserbeam(laser, laser.xCoordinate, laser.yCoordinate, board);
+}
+
+function propagateLaserbeam(laser: Laser, xCoordinate: number, yCoordinate: number, board: Square[][]){
+    if(laser.orientation == "East"){
+        let currentSquare = board[yCoordinate][xCoordinate];
+        currentSquare.addLaserbeam({direction: "East", firepower: laser.firepower});
+        if(!currentSquare.eastwall && currentSquare.robot == undefined && xCoordinate < board[0].length - 1){
+            propagateLaserbeam(laser, xCoordinate + 1, yCoordinate, board);
+        }
+    }
+    if(laser.orientation == "South"){
+        let currentSquare = board[yCoordinate][xCoordinate];
+        currentSquare.addLaserbeam({direction: "South", firepower: laser.firepower});
+        if(!currentSquare.southwall && currentSquare.robot == undefined && yCoordinate < board.length - 1){
+            propagateLaserbeam(laser, xCoordinate, yCoordinate + 1, board);
+        }
+    }
+    if(laser.orientation == "West"){
+        let currentSquare = board[yCoordinate][xCoordinate];
+        currentSquare.addLaserbeam({direction: "West", firepower: laser.firepower});
+        if(!currentSquare.westwall && currentSquare.robot == undefined && xCoordinate > 0){
+            propagateLaserbeam(laser, xCoordinate - 1, yCoordinate, board);
+        }
+    }
+    if(laser.orientation == "North"){
+        let currentSquare = board[yCoordinate][xCoordinate];
+        currentSquare.addLaserbeam({direction: "North", firepower: laser.firepower});
+        if(!currentSquare.northwall && currentSquare.robot == undefined && yCoordinate > 0){
+            propagateLaserbeam(laser, xCoordinate, yCoordinate - 1, board);
+        }
+    }
+}
+
+function resetSquares(squares: Square[][]){
+    squares.forEach(row => {
+        row.forEach(square => square.reset());
+    });
 }
