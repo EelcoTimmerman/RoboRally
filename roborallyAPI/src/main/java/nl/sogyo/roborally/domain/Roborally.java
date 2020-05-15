@@ -3,6 +3,7 @@ package nl.sogyo.roborally.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import nl.sogyo.roborally.domain.cards.Card;
 import nl.sogyo.roborally.domain.elements.Laser;
 import nl.sogyo.roborally.domain.robots.Robot;
@@ -12,6 +13,7 @@ public class Roborally{
 
     List<Robot> robots = new ArrayList<Robot>();
     Board board;
+    private Robot winner;
     
     public Roborally(){
         this.board = BoardFactory.createTESTBOARD4X4();
@@ -51,20 +53,31 @@ public class Roborally{
             robots.sort(Robot.COMPARE_BY_CARD);
             for(Robot robot : robots){
                 robotPlaysCard(robot, cardNr);
+                if(cardNr == 4 && robot.isWinner()){//not sure if it should be the last card
+                    this.winner = robot;
+                    break;
+                }
             }
-            activateBoardElements(SlowConveyorbelt.class);
-            activateBoardElements(Gear180.class);
-            activateBoardElements(GearRight.class);
-            activateBoardElements(GearLeft.class);
-            fireBoardLasers();
-            fireRobotLasers();
-            activateBoardElements(Checkpoint.class);
-        }
-        //This keeps the order of the robots consistent for the frontend.
-        robots.sort(Robot.COMPARE_BY_NAME);
-        for(Robot robot : robots){
-            robot.cyclePowerState();
-        }
+        if(this.winner != null){
+                activateBoardElements(SlowConveyorbelt.class);
+                activateBoardElements(Gear180.class);
+                activateBoardElements(GearRight.class);
+                activateBoardElements(GearLeft.class);
+                fireBoardLasers();
+                fireRobotLasers();
+                activateBoardElements(Checkpoint.class);
+            }
+            //This keeps the order of the robots consistent for the frontend.
+            robots.sort(Robot.COMPARE_BY_NAME);
+            for(Robot robot : robots){
+                robot.cyclePowerState();
+            }
+        }    
+
+    }
+
+    public Robot getWinner(){
+        return this.winner;
     }
 
     private void robotPlaysCard(Robot robot, int cardNr){

@@ -54,6 +54,10 @@ public class RoborallyWebsocket{
             Robot robot = robots.get(session);
             robot.program(cardnr);
             roborally.playRoundIfAllRobotsReady();
+            if(roborally.getWinner()!= null){
+                String gameover = new JSONResultProcessor().createGameOverResponse(roborally);
+                session.getBasicRemote().sendText(gameover);
+            }
         }
         updateAllPlayers();
     }

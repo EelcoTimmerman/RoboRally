@@ -17,6 +17,7 @@ public class MoveThreeCard extends Card{
             if(hasMoved && !hasRespawned){
                 moveRobotInDirectionIfPossible(robot, robot.getOrientation(), board, robots);
                 respawnIfNecessary(robot, board);
+                checkIfWinner(robot, board);
             }
         }
     }

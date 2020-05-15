@@ -55,6 +55,7 @@ export function App() {
                 else if(message.messagetype == "robots") setRobots(message.body);
                 else if(message.messagetype == "powerstatus") setPowerstatus(message.body);
                 else if(message.messagetype == "lasers") setLasers(message.body);
+                else if(message.messagetype == "gameover") endGame(message.body);
             };
 
             tempwebsocket.onclose = function(event: WebSocketCloseEvent){
@@ -64,6 +65,10 @@ export function App() {
         }
 
         setWebsocket(tempwebsocket);
+    }
+
+    function endGame(message: String){
+        
     }
 
     function createBoard(squares: Square[][]){

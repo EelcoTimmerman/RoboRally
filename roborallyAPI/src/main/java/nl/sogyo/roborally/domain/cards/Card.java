@@ -48,6 +48,11 @@ public abstract class Card{
         }
         return false;
     }
+
+    protected void checkIfWinner(Robot robot, Board board){
+        Square currentPosition = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
+        if(currentPosition instanceof FinalCheckPoint) robot.setToWinner();;             
+    }
     
     private boolean robotNotOnBoard(Robot robot, Board board){
         return robot.getXCoordinate() < 0 || robot.getYCoordinate() < 0 || robot.getXCoordinate() >= board.getWidth() || robot.getYCoordinate() >= board.getHeight();
