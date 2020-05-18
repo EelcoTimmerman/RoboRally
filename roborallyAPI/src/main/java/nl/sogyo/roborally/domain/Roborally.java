@@ -49,15 +49,15 @@ public class Roborally{
     }
 
     private void playRound(){
-        for(int cardNr=0;cardNr<5;cardNr++){
-            robots.sort(Robot.COMPARE_BY_CARD);
-            for(Robot robot : robots){
-                robotPlaysCard(robot, cardNr);
-                if(cardNr == 4 && robot.isWinner()){//not sure if it should be the last card
-                    this.winner = robot;
-                    break;
-                }
-            }
+        outerloop: for(int cardNr=0;cardNr<5;cardNr++){
+                        robots.sort(Robot.COMPARE_BY_CARD);
+                        for(Robot robot : robots){
+                        robotPlaysCard(robot, cardNr);
+                        if(robot.isWinner()){//not sure if it should be the last card
+                            this.winner = robot;
+                            break outerloop;
+                        }
+                    }
         if(this.winner != null){
                 activateBoardElements(SlowConveyorbelt.class);
                 activateBoardElements(Gear180.class);

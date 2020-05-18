@@ -19,6 +19,7 @@ public class TestRoborally {
     private Board GEARTESTBOARD = null;
     private Board ROBOTLASERTESTBOARDWALL = null;
     private Board BOARDLASERTESTBOARD = null;
+    private Board WINNINGTESTBOARD = null;
 
     @Before
     public void initializeBoards(){
@@ -29,6 +30,7 @@ public class TestRoborally {
         GEARTESTBOARD = BoardFactory.createGearTestBoard();
         ROBOTLASERTESTBOARDWALL = BoardFactory.createRobotLaserWallTestBoard();
         BOARDLASERTESTBOARD = BoardFactory.createBoardlaserTestBoard();
+        WINNINGTESTBOARD = BoardFactory.createWinningBoard();
     }
 
     @Test
@@ -859,6 +861,48 @@ public class TestRoborally {
         robot.program(new DoNothingCard());
         roborally.playRoundIfAllRobotsReady();
         assertEquals(4, robot.getHealth());
+    }
+
+    @Test
+    public void testWinning(){
+        Robot robot = new Robot(0,0);
+        Roborally roborally = new Roborally(WINNINGTESTBOARD, robot);
+        robot.program(new RotateRightCard());
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(roborally.getWinner(), null);
+        robot.program(new MoveTwoCard());
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(roborally.getWinner(), robot);
+    }
+
+    @Test
+    public void testWinningIfFinalPointIsNotTheEnd(){
+        Robot robot = new Robot(0,0);
+        Roborally roborally = new Roborally(WINNINGTESTBOARD, robot);
+        robot.program(new RotateRightCard());
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(roborally.getWinner(), null);
+        Card[] cards = {new DoNothingCard(), new MoveTwoCard(),new UTurnCard(), new MoveOneCard(), new DoNothingCard()};
+        robot.program(cards);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(roborally.getWinner(), robot);
+    }
+
+    @Test
+    public void testWinningWhenTwoRobotsReachFinalPoint(){
+        Robot robot1 = new Robot(0,0);
+        Robot robot2 = new Robot(2,1);
+        Roborally roborally = new Roborally(WINNINGTESTBOARD, robot1);
+        roborally.addRobot(robot2);
+        robot1.program(new RotateRightCard());
+        robot2.program(new DoNothingCard());
+        roborally.playRoundIfAllRobotsReady();
+        Card[] cards1 = {new DoNothingCard(), new DoNothingCard(),new DoNothingCard(), new DoNothingCard(), new MoveTwoCard()};
+        Card[] cards2 = {new MoveOneCard(), new MoveBackCard(),new DoNothingCard(), new DoNothingCard(), new MoveTwoCard()};
+        robot1.program(cards1);
+        robot2.program(cards2);
+        roborally.playRoundIfAllRobotsReady();
+        assertEquals(roborally.getWinner(), robot2);
     }
 
 }
