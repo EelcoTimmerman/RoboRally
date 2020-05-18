@@ -21,13 +21,6 @@ export function App() {
     if(board != undefined && robots != undefined && lasers != undefined && cards != undefined){
         return (<div>
                     <Board squares = {board} robots={robots} lasers={lasers}></Board>
-                    <button onClick={() => programCard(0)}>Forward</button>
-                    <button onClick={() => programCard(1)}>Right</button>
-                    <button onClick={() => programCard(2)}>Left</button>
-                    <button onClick={() => programCard(3)}>Turn around</button>
-                    <button onClick={() => programCard(4)}>Forward x 2</button>
-                    <button onClick={() => programCard(5)}>Forward x 3</button>
-                    <button onClick={() => programCard(6)}>Backwards</button>
                     <Powerbutton powerstatus={powerstatus} onClick={() => powerDown()}/>
                     <PlayerList players={robots}></PlayerList>
                     <CardsInhand cards = {cards} onClick={programCard}></CardsInhand>
