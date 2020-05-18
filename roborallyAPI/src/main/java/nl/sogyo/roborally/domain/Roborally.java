@@ -40,45 +40,52 @@ public class Roborally{
         return this.board;
     }
 
-    public void playRoundIfAllRobotsReady(){
+    public boolean allRobotsReady(){
         boolean robotsReady = true;
         for(Robot robot : robots){
             robotsReady &= (robot.isReady() || robot.isInactive());
         }
-        if(robotsReady) playRound();
+        return robotsReady;
     }
 
-    private void playRound(){        
-        for(int cardNr=0;cardNr<1;cardNr++){
+    public void playRoundIfAllRobotsReady(){
+        playRegisterIFAllRobotsReady(0);
+    }
 
-            robots.sort(Robot.COMPARE_BY_CARD);
-            for(Robot robot : robots){
-                robotPlaysCard(robot, cardNr);                
-            }
+    public void playRegisterIFAllRobotsReady(int registernr){
+        if(allRobotsReady()) playRegister(registernr);
+    }
 
-            activateBoardElements(SlowConveyorbelt.class);
-            activateBoardElements(Gear180.class);
-            activateBoardElements(GearRight.class);
-            activateBoardElements(GearLeft.class);
-            fireBoardLasers();
-            fireRobotLasers();
-            activateBoardElements(Checkpoint.class);
+    private void playRegister(int registernr){
+        robots.sort(Robot.COMPARE_BY_CARD(registernr));
+        for(Robot robot : robots){
+            robotPlaysCard(robot, registernr);                
+        }
 
-            //This keeps the order of the robots consistent for the frontend.
-            robots.sort(Robot.COMPARE_BY_NAME);
-            for(Robot robot : robots){
-                robot.cyclePowerState();
-                robot.clearHand(deck);
-                robot.drawCards(deck);
-                robot.unready();
-            }
+        activateBoardElements(SlowConveyorbelt.class);
+        activateBoardElements(Gear180.class);
+        activateBoardElements(GearRight.class);
+        activateBoardElements(GearLeft.class);
+        fireBoardLasers();
+        fireRobotLasers();
+        activateBoardElements(Checkpoint.class);
+
+        //This keeps the order of the robots consistent for the frontend.
+        robots.sort(Robot.COMPARE_BY_NAME);
+    }
+
+    public void prepareNextRound(){
+        for(Robot robot : robots){
+            robot.cyclePowerState();
+            robot.clearHand(deck);
+            robot.drawCards(deck);
+            robot.unready();
         }
     }
 
     private void robotPlaysCard(Robot robot, int cardNr){
         Card playingCard = robot.getCard(cardNr);
         playingCard.doCardAction(robot, board, robots);
-        robot.updateCurrentCard();
     }
 
     public void program(int cardnr){

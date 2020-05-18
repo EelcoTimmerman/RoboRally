@@ -810,8 +810,10 @@ public class TestRoborally {
         robot2.program(new MoveOneCard());
         robot1.turnOnOrOff();
         roborally.playRoundIfAllRobotsReady();
+        roborally.prepareNextRound();
         robot2.program(new MoveOneCard());
         roborally.playRoundIfAllRobotsReady();
+        roborally.prepareNextRound();
         assertEquals(0, robot2.getXCoordinate());
         assertEquals(1, robot1.getXCoordinate());
     }
@@ -824,9 +826,12 @@ public class TestRoborally {
         robot.turnOnOrOff();
         roborally.addRobot(robot);
         roborally.playRoundIfAllRobotsReady();
+        roborally.prepareNextRound();
         roborally.playRoundIfAllRobotsReady();
+        roborally.prepareNextRound();
         robot.program(new MoveOneCard());
         roborally.playRoundIfAllRobotsReady();
+        roborally.prepareNextRound();
         assertEquals(2, robot.getXCoordinate());
     }
 
@@ -840,6 +845,7 @@ public class TestRoborally {
         assertEquals(5, robot.getHealth());
         roborally.addRobot(robot);
         roborally.playRoundIfAllRobotsReady();
+        roborally.prepareNextRound();
         assertEquals(9, robot.getHealth());
     }
 

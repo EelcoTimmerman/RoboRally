@@ -42,12 +42,12 @@ public class TestDeck{
     public void TestTwoRobotsTakeHand(){
         Robot robot1 = new Robot("e",1);
         Robot robot2 = new Robot("d",2);
-        Roborally roborally = new Roborally(robot1);
-        roborally.addRobot(robot2);
+        Roborally roborally = new Roborally();
         Deck deck = roborally.getDeck();
+        assertEquals(84, deck.getSize());
         robot1.drawCards(deck);
         robot2.drawCards(deck);
-        assert(deck.getSize() == 84-18);
+        assertEquals(84-18, deck.getSize());
     }
 
     @Test
@@ -61,6 +61,13 @@ public class TestDeck{
         robot1.program(0);
         robot2.program(0);
         roborally.playRoundIfAllRobotsReady();
-        assertEquals(84, deck.getSize());
+        roborally.prepareNextRound();
+        robot1.program(0);
+        robot2.program(0);
+        roborally.playRoundIfAllRobotsReady();
+        roborally.prepareNextRound();
+        assertEquals(9, robot1.getHand().size());
+        assertEquals(9, robot2.getHand().size());
+        assertEquals(84-18, deck.getSize());
     }
 }
