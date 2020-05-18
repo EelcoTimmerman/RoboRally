@@ -213,8 +213,9 @@ public class Robot{
         program(cards);
     }
 
-    
-
+    public void programFromHand(int cardnr){
+        this.program(hand.get(cardnr));
+    }
 
     public void turnRight(){
         this.orientation = this.orientation.getRight();

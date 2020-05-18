@@ -65,16 +65,17 @@ public class JSONResultProcessor {
  
     private JSONArray createJSONCards(List<Card> cards){
         JSONArray jsonCards = new JSONArray();
-        for(Card card : cards){
-            jsonCards.add(createJSONCard(card));
+        for(int i = 0; i < cards.size(); i++){
+            jsonCards.add(createJSONCard(cards.get(i), i));
         }
         return jsonCards;
     }
 
-    private JSONObject createJSONCard(Card card){
+    private JSONObject createJSONCard(Card card, int index){
         JSONObject jsonCard = new JSONObject();
         jsonCard.put("name", card.getName());
         jsonCard.put("speed", card.getSpeed());
+        jsonCard.put("cardid", index);
         return jsonCard;
     }
 

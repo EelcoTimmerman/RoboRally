@@ -30,7 +30,7 @@ export function App() {
                     <button onClick={() => programCard(6)}>Backwards</button>
                     <Powerbutton powerstatus={powerstatus} onClick={() => powerDown()}/>
                     <PlayerList players={robots}></PlayerList>
-                    <CardsInhand cards = {cards}></CardsInhand>
+                    <CardsInhand cards = {cards} onClick={programCard}></CardsInhand>
                 </div>);
     }
     else{

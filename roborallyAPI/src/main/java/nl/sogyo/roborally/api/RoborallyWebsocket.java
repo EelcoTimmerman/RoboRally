@@ -53,7 +53,7 @@ public class RoborallyWebsocket{
         else{
             int cardnr = Integer.parseInt(message);
             Robot robot = robots.get(session);
-            robot.program(cardnr);
+            robot.programFromHand(cardnr);
             roborally.playRoundIfAllRobotsReady();
             String cards = new JSONResultProcessor().createCardsResponse(roborally, robots.get(session));
             session.getBasicRemote().sendText(cards);

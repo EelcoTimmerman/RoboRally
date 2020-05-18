@@ -4,16 +4,21 @@ import { Badge } from "@material-ui/core";
 
 export interface Card{
     name: string,
-    speed: number
+    speed: number,
+    cardid: number
 }
 
+interface CardElementProps{
+    card: Card,
+    onClick(cardid: number): void,
+}
 
-export function CardElement({ name, speed }: Card){
-    let cardimage = getCardImage(name);
-    return (<div className="card">
+export function CardElement({card, onClick}: CardElementProps){
+    let cardimage = getCardImage(card.name);
+    return (<div className="card" onClick={() => onClick(card.cardid)}>
         {cardimage}
         <br/>
-        {speed}
+        {card.speed}
     </div>);
 }
 

@@ -78,16 +78,6 @@ html {
   margin-top: 50%;
 }
 
-.cardsinhandgrid {
-  display: grid;
-  grid-auto-columns: min-content;
-  background-color: rgb(13, 14, 13);
-  padding: 10px;
-  width: min-content;
-  grid-template-columns: auto auto auto auto auto auto auto auto auto;
-  grid-gap: 10px;
-}
-
 .East-arrow {
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
