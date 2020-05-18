@@ -69,6 +69,8 @@ public class Roborally{
             for(Robot robot : robots){
                 robot.cyclePowerState();
                 robot.clearHand(deck);
+                robot.drawCards(deck);
+                robot.unready();
             }
         }
     }
@@ -76,7 +78,6 @@ public class Roborally{
     private void robotPlaysCard(Robot robot, int cardNr){
         Card playingCard = robot.getCard(cardNr);
         playingCard.doCardAction(robot, board, robots);
-        robot.unready();
         robot.updateCurrentCard();
     }
 
@@ -107,6 +108,7 @@ public class Roborally{
 
     public void addRobot(Robot robot){
         this.robots.add(robot);
+        robot.drawCards(deck);
         robots.sort(Robot.COMPARE_BY_NAME);
     }
 

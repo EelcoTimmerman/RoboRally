@@ -34,7 +34,7 @@ public class TestDeck{
         Robot robot = new Robot("e",1);
         Roborally roborally = new Roborally(robot);
         Deck deck = roborally.getDeck();
-        robot.setHand(deck);
+        robot.drawCards(deck);
         assert(deck.getSize() == 84-9);
     }
 
@@ -45,8 +45,8 @@ public class TestDeck{
         Roborally roborally = new Roborally(robot1);
         roborally.addRobot(robot2);
         Deck deck = roborally.getDeck();
-        robot1.setHand(deck);
-        robot2.setHand(deck);
+        robot1.drawCards(deck);
+        robot2.drawCards(deck);
         assert(deck.getSize() == 84-18);
     }
 

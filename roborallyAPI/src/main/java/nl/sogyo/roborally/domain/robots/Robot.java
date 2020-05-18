@@ -272,7 +272,7 @@ public class Robot{
         return this.ready;
     }
 
-    public void setHand(Deck deck){
+    public void drawCards(Deck deck){
         this.hand = deck.createHand(9-getHealth());
     }
     
