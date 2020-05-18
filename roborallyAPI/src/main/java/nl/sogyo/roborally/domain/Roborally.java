@@ -113,6 +113,7 @@ public class Roborally{
     }
 
     public void removeRobot(Robot robot){
+        robot.addHandToDiscardPile(deck);
         this.robots.remove(robot);
     }
 

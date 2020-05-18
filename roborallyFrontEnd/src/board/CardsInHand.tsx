@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { makeStyles } from '@material-ui/styles';
+import { CardElement } from "./Card";
 
 interface Card{
     name: string,
@@ -9,18 +10,6 @@ interface Card{
 interface allCards{
   cards: Card[]
 }
-
-
-
-// function getCards(cards :Card[]){
-//     const cards:Card[] = [];
-//     for(let i = 0; i < 9; i++){
-//             cards.push({
-//                 type: "MoveOneForward",
-//             });
-//     }
-//     return cards;
-// }
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export function CardsInhand({cards}: allCards){
-    let mycarddivs = cards.map((card: Card, index: number) => showcard(card, index));
+    let mycarddivs = cards.map((card: Card, index: number) => <CardElement name={card.name} speed={card.speed} key={card.speed}/>);
     return (      
       <div className = "cardsinhandgrid">
         {mycarddivs}
