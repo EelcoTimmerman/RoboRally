@@ -21,7 +21,7 @@ import nl.sogyo.roborally.domain.squares.BoardFactory;
 
 @ServerEndpoint(value = "/websocket")
 public class RoborallyWebsocket{
-    private static final Roborally roborally = new Roborally(BoardFactory.createSmallCompleteBoard());
+    private static final Roborally roborally = new Roborally(BoardFactory.createWinningBoard());
     private static final List<Session> players = new ArrayList<>();
     private static final Map<Session, Robot> robots = new HashMap<>();
     
@@ -54,7 +54,7 @@ public class RoborallyWebsocket{
             Robot robot = robots.get(session);
             robot.program(cardnr);
             roborally.playRoundIfAllRobotsReady();
-            if(roborally.getWinner()!= null){
+            if(roborally.getWinner() != null){
                 String gameover = new JSONResultProcessor().createGameOverResponse(roborally);
                 session.getBasicRemote().sendText(gameover);
             }

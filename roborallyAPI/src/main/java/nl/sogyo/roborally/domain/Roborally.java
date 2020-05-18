@@ -13,7 +13,7 @@ public class Roborally{
 
     List<Robot> robots = new ArrayList<Robot>();
     Board board;
-    private Robot winner;
+    private Robot winner = null;
     
     public Roborally(){
         this.board = BoardFactory.createTESTBOARD4X4();
@@ -53,12 +53,12 @@ public class Roborally{
                         robots.sort(Robot.COMPARE_BY_CARD);
                         for(Robot robot : robots){
                         robotPlaysCard(robot, cardNr);
-                        if(robot.isWinner()){//not sure if it should be the last card
+                        if(robot.isWinner()){
                             this.winner = robot;
                             break outerloop;
                         }
                     }
-        if(this.winner != null){
+        if(this.winner == null){
                 activateBoardElements(SlowConveyorbelt.class);
                 activateBoardElements(Gear180.class);
                 activateBoardElements(GearRight.class);

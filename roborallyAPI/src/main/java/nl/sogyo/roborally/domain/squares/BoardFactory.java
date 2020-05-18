@@ -393,7 +393,7 @@ public class BoardFactory{
 		row6.add(new EmptySquare());
 		row6.add(new EmptySquare());
 		row6.add(new EmptySquare("N"));
-		row6.add(new EmptySquare());
+		row6.add(new FinalCheckPoint());
 
 		smallCompleteBoard.addRow(row1);
 		smallCompleteBoard.addRow(row2);

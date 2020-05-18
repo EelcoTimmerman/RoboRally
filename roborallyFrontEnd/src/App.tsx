@@ -15,9 +15,10 @@ export function App() {
     const [ websocket, setWebsocket ] = useState<WebSocket | undefined>(undefined);
     const [ powerstatus, setPowerstatus ] = useState("Active");
     const [ lasers, setLasers ] = useState<Laser[] | undefined>(undefined);
+    let gameWinner = undefined;
 
     let cards = showCards();
-    if(board != undefined && robots != undefined && lasers != undefined){
+    if(board != undefined && robots != undefined && lasers != undefined && gameWinner == undefined){
         return (<div>
                     <Board squares = {board} robots={robots} lasers={lasers}></Board>
                     <button onClick={() => programCard(0)}>Forward</button>
@@ -31,6 +32,11 @@ export function App() {
                     <PlayerList players={robots}></PlayerList>
                     {cards}
                 </div>);
+    }
+    else if(gameWinner != undefined){
+        return(
+        <div>Game Over. {gameWinner} has won the game!</div>
+        )
     }
     else{
         return <Startscreen login={initialiseConnection}></Startscreen>;
@@ -55,7 +61,7 @@ export function App() {
                 else if(message.messagetype == "robots") setRobots(message.body);
                 else if(message.messagetype == "powerstatus") setPowerstatus(message.body);
                 else if(message.messagetype == "lasers") setLasers(message.body);
-                else if(message.messagetype == "gameover") endGame(message.body);
+                else if(message.messagetype == "gameover") createWinner(message.body);
             };
 
             tempwebsocket.onclose = function(event: WebSocketCloseEvent){
@@ -67,8 +73,9 @@ export function App() {
         setWebsocket(tempwebsocket);
     }
 
-    function endGame(message: String){
-        
+    function createWinner(winner: String){
+        console.log("reached winner", {winner});
+        gameWinner = winner;
     }
 
     function createBoard(squares: Square[][]){

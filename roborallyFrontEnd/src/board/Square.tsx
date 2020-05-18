@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Robot, RobotElement } from "./../Robot";
 import { Laser, Laserbeam, LaserElement, BeamElement } from "./Laser";
-import { Flag, Rotate90DegreesCcw, RotateLeft, RotateRight, Brightness1, KeyboardArrowUp, KeyboardArrowRight, KeyboardArrowDown, KeyboardArrowLeft } from "@material-ui/icons";
+import { Flag, Home, Rotate90DegreesCcw, RotateLeft, RotateRight, Brightness1, KeyboardArrowUp, KeyboardArrowRight, KeyboardArrowDown, KeyboardArrowLeft } from "@material-ui/icons";
 import { Badge } from "@material-ui/core";
 import zIndex from "@material-ui/core/styles/zIndex";
 export class Square{
@@ -159,6 +159,7 @@ function createImage(type: string, zIndex: number){
     };
     switch(type){
         case "Checkpoint": return <Flag style={iconStyle}></Flag>;
+        case "FinalCheckPoint": return <Home style={iconStyle}></Home>;
         case "Gear180": return <Rotate90DegreesCcw style={iconStyle}/>;
         case "GearLeft": return <RotateLeft style={iconStyle}/>;
         case "GearRight": return <RotateRight style={iconStyle}/>;

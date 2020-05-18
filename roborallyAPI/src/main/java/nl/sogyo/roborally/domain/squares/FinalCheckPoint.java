@@ -13,7 +13,7 @@ public class FinalCheckPoint extends Square{
 
     @Override
     public String getType(){
-        return "FinalCheckpoint";
+        return "FinalCheckPoint";
     }
 
     @Override
