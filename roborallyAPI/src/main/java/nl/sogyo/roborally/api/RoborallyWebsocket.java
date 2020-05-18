@@ -2,6 +2,7 @@ package nl.sogyo.roborally.api;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,12 +45,15 @@ public class RoborallyWebsocket{
             robot.turnOnOrOff();
             updatePlayerPowerStatus(session);
         }
-        else{
-            int cardnr = Integer.parseInt(message);
+        else{            
+            int[] cardnrs = MessageParser.parseMessage(message);
+            System.out.println(Arrays.toString(cardnrs));
             Robot robot = robots.get(session);
-            robot.programFromHand(cardnr);
+            robot.programFromHand(cardnrs);
             if(roborally.allRobotsReady()){
-                roborally.playRegisterIFAllRobotsReady(0);
+                for(int i = 0; i < 5; i++){
+                    roborally.playRegisterIFAllRobotsReady(i);
+                }
                 roborally.prepareNextRound();
             }
         }

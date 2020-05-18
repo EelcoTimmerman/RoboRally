@@ -24,7 +24,7 @@ public class Robot{
     List<Card> hand = new ArrayList<Card>();
 
     Direction orientation = Direction.NORTH;
-    Card[] cards = {new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
+    Card[] programmedCards = {new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
     int health = 9;
     int xCoordinate;
     int yCoordinate;
@@ -72,7 +72,7 @@ public class Robot{
     }
 
     public Card getCard(int CardNr){
-        return this.cards[CardNr];
+        return this.programmedCards[CardNr];
     }
 
     public int getXCoordinate(){
@@ -147,7 +147,7 @@ public class Robot{
     }
 
     public void programOneCard(Card card, int index){
-        this.cards[index] = card;
+        this.programmedCards[index] = card;
     }
 
     public void programOneCard(int cardnr, int index){
@@ -204,6 +204,18 @@ public class Robot{
 
     public void programFromHand(int cardnr){
         this.program(hand.get(cardnr));
+    }
+
+    public void programFromHand(int[] cardnrs){
+        if(cardnrs.length == 5){
+            for(int i = 0; i < 5; i++){
+                programOneCard(this.hand.get(cardnrs[i]), i);
+            }
+            this.ready = true;
+        }
+        else{
+            throw new RuntimeException("must program 5 cards");
+        }
     }
 
     public void turnRight(){
@@ -287,7 +299,7 @@ public class Robot{
     public void shutDown(){
         this.activitylevel = ActivityLevel.INACTIVE;
         for(int i=0;i<5;i++){
-            this.cards[i] = new DoNothingCard();
+            this.programmedCards[i] = new DoNothingCard();
         }
         this.health = 9;
     }
