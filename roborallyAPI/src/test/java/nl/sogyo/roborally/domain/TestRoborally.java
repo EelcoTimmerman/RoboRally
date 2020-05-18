@@ -19,7 +19,7 @@ public class TestRoborally {
     private Board GEARTESTBOARD = null;
     private Board ROBOTLASERTESTBOARDWALL = null;
     private Board BOARDLASERTESTBOARD = null;
-    private Board CONVERYORBELTROTATIONTESTBOARD = null;
+    private Board SLOWCONVERYORBELTROTATIONTESTBOARD = null;
 
     @Before
     public void initializeBoards(){
@@ -30,7 +30,7 @@ public class TestRoborally {
         GEARTESTBOARD = BoardFactory.createGearTestBoard();
         ROBOTLASERTESTBOARDWALL = BoardFactory.createRobotLaserWallTestBoard();
         BOARDLASERTESTBOARD = BoardFactory.createBoardlaserTestBoard();
-        CONVERYORBELTROTATIONTESTBOARD = BoardFactory.createSlowConveyorbeltRotationTestBoard();
+        SLOWCONVERYORBELTROTATIONTESTBOARD = BoardFactory.createSlowConveyorbeltRotationTestBoard();
     }
 
     @Test
@@ -354,7 +354,7 @@ public class TestRoborally {
     
 
     @Test
-    public void testMovementRobotOnBeltNORTH(){
+    public void testMovementRobotOnSlowConveyorbeltNORTH(){
         Robot robot = new Robot(0,1);
         robot.program(new DoNothingCard());
         Roborally roborally = new Roborally(SLOWCONVEYORBELTTESTBOARD, robot);
@@ -363,7 +363,7 @@ public class TestRoborally {
     }
 
     @Test
-    public void testMovementRobotOnBeltEAST(){
+    public void testMovementRobotOnSlowConveyorbeltEAST(){
         Robot robot = new Robot(0,0);
         robot.program(new DoNothingCard());
         Roborally roborally = new Roborally(SLOWCONVEYORBELTTESTBOARD, robot);
@@ -372,7 +372,7 @@ public class TestRoborally {
     }
 
     @Test
-    public void testMovementRobotOnBeltSOUTH(){
+    public void testMovementRobotOnSlowConveyorbeltSOUTH(){
         Robot robot = new Robot(2,0);
         robot.program(new DoNothingCard());
         Roborally roborally = new Roborally(SLOWCONVEYORBELTTESTBOARD, robot);
@@ -381,7 +381,7 @@ public class TestRoborally {
     }
 
     @Test
-    public void testMovementRobotOnBeltWEST(){
+    public void testMovementRobotOnSlowConveyorbeltWEST(){
         Robot robot = new Robot(2,2);
         robot.program(new DoNothingCard());
         Roborally roborally = new Roborally(SLOWCONVEYORBELTTESTBOARD, robot);
@@ -390,7 +390,7 @@ public class TestRoborally {
     }
     
     @Test
-    public void testConveyorbeltWall(){
+    public void testSlowConveyorbeltWall(){
         Robot robot = new Robot(0,0);
         robot.program(new DoNothingCard());
         Roborally roborally = new Roborally(SLOWCONVEYORBELTTESTBOARDOTHER, robot);
@@ -399,7 +399,7 @@ public class TestRoborally {
     }
 
     @Test
-    public void testConveyorbeltPit(){
+    public void testSlowConveyorbeltPit(){
         Robot robot = new Robot(2,0);
         robot.program(new DoNothingCard());
         robot.setRespawnPoint(0, 1);
@@ -409,7 +409,7 @@ public class TestRoborally {
     }
 
     @Test
-    public void testConveyorbeltOffBoard(){
+    public void testSlowConveyorbeltOffBoard(){
         Robot robot = new Robot(2,2);
         robot.program(new DoNothingCard());
         robot.setRespawnPoint(1, 1);
@@ -419,11 +419,11 @@ public class TestRoborally {
     }
 
     @Test
-    public void testRobotTurningLeftOnRotatingConveyorBelt(){
+    public void testRobotTurningLeftOnRotatingSlowConveyorbelt(){
         Robot robot = new Robot(0, 1, Direction.EAST);
         Card card = new DoNothingCard();
         robot.program(card);
-        Roborally roborally = new Roborally(CONVERYORBELTROTATIONTESTBOARD, robot);
+        Roborally roborally = new Roborally(SLOWCONVERYORBELTROTATIONTESTBOARD, robot);
         roborally.activateAllBoardElements();
         assertEquals(1, robot.getXCoordinate());
         assertEquals(1, robot.getYCoordinate());
@@ -431,55 +431,55 @@ public class TestRoborally {
     }
 
     @Test
-    public void testRobotTurningRightOnRotatingConveyorBelt(){
+    public void testRobotTurningRightOnRotatingSlowConveyorbelt(){
         Robot robot = new Robot(0, 2, Direction.EAST);
         Card card = new DoNothingCard();
         robot.program(card);
-        Roborally roborally = new Roborally(CONVERYORBELTROTATIONTESTBOARD, robot);
+        Roborally roborally = new Roborally(SLOWCONVERYORBELTROTATIONTESTBOARD, robot);
         roborally.activateAllBoardElements();
         assert(robot.getXCoordinate() == 0 && robot.getYCoordinate() == 1);
         assert(robot.getOrientation() == Direction.SOUTH);
     }
 
     @Test
-    public void testRobotTurningReverseOnRotatingConveyorBelt(){
+    public void testRobotTurningReverseOnRotatingSlowConveyorbelt(){
         Robot robot = new Robot(0, 3, Direction.EAST);
         Card card = new DoNothingCard();
         robot.program(card);
-        Roborally roborally = new Roborally(CONVERYORBELTROTATIONTESTBOARD, robot);
+        Roborally roborally = new Roborally(SLOWCONVERYORBELTROTATIONTESTBOARD, robot);
         roborally.activateAllBoardElements();
         assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 3);
         assert(robot.getOrientation() == Direction.WEST);
     }
 
     @Test
-    public void testRobotNotTurningOnRotatingConveyorBelt(){
+    public void testRobotNotTurningOnRotatingSlowConveyorbelt(){
         Robot robot = new Robot(1, 2, Direction.WEST);
         Card card = new DoNothingCard();
         robot.program(card);
-        Roborally roborally = new Roborally(CONVERYORBELTROTATIONTESTBOARD, robot);
+        Roborally roborally = new Roborally(SLOWCONVERYORBELTROTATIONTESTBOARD, robot);
         roborally.activateAllBoardElements();
         assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 1);
         assert(robot.getOrientation() == Direction.WEST);
     }
 
     @Test
-    public void testRobotNotTurningOnConveyorBelt(){
+    public void testRobotNotTurningOnSlowConveyorbelt(){
     Robot robot = new Robot(1, 2, Direction.NORTH);
     Card card = new DoNothingCard();
     robot.program(card);
-    Roborally roborally = new Roborally(CONVERYORBELTROTATIONTESTBOARD, robot);
+    Roborally roborally = new Roborally(SLOWCONVERYORBELTROTATIONTESTBOARD, robot);
     roborally.activateAllBoardElements();
     assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 1);
     assert(robot.getOrientation() == Direction.NORTH);
     }
 
     @Test
-    public void testRobotNotTurningWhenPushedOffConveyorBelt(){
+    public void testRobotNotTurningWhenPushedOffSlowConveyorbelt(){
         Robot robot = new Robot(1, 1, Direction.NORTH);
         Card card = new DoNothingCard();
         robot.program(card);
-        Roborally roborally = new Roborally(CONVERYORBELTROTATIONTESTBOARD, robot);
+        Roborally roborally = new Roborally(SLOWCONVERYORBELTROTATIONTESTBOARD, robot);
         roborally.activateAllBoardElements();
         assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 0);
         assert(robot.getOrientation() == Direction.NORTH);    
