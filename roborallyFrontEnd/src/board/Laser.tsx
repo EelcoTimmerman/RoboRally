@@ -29,31 +29,33 @@ export function LaserElement({laser}: LaserElementProps){
         padding: "0px",
         zIndex: 5,
     }
+    let laserwidth = "37px";
+    let laserheight = "30px";
 
     switch(laser.orientation){
         case "South":   style.top = "-9px";
                         style.left = "50%";
                         style.transform = "translate(-50%)";
-                        style.width = "30px";
-                        style.height = "37px";
+                        style.width = laserheight;
+                        style.height = laserwidth;
                         break;
         case "West":    style.top = "50%";
                         style.right = "-9px";
                         style.transform = "translate(0, -50%)";
-                        style.width = "37px";
-                        style.height = "30px";
+                        style.width = laserwidth;
+                        style.height = laserheight;
                         break;
         case "North":   style.bottom = "-15px";
                         style.left = "50%";
                         style.transform = "translate(-50%)";
-                        style.width = "30px";
-                        style.height = "37px";
+                        style.width = laserheight;
+                        style.height = laserwidth;
                         break;
         case "East":    style.top = "50%";
                         style.left = "-13px";
                         style.transform = "translate(0, -50%)";
-                        style.width = "37px";
-                        style.height = "30px";
+                        style.width = laserwidth;
+                        style.height = laserheight;
                         break;
     }
     let image = createLaserImage(laser);
@@ -83,11 +85,11 @@ function createLaserImage(laser: Laser){
 export function BeamElement({beam, zIndex, situation}: LaserbeamProps){
     let beamLength = "0px";
     switch(situation){
-        case "robot":   beamLength = "90px";
+        case "robot":   beamLength = "37px";
                         break;
-        case "wall":    beamLength = "180px";
+        case "wall":    beamLength = "70px";
                         break;
-        case "none":    beamLength = "201px";
+        case "none":    beamLength = "75px";
     }
     let beamColor = "red";
     if(beam.firepower == 2) beamColor = "blue";

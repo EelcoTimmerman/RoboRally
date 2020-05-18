@@ -127,7 +127,6 @@ export class Square{
 function createStyle(square: Square, columnNumber: number, rowNumber: number){
     let style: React.CSSProperties = {
         position: "relative",
-        borderWidth: "10px",
         gridColumnStart: columnNumber + 1,
         gridRowStart: rowNumber + 1,
     }

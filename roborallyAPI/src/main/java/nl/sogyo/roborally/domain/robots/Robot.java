@@ -281,6 +281,7 @@ public class Robot{
     }
 
     public void clearHand(Deck deck){
+        deck.returnCards(this.hand);
         this.hand.clear();
     }
 
