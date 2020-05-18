@@ -106,4 +106,12 @@ public class TestBoard{
         assert(robotLaserTestBoard.hasConsistentWalls());
         assert(robotLaserTestBoard.allLasersOnWalls());
     }
+
+    @Test
+    public void testSmallCompleteBoard(){
+        Board smallCompleteBoard = BoardFactory.createSmallCompleteBoard();
+        assert(smallCompleteBoard.isRectangular());
+        assert(smallCompleteBoard.hasConsistentWalls());
+        assert(smallCompleteBoard.allLasersOnWalls());
+    }
 }

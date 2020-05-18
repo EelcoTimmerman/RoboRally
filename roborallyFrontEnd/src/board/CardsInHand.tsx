@@ -29,12 +29,3 @@ export function CardsInhand({cards}: allCards){
       </div>
     );
 }
-
-function showcard(card: Card, index: number){
-  const classes = useStyles();
-  return (
-    <div>
-      <div key={index} className={classes.paper}>{card.name}</div>
-    </div>
-  )
-}

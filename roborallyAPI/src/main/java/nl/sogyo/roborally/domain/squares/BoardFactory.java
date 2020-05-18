@@ -88,6 +88,8 @@ public class BoardFactory{
 
 		square11.southWall = true;
 		square12.northWall = true;
+
+		square12.eastWall = true;
 		
 		ArrayList<Square> row1 = new ArrayList<>();
 		row1.add(square00);
@@ -103,12 +105,14 @@ public class BoardFactory{
 		laserTestBoard.addRow(row3);
 
 		Laser laser1 = new Laser(0,0, Direction.SOUTH, 1);
-		Laser laser2 = new Laser(0,1, Direction.EAST, 1);
+		Laser laser2 = new Laser(0,1, Direction.EAST, 2);
 		Laser laser3 = new Laser(1,1, Direction.NORTH, 1);
+		Laser laser4 = new Laser(1,2, Direction.WEST, 3);
 
 		laserTestBoard.addLaser(laser1);
 		laserTestBoard.addLaser(laser2);
 		laserTestBoard.addLaser(laser3);
+		laserTestBoard.addLaser(laser4);
 
 		return laserTestBoard;
 	}
@@ -323,4 +327,74 @@ public class BoardFactory{
 
 		return defaultBoard;
 	}    
+
+	public static Board createSmallCompleteBoard(){
+		Board smallCompleteBoard = new Board();
+
+		ArrayList<Square> row1 = new ArrayList<>();
+		row1.add(new EmptySquare());
+		row1.add(new EmptySquare("S"));
+		row1.add(new EmptySquare());
+		row1.add(new EmptySquare());
+		row1.add(new EmptySquare("S"));
+		row1.add(new EmptySquare());
+		
+		ArrayList<Square> row2 = new ArrayList<>();
+		row2.add(new EmptySquare("E"));
+		row2.add(new GearRight("NW"));
+		row2.add(new EmptySquare());
+		row2.add(new EmptySquare());
+		row2.add(new GearLeft("NE"));
+		row2.add(new EmptySquare("W"));
+		
+		ArrayList<Square> row3 = new ArrayList<>();
+		row3.add(new EmptySquare());
+		row3.add(new Checkpoint());
+		row3.add(new SlowConveyorbelt(Direction.EAST));
+		row3.add(new SlowConveyorbelt(Direction.SOUTH));
+		row3.add(new Pit());
+		row3.add(new EmptySquare());
+		
+		ArrayList<Square> row4 = new ArrayList<>();
+		row4.add(new EmptySquare());
+		row4.add(new Pit());
+		row4.add(new SlowConveyorbelt(Direction.NORTH));
+		row4.add(new SlowConveyorbelt(Direction.WEST));
+		row4.add(new Checkpoint());
+		row4.add(new EmptySquare());
+		
+		ArrayList<Square> row5 = new ArrayList<>();
+		row5.add(new EmptySquare("E"));
+		row5.add(new Gear180("SW"));
+		row5.add(new EmptySquare());
+		row5.add(new EmptySquare());
+		row5.add(new Gear180("SE"));
+		row5.add(new EmptySquare("W"));
+		
+		ArrayList<Square> row6 = new ArrayList<>();
+		row6.add(new EmptySquare());
+		row6.add(new EmptySquare("N"));
+		row6.add(new EmptySquare());
+		row6.add(new EmptySquare());
+		row6.add(new EmptySquare("N"));
+		row6.add(new EmptySquare());
+
+		smallCompleteBoard.addRow(row1);
+		smallCompleteBoard.addRow(row2);
+		smallCompleteBoard.addRow(row3);
+		smallCompleteBoard.addRow(row4);
+		smallCompleteBoard.addRow(row5);
+		smallCompleteBoard.addRow(row6);
+
+		Laser laser1 = new Laser(1, 1, Direction.EAST, 3);
+		Laser laser2 = new Laser(4, 1, Direction.SOUTH, 2);
+		Laser laser3 = new Laser(4, 4, Direction.WEST, 3);
+		Laser laser4 = new Laser(1, 4, Direction.NORTH, 2);
+
+		smallCompleteBoard.addLaser(laser1);
+		smallCompleteBoard.addLaser(laser2);
+		smallCompleteBoard.addLaser(laser3);
+		smallCompleteBoard.addLaser(laser4);
+		return smallCompleteBoard;
+	}
 }

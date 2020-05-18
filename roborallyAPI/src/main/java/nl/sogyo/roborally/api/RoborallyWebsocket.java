@@ -15,10 +15,11 @@ import javax.websocket.server.ServerEndpoint;
 
 import nl.sogyo.roborally.domain.Roborally;
 import nl.sogyo.roborally.domain.robots.Robot;
+import nl.sogyo.roborally.domain.squares.BoardFactory;
 
 @ServerEndpoint(value = "/websocket")
 public class RoborallyWebsocket{
-    private static final Roborally roborally = new Roborally();
+    private static final Roborally roborally = new Roborally(BoardFactory.createSmallCompleteBoard());
     private static final List<Session> players = new ArrayList<>();
     private static final Map<Session, Robot> robots = new HashMap<>();
     
@@ -41,6 +42,8 @@ public class RoborallyWebsocket{
             robots.get(session).setHand(roborally.getDeck());
             String cards = new JSONResultProcessor().createCardsResponse(roborally, robots.get(session));
             session.getBasicRemote().sendText(cards);
+            String lasers = new JSONResultProcessor().createLasersResponse(roborally);
+            session.getBasicRemote().sendText(lasers);
         }
         else if(message.equals("switchpower")){
             Robot robot = robots.get(session);
