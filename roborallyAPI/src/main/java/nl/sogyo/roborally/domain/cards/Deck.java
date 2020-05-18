@@ -6,7 +6,6 @@ import java.util.*;
 
 public class Deck {
     List<Card> cardsInDeck = new ArrayList<Card>();
-    List<Card> discardPile= new ArrayList<Card>();
      
 
     public Deck(){
@@ -22,12 +21,12 @@ public class Deck {
         }
     }
     
-    public List<Card> getDeck(){
+    List<Card> getDeck(){
         return this.cardsInDeck;
     }
 
-    public List<Card> getDiscardPile(){
-        return this.discardPile;
+    public int getSize(){
+        return cardsInDeck.size();
     }
 
     private List<Card> addCardToDeck(List<Card> cards, String line){
@@ -57,22 +56,11 @@ public class Deck {
     }
 
     private Card getRandomCard(){
-        if(this.cardsInDeck.isEmpty()) replenishDeckWithDiscardPile();
         Random rand = new Random();
         int cardIndex = rand.nextInt(cardsInDeck.size());
         Card randCard = this.cardsInDeck.get(cardIndex);
         this.cardsInDeck.remove(randCard);
         return randCard;
-    }
-
-    private void replenishDeckWithDiscardPile(){
-        if(this.discardPile.isEmpty()){
-            throw new RuntimeException("Trying to obtain cards from an empty deck..");
-        }
-        for(Card card1: this.discardPile){
-            this.cardsInDeck.add(card1);
-        }
-        this.discardPile.clear();
     }
     
 }

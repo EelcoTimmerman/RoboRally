@@ -48,12 +48,6 @@ public class Roborally{
         if(robotsReady) playRound();
     }
 
-    public void DiscardAllCards( ){
-        for(Robot robot : robots){
-            robot.addHandToDiscardPile(deck);
-        }
-    }
-
     private void playRound(){        
         for(int cardNr=0;cardNr<1;cardNr++){
 
@@ -74,6 +68,7 @@ public class Roborally{
             robots.sort(Robot.COMPARE_BY_NAME);
             for(Robot robot : robots){
                 robot.cyclePowerState();
+                robot.clearHand(deck);
             }
         }
     }
@@ -116,7 +111,7 @@ public class Roborally{
     }
 
     public void removeRobot(Robot robot){
-        robot.addHandToDiscardPile(deck);
+        robot.clearHand(deck);
         this.robots.remove(robot);
     }
 

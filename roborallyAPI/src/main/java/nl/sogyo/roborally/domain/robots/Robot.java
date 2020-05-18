@@ -280,10 +280,7 @@ public class Robot{
         return this.hand;
     }
 
-    public void addHandToDiscardPile(Deck deck){
-        for(Card card : this.hand){
-            deck.getDiscardPile().add(card);
-        }
+    public void clearHand(Deck deck){
         this.hand.clear();
     }
 
