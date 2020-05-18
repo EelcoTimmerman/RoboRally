@@ -37,12 +37,7 @@ public class RoborallyWebsocket{
             robots.put(session, robot);
             roborally.addRobot(robot);
             players.add(session);
-            String board = new JSONResultProcessor().createBoardResponse(roborally);
-            session.getBasicRemote().sendText(board);
-            String cards = new JSONResultProcessor().createCardsResponse(roborally, robots.get(session));
-            session.getBasicRemote().sendText(cards);
-            String lasers = new JSONResultProcessor().createLasersResponse(roborally);
-            session.getBasicRemote().sendText(lasers);
+            sendBoardInformation(session);
         }
         else if(message.equals("switchpower")){
             Robot robot = robots.get(session);
@@ -70,11 +65,10 @@ public class RoborallyWebsocket{
     }
 
     private void updateAllPlayers()throws IOException{
-
-        String robots = new JSONResultProcessor().createRobotsResponse(roborally);
         for(Session player : players){
-            player.getBasicRemote().sendText(robots);
+            updateRobots(player);
             updatePlayerPowerStatus(player);
+            updatePlayerHand(player);
         }
     }
 
@@ -82,6 +76,24 @@ public class RoborallyWebsocket{
         Robot robot = robots.get(session);
         String powerstatusresponse = new JSONResultProcessor().createPowerstatusResponse(robot);
         session.getBasicRemote().sendText(powerstatusresponse);
+    }
+
+    private void updatePlayerHand(Session session)throws IOException{
+        String cards = new JSONResultProcessor().createCardsResponse(roborally, robots.get(session));
+        session.getBasicRemote().sendText(cards);
+    }
+
+    private void updateRobots(Session session)throws IOException{
+        String robotresponse = new JSONResultProcessor().createRobotsResponse(roborally);
+        session.getBasicRemote().sendText(robotresponse);
+    }
+
+    private void sendBoardInformation(Session session)throws IOException{
+        String board = new JSONResultProcessor().createBoardResponse(roborally);
+        session.getBasicRemote().sendText(board);
+        String lasers = new JSONResultProcessor().createLasersResponse(roborally);
+        session.getBasicRemote().sendText(lasers);
+        updatePlayerHand(session);
     }
 
 }
