@@ -7,13 +7,15 @@ import nl.sogyo.roborally.domain.squares.Board;
 
 public class DoNothingCard extends Card {
 
+    public DoNothingCard() {
+        super(0);
+    }
+
     @Override
     public void doCardAction(Robot robot, Board board, List<Robot> robots) {
     }
 
-    @Override
-    public int getSpeed(){
-        return 0;
+    public String getName(){
+        return "DoNothingCard";
     }
-
 }

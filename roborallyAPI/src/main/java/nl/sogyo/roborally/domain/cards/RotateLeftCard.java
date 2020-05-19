@@ -7,12 +7,19 @@ import nl.sogyo.roborally.domain.squares.Board;
 
 public class RotateLeftCard extends Card{
 
-    public void doCardAction(Robot robot, Board board, List<Robot> robots){    
+    public RotateLeftCard() {
+        super();
+    }
+
+    public RotateLeftCard(int speed) {
+        super(speed);
+    }
+
+    public void doCardAction(Robot robot, Board board, List<Robot> robots) {
         robot.turnLeft();    
     }
 
-    @Override
-    public int getSpeed(){
-        return 5;
+    public String getName(){
+        return "RotateLeftCard";
     }
 }

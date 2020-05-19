@@ -1,11 +1,14 @@
 package nl.sogyo.roborally.domain.robots;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+//import jdk.javadoc.internal.doclets.toolkit.resources.doclets;
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.cards.DoNothingCard;
 import nl.sogyo.roborally.domain.cards.Card;
+import nl.sogyo.roborally.domain.cards.Deck;
 import nl.sogyo.roborally.domain.cards.MoveBackCard;
 import nl.sogyo.roborally.domain.cards.MoveOneCard;
 import nl.sogyo.roborally.domain.cards.MoveThreeCard;
@@ -18,6 +21,7 @@ import nl.sogyo.roborally.domain.squares.Square;
 
 public class Robot{
     private final String[] colours = {"green", "black", "purple", "blue", "red", "brown"};
+    List<Card> hand = new ArrayList<Card>();
 
     Direction orientation = Direction.NORTH;
     Card[] cards = {new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
@@ -54,7 +58,6 @@ public class Robot{
         this.respawnX = xCoordinate;
         this.yCoordinate = yCoordinate;
         this.respawnY = yCoordinate;
-        this.health = 9;
     }
 
     public Robot(int xCoordinate, int yCoordinate, Direction orientation){
@@ -210,8 +213,9 @@ public class Robot{
         program(cards);
     }
 
-    
-
+    public void programFromHand(int cardnr){
+        this.program(hand.get(cardnr));
+    }
 
     public void turnRight(){
         this.orientation = this.orientation.getRight();
@@ -266,6 +270,18 @@ public class Robot{
 
     public boolean isReady(){
         return this.ready;
+    }
+
+    public void drawCards(Deck deck){
+        this.hand = deck.createHand(9-getHealth());
+    }
+    
+    public List<Card> getHand(){
+        return this.hand;
+    }
+
+    public void clearHand(Deck deck){
+        this.hand.clear();
     }
 
     public boolean isInactive(){

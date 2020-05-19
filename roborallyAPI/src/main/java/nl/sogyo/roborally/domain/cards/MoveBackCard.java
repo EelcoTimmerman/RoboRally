@@ -7,14 +7,20 @@ import nl.sogyo.roborally.domain.squares.Board;
 
 public class MoveBackCard extends Card{
 
+    public MoveBackCard(){
+        super();
+    }
+
+    public MoveBackCard(int speed){
+        super(speed);
+    }
+
     public void doCardAction(Robot robot, Board board, List<Robot> robots){
         moveRobotInDirectionIfPossible(robot, robot.getOrientation().getReverse(), board, robots);
         respawnIfNecessary(robot, board);
     }
 
-
-    @Override
-    public int getSpeed(){
-        return 1;
+    public String getName(){
+        return "MoveBackCard";
     }
 }

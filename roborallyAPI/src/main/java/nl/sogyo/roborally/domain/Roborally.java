@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.sogyo.roborally.domain.cards.Card;
+import nl.sogyo.roborally.domain.cards.Deck;
 import nl.sogyo.roborally.domain.elements.Laser;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.*;
@@ -12,6 +13,7 @@ public class Roborally{
 
     List<Robot> robots = new ArrayList<Robot>();
     Board board;
+    Deck deck = new Deck();
     
     public Roborally(){
         this.board = BoardFactory.createTESTBOARD4X4();
@@ -46,12 +48,14 @@ public class Roborally{
         if(robotsReady) playRound();
     }
 
-    private void playRound(){
-        for(int cardNr=0;cardNr<5;cardNr++){
+    private void playRound(){     
+        for(int cardNr=0;cardNr<1;cardNr++){
+
             robots.sort(Robot.COMPARE_BY_CARD);
             for(Robot robot : robots){
-                robotPlaysCard(robot, cardNr);
+                robotPlaysCard(robot, cardNr);                
             }
+
             activateBoardElements(SlowConveyorbelt.class);
             activateBoardElements(Gear180.class);
             activateBoardElements(GearRight.class);
@@ -59,18 +63,22 @@ public class Roborally{
             fireBoardLasers();
             fireRobotLasers();
             activateBoardElements(Checkpoint.class);
+
+            //This keeps the order of the robots consistent for the frontend.
+            robots.sort(Robot.COMPARE_BY_NAME);
+            for(Robot robot : robots){
+                robot.cyclePowerState();
+                robot.clearHand(deck);
+                robot.drawCards(deck);
+                robot.unready();
+            }
         }
-        //This keeps the order of the robots consistent for the frontend.
-        robots.sort(Robot.COMPARE_BY_NAME);
-        for(Robot robot : robots){
-            robot.cyclePowerState();
-        }
+        this.deck = new Deck(); 
     }
 
     private void robotPlaysCard(Robot robot, int cardNr){
         Card playingCard = robot.getCard(cardNr);
         playingCard.doCardAction(robot, board, robots);
-        robot.unready();
         robot.updateCurrentCard();
     }
 
@@ -101,10 +109,16 @@ public class Roborally{
 
     public void addRobot(Robot robot){
         this.robots.add(robot);
+        robot.drawCards(deck);
         robots.sort(Robot.COMPARE_BY_NAME);
     }
 
     public void removeRobot(Robot robot){
+        robot.clearHand(deck);
         this.robots.remove(robot);
+    }
+
+    public Deck getDeck(){
+        return this.deck;
     }
 }

@@ -2,7 +2,6 @@ package nl.sogyo.roborally.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -653,7 +652,7 @@ public class TestRoborally {
         robot1.program(7);
         robot2.program(7);
         roborally.playRoundIfAllRobotsReady();
-        assertEquals(4, robot1.getHealth());
+        assertEquals(8, robot1.getHealth());
     }
     
     @Test
@@ -666,7 +665,7 @@ public class TestRoborally {
         robot1.program(7);
         robot2.program(7);
         roborally.playRoundIfAllRobotsReady();
-        assertEquals(4, robot1.getHealth());
+        assertEquals(8, robot1.getHealth());
     }
     
     @Test
@@ -679,7 +678,7 @@ public class TestRoborally {
         robot1.program(7);
         robot2.program(7);
         roborally.playRoundIfAllRobotsReady();
-        assertEquals(4, robot1.getHealth());
+        assertEquals(8, robot1.getHealth());
     }
     
     @Test
@@ -692,7 +691,7 @@ public class TestRoborally {
         robot1.program(7);
         robot2.program(7);
         roborally.playRoundIfAllRobotsReady();
-        assertEquals(4, robot1.getHealth());
+        assertEquals(8, robot1.getHealth());
     }
     
     @Test
@@ -773,7 +772,7 @@ public class TestRoborally {
         robot2.program(7);
         robot3.program(7);
         roborally.playRoundIfAllRobotsReady();
-        assertEquals(4, robot1.getHealth());
+        assertEquals(8, robot1.getHealth());
         assertEquals(9, robot3.getHealth());
 
     }
@@ -794,10 +793,10 @@ public class TestRoborally {
         robot3.program(new DoNothingCard());
         robot4.program(new DoNothingCard());
         roborally.playRoundIfAllRobotsReady();
-        assertEquals(4, robot1.getHealth());
-        assertEquals(4, robot2.getHealth());
-        assertEquals(4, robot3.getHealth());
-        assertEquals(4, robot4.getHealth());
+        assertEquals(8, robot1.getHealth());
+        assertEquals(8, robot2.getHealth());
+        assertEquals(8, robot3.getHealth());
+        assertEquals(8, robot4.getHealth());
     }
 
     @Test
@@ -858,7 +857,7 @@ public class TestRoborally {
         Roborally roborally = new Roborally(BOARDLASERTESTBOARD, robot);
         robot.program(new DoNothingCard());
         roborally.playRoundIfAllRobotsReady();
-        assertEquals(4, robot.getHealth());
+        assertEquals(8, robot.getHealth());
     }
 
 }
