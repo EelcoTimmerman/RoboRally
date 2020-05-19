@@ -86,7 +86,7 @@ public class Roborally{
         for(Robot robot : robots){
             Square position = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
             if(elementTypeToActivate.isInstance(position)){
-                position.doSquareAction(robot, board);
+                position.doSquareAction(robot, board, robots);
             }
         }
     }

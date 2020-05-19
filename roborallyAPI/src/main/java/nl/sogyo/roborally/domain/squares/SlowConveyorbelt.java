@@ -1,5 +1,7 @@
 package nl.sogyo.roborally.domain.squares;
 
+import java.util.List;
+
 import nl.sogyo.roborally.domain.Direction;
 import nl.sogyo.roborally.domain.robots.Robot;
 
@@ -27,7 +29,7 @@ public class SlowConveyorbelt extends Square{
     }
 
     @Override
-    public void doSquareAction(Robot robot, Board board){
+    public void doSquareAction(Robot robot, Board board, List<Robot> robots){
         if(!hasWallAt(movementDirection)){
             turnRobotIfNecessary(robot, board);
             robot.move(movementDirection);
