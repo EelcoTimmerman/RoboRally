@@ -48,7 +48,7 @@ public class Roborally{
         if(robotsReady) playRound();
     }
 
-    private void playRound(){        
+    private void playRound(){     
         for(int cardNr=0;cardNr<1;cardNr++){
 
             robots.sort(Robot.COMPARE_BY_CARD);
@@ -73,6 +73,7 @@ public class Roborally{
                 robot.unready();
             }
         }
+        this.deck = new Deck(); 
     }
 
     private void robotPlaysCard(Robot robot, int cardNr){

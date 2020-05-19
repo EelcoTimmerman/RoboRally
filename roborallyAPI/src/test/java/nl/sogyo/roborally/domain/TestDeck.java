@@ -43,11 +43,11 @@ public class TestDeck{
         Robot robot1 = new Robot("e",1);
         Robot robot2 = new Robot("d",2);
         Roborally roborally = new Roborally(robot1);
-        roborally.addRobot(robot2);
+        roborally.addRobot(robot2); //also draws cards
         Deck deck = roborally.getDeck();
         robot1.drawCards(deck);
         robot2.drawCards(deck);
-        assert(deck.getSize() == 84-18);
+        assert(deck.getSize() == 84-27);
     }
 
     @Test
@@ -57,10 +57,9 @@ public class TestDeck{
         Robot robot2 = new Robot("said",2);
         Roborally roborally = new Roborally(board, robot1);
         roborally.addRobot(robot2);
-        Deck deck = roborally.getDeck();
         robot1.program(0);
         robot2.program(0);
         roborally.playRoundIfAllRobotsReady();
-        assertEquals(84, deck.getSize());
+        assertEquals(84, roborally.getDeck().getSize());
     }
 }
