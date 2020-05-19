@@ -20,6 +20,7 @@ public class TestRoborally {
     private Board ROBOTLASERTESTBOARDWALL = null;
     private Board BOARDLASERTESTBOARD = null;
     private Board SLOWCONVERYORBELTROTATIONTESTBOARD = null;
+    private Board MULTIPLEROBOTSONSLOWCONVEYORBELTTESTBOARD = null;
 
     @Before
     public void initializeBoards(){
@@ -31,6 +32,7 @@ public class TestRoborally {
         ROBOTLASERTESTBOARDWALL = BoardFactory.createRobotLaserWallTestBoard();
         BOARDLASERTESTBOARD = BoardFactory.createBoardlaserTestBoard();
         SLOWCONVERYORBELTROTATIONTESTBOARD = BoardFactory.createSlowConveyorbeltRotationTestBoard();
+        MULTIPLEROBOTSONSLOWCONVEYORBELTTESTBOARD = BoardFactory.createMultipleRobotsOnSlowConveyorbeltTestBoard();
     }
 
     @Test
@@ -482,8 +484,90 @@ public class TestRoborally {
         Roborally roborally = new Roborally(SLOWCONVERYORBELTROTATIONTESTBOARD, robot);
         roborally.activateAllBoardElements();
         assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 0);
-        assert(robot.getOrientation() == Direction.NORTH);    
+        assert(robot.getOrientation() == Direction.NORTH);
     }
+
+    @Test
+    public void testRobotPushedOffSlowConveyorbeltIntoOtherRobot(){
+        Robot robot1 = new Robot(1, 0, Direction.NORTH);
+        Robot robot2 = new Robot(1, 1, Direction.NORTH);
+        Card card = new DoNothingCard();
+        robot1.program(card);
+        robot2.program(card);
+        Roborally roborally = new Roborally(MULTIPLEROBOTSONSLOWCONVEYORBELTTESTBOARD);
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        roborally.activateAllBoardElements();
+        assert(robot1.getXCoordinate() == 1 && robot1.getYCoordinate() == 0);
+        assert(robot2.getXCoordinate() == 1 && robot2.getYCoordinate() == 1);        
+    }
+
+    @Test
+    public void testTwoRobotsNextToEachOtherOnSlowConveyorbelt(){
+        Robot robot1 = new Robot(1, 1, Direction.NORTH);
+        Robot robot2 = new Robot(1, 2, Direction.NORTH);
+        Card card = new DoNothingCard();
+        robot1.program(card);
+        robot2.program(card);
+        Roborally roborally = new Roborally(MULTIPLEROBOTSONSLOWCONVEYORBELTTESTBOARD);
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        roborally.activateAllBoardElements();
+        assert(robot1.getXCoordinate() == 1 && robot1.getYCoordinate() == 0);
+        assert(robot2.getXCoordinate() == 1 && robot2.getYCoordinate() == 1);        
+    }
+
+    @Test
+    public void testTwoRobotsOnSlowConveyorbeltWithWallInFront(){
+        Robot robot1 = new Robot(0, 0, "Robot1", 7);
+        Robot robot2 = new Robot(0, 1, "Robot2", 7);
+        Card card = new DoNothingCard();
+        robot1.program(card);
+        robot2.program(card);
+        Roborally roborally = new Roborally(MULTIPLEROBOTSONSLOWCONVEYORBELTTESTBOARD);
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        roborally.activateAllBoardElements();
+        assert(robot1.getXCoordinate() == 0 && robot1.getYCoordinate() == 0);
+        assert(robot2.getXCoordinate() == 0 && robot2.getYCoordinate() == 1);        
+    }
+
+    @Test
+    public void testRobotNotTurningOnSlowConveyorbeltWithOtherRobotInFrontOfObstacle(){
+        Robot robot1 = new Robot(0, 1, Direction.EAST);
+        Robot robot2 = new Robot(1, 1, Direction.NORTH);
+        Robot robot3 = new Robot(1, 0, Direction.WEST);
+        Card card = new DoNothingCard();
+        robot1.program(card);
+        robot2.program(card);
+        robot3.program(card);
+        Roborally roborally = new Roborally(SLOWCONVERYORBELTROTATIONTESTBOARD);
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        roborally.addRobot(robot3);
+        roborally.activateAllBoardElements();
+        assert(robot1.getXCoordinate() == 0 && robot1.getYCoordinate() == 1);
+        assert(robot1.getOrientation() == Direction.EAST);
+        assert(robot2.getXCoordinate() == 1 && robot2.getYCoordinate() == 1);
+        assert(robot2.getOrientation() == Direction.NORTH);
+        assert(robot3.getXCoordinate() == 1 && robot3.getYCoordinate() == 0);
+        assert(robot3.getOrientation() == Direction.WEST);
+    }
+
+    // @Test
+    // public void testTwoRobotsPushedToSameSquareByConveyorBelt(){
+    // Robot robot1 = new Robot(0, 1, Direction.EAST);
+    // Robot robot2 = new Robot(1, 2, Direction.NORTH);
+    // Card card = new DoNothingCard();
+    // robot1.program(card);
+    // robot2.program(card);
+    // Roborally roborally = new Roborally(SLOWCONVERYORBELTROTATIONTESTBOARD);
+    // roborally.addRobot(robot1);
+    // roborally.addRobot(robot2);
+    // roborally.activateAllBoardElements();
+    // assert(robot1.getXCoordinate() == 0 && robot1.getYCoordinate() == 1);
+    // assert(robot2.getXCoordinate() == 1 && robot2.getYCoordinate() == 2);
+    // }
 
     @Test
     public void testGearReverse(){

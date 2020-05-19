@@ -300,6 +300,28 @@ public class BoardFactory{
 		return slowConveryorbeltRotationTestBoard;
 	}
 
+	public static Board createMultipleRobotsOnSlowConveyorbeltTestBoard(){
+		Board multipleRobotsOnSlowConveyorbeltTestBoard = new Board();
+
+		ArrayList<Square> row1 = new ArrayList<>();
+		row1.add(new SlowConveyorbelt(Direction.NORTH, "N"));
+		row1.add(new EmptySquare());
+
+		ArrayList<Square> row2 = new ArrayList<>();
+		row2.add(new SlowConveyorbelt(Direction.NORTH));
+		row2.add(new SlowConveyorbelt(Direction.NORTH));
+		
+		ArrayList<Square> row3 = new ArrayList<>();
+		row3.add(new SlowConveyorbelt(Direction.NORTH));
+		row3.add(new SlowConveyorbelt(Direction.NORTH));
+
+		multipleRobotsOnSlowConveyorbeltTestBoard.addRow(row1);
+		multipleRobotsOnSlowConveyorbeltTestBoard.addRow(row2);
+		multipleRobotsOnSlowConveyorbeltTestBoard.addRow(row3);
+
+		return multipleRobotsOnSlowConveyorbeltTestBoard;
+	}
+
 	public static Board createPitTestBoard(){
 		Board pitTestBoard = new Board();
 
