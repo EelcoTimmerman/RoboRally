@@ -17,11 +17,9 @@ import nl.sogyo.roborally.domain.Roborally;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.BoardFactory;
 
-
-
 @ServerEndpoint(value = "/websocket")
 public class RoborallyWebsocket{
-    private static final Roborally roborally = new Roborally(BoardFactory.createWinningBoard());
+    private static final Roborally roborally = new Roborally(BoardFactory.createSmallCompleteBoard());
     private static final List<Session> players = new ArrayList<>();
     private static final Map<Session, Robot> robots = new HashMap<>();
     
@@ -32,17 +30,14 @@ public class RoborallyWebsocket{
 
     @OnMessage
     public void onMessage(String message, Session session)throws IOException{
-        System.out.println("Message recieved: " + message);
+        System.out.println("Message received: " + message);
         if(message.contains("initialize")){
             String name = message.split(" ")[1];
             Robot robot = new Robot(name, robots.size());
             robots.put(session, robot);
             roborally.addRobot(robot);
             players.add(session);
-            String board = new JSONResultProcessor().createBoardResponse(roborally);
-            session.getBasicRemote().sendText(board);
-            String lasers = new JSONResultProcessor().createLasersResponse(roborally);
-            session.getBasicRemote().sendText(lasers);
+            sendBoardInformation(session);
         }
         else if(message.equals("switchpower")){
             Robot robot = robots.get(session);
@@ -52,7 +47,7 @@ public class RoborallyWebsocket{
         else{
             int cardnr = Integer.parseInt(message);
             Robot robot = robots.get(session);
-            robot.program(cardnr);
+            robot.programFromHand(cardnr);
             roborally.playRoundIfAllRobotsReady();
             if(roborally.getWinner() != null){
                 String gameover = new JSONResultProcessor().createGameOverResponse(roborally);
@@ -60,6 +55,7 @@ public class RoborallyWebsocket{
             }
         }
         updateAllPlayers();
+
     }
 
     @OnClose
@@ -69,15 +65,14 @@ public class RoborallyWebsocket{
         robots.remove(session);
         players.remove(session);
         System.out.println("Closing a websocket due to " + reason.getReasonPhrase());
-
         updateAllPlayers();
     }
 
     private void updateAllPlayers()throws IOException{
-        String robots = new JSONResultProcessor().createRobotsResponse(roborally);
         for(Session player : players){
-            player.getBasicRemote().sendText(robots);
+            updateRobots(player);
             updatePlayerPowerStatus(player);
+            updatePlayerHand(player);
         }
     }
 
@@ -85,6 +80,24 @@ public class RoborallyWebsocket{
         Robot robot = robots.get(session);
         String powerstatusresponse = new JSONResultProcessor().createPowerstatusResponse(robot);
         session.getBasicRemote().sendText(powerstatusresponse);
+    }
+
+    private void updatePlayerHand(Session session)throws IOException{
+        String cards = new JSONResultProcessor().createCardsResponse(roborally, robots.get(session));
+        session.getBasicRemote().sendText(cards);
+    }
+
+    private void updateRobots(Session session)throws IOException{
+        String robotresponse = new JSONResultProcessor().createRobotsResponse(roborally);
+        session.getBasicRemote().sendText(robotresponse);
+    }
+
+    private void sendBoardInformation(Session session)throws IOException{
+        String board = new JSONResultProcessor().createBoardResponse(roborally);
+        session.getBasicRemote().sendText(board);
+        String lasers = new JSONResultProcessor().createLasersResponse(roborally);
+        session.getBasicRemote().sendText(lasers);
+        updatePlayerHand(session);
     }
 
 }

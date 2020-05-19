@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import nl.sogyo.roborally.domain.cards.Card;
+import nl.sogyo.roborally.domain.cards.Deck;
 import nl.sogyo.roborally.domain.elements.Laser;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.*;
@@ -14,6 +15,7 @@ public class Roborally{
     List<Robot> robots = new ArrayList<Robot>();
     Board board;
     private Robot winner = null;
+    Deck deck = new Deck();
     
     public Roborally(){
         this.board = BoardFactory.createTESTBOARD4X4();
@@ -71,8 +73,12 @@ public class Roborally{
             robots.sort(Robot.COMPARE_BY_NAME);
             for(Robot robot : robots){
                 robot.cyclePowerState();
+                robot.clearHand(deck);
+                robot.drawCards(deck);
+                robot.unready();
             }
-        }    
+        }
+        this.deck = new Deck();         
 
     }
 
@@ -83,7 +89,6 @@ public class Roborally{
     private void robotPlaysCard(Robot robot, int cardNr){
         Card playingCard = robot.getCard(cardNr);
         playingCard.doCardAction(robot, board, robots);
-        robot.unready();
         robot.updateCurrentCard();
     }
 
@@ -114,10 +119,16 @@ public class Roborally{
 
     public void addRobot(Robot robot){
         this.robots.add(robot);
+        robot.drawCards(deck);
         robots.sort(Robot.COMPARE_BY_NAME);
     }
 
     public void removeRobot(Robot robot){
+        robot.clearHand(deck);
         this.robots.remove(robot);
+    }
+
+    public Deck getDeck(){
+        return this.deck;
     }
 }

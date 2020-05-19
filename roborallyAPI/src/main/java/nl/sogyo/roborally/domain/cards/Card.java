@@ -10,10 +10,17 @@ import nl.sogyo.roborally.domain.squares.*;
 public abstract class Card{
 
     public abstract void doCardAction(Robot robot, Board board, List<Robot> robots);
+    public abstract String getName();
+    protected int speed;
 
-    public abstract int getSpeed();
-    
-    protected boolean moveRobotInDirectionIfPossible(Robot robot, Direction direction, Board board, List<Robot> otherRobots){
+    public Card() {
+	}
+
+    public Card(int speed){
+        this.speed = speed;
+    }
+
+	protected boolean moveRobotInDirectionIfPossible(Robot robot, Direction direction, Board board, List<Robot> otherRobots){
         boolean hasMoved = true;
         boolean isBlockedByWall = checkForWall(robot, direction, board);
         if(!isBlockedByWall){
@@ -63,4 +70,9 @@ public abstract class Card{
         Square currentPosition = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
         return (currentPosition instanceof Pit);
     }
+
+    public int getSpeed(){
+        return this.speed;
+    }
+
 }
