@@ -69,15 +69,15 @@ public class Roborally{
                 fireRobotLasers();
                 activateBoardElements(Checkpoint.class);
             }
-            //This keeps the order of the robots consistent for the frontend.
-            robots.sort(Robot.COMPARE_BY_NAME);
-            this.deck = new Deck();         
-            for(Robot robot : robots){
-                robot.cyclePowerState();
-                robot.clearHand(deck);
-                robot.drawCards(deck);
-                robot.unready();
-            }
+        }
+        //This keeps the order of the robots consistent for the frontend.
+        robots.sort(Robot.COMPARE_BY_NAME);
+        this.deck = new Deck();         
+        for(Robot robot : robots){
+            robot.cyclePowerState();
+            robot.clearHand(deck);
+            robot.drawCards(deck);
+            robot.unready();
         }
 
     }

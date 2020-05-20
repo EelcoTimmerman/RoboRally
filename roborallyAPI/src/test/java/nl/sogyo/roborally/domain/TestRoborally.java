@@ -825,9 +825,9 @@ public class TestRoborally {
     public void testRobotReactivates(){
         Robot robot = new Robot(0,0, Direction.EAST);
         Roborally roborally = new Roborally(TESTBOARD4X4);
+        roborally.addRobot(robot);
         robot.program(new MoveOneCard());
         robot.turnOnOrOff();
-        roborally.addRobot(robot);
         roborally.playRoundIfAllRobotsReady();
         roborally.playRoundIfAllRobotsReady();
         robot.program(new MoveOneCard());
@@ -862,7 +862,7 @@ public class TestRoborally {
         Roborally roborally = new Roborally(BOARDLASERTESTBOARD, robot);
         robot.program(new DoNothingCard());
         roborally.playRoundIfAllRobotsReady();
-        assertEquals(8, robot.getHealth());
+        assertEquals(4, robot.getHealth());
     }
 
     @Test

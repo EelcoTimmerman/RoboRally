@@ -310,7 +310,7 @@ public class Robot{
             this.shutDown();
         }
         else if(this.activitylevel == ActivityLevel.INACTIVE){
-            //this.activate();
+            this.activate();
         }
     }
 
