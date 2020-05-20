@@ -54,11 +54,11 @@ public class Roborally{
         outerloop: for(int cardNr=0;cardNr<5;cardNr++){
                         robots.sort(Robot.COMPARE_BY_CARD);
                         for(Robot robot : robots){
-                        robotPlaysCard(robot, cardNr);
-                        if(robot.isWinner()){
-                            this.winner = robot;
-                            break outerloop;
-                        }
+                            robotPlaysCard(robot, cardNr);
+                            if(robot.isWinner()){
+                                this.winner = robot;
+                                break outerloop;
+                            }
                     }
         if(this.winner == null){
                 activateBoardElements(SlowConveyorbelt.class);
@@ -71,6 +71,7 @@ public class Roborally{
             }
             //This keeps the order of the robots consistent for the frontend.
             robots.sort(Robot.COMPARE_BY_NAME);
+            this.deck = new Deck();         
             for(Robot robot : robots){
                 robot.cyclePowerState();
                 robot.clearHand(deck);
@@ -78,7 +79,6 @@ public class Roborally{
                 robot.unready();
             }
         }
-        this.deck = new Deck();         
 
     }
 
@@ -87,9 +87,11 @@ public class Roborally{
     }
 
     private void robotPlaysCard(Robot robot, int cardNr){
-        Card playingCard = robot.getCard(cardNr);
-        playingCard.doCardAction(robot, board, robots);
-        robot.updateCurrentCard();
+        if(!robot.isInactive()){
+            Card playingCard = robot.getCard(cardNr);
+            playingCard.doCardAction(robot, board, robots);
+            robot.updateCurrentCard();
+        }
     }
 
     public void program(int cardnr){
