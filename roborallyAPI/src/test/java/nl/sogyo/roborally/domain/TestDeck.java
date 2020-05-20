@@ -60,6 +60,6 @@ public class TestDeck{
         robot1.program(0);
         robot2.program(0);
         roborally.playRoundIfAllRobotsReady();
-        assertEquals(84, roborally.getDeck().getSize());
+        assertEquals(84-18, roborally.getDeck().getSize());
     }
 }
