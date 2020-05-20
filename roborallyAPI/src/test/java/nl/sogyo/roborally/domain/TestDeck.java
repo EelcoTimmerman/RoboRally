@@ -45,7 +45,7 @@ public class TestDeck{
         Roborally roborally = new Roborally(robot1);
         roborally.addRobot(robot2); //also draws cards
         Deck deck = roborally.getDeck();
-        assertEquals(84, deck.getSize());
+        assertEquals(75, deck.getSize());
         robot1.drawCards(deck);
         robot2.drawCards(deck);
         assert(deck.getSize() == 84-27);

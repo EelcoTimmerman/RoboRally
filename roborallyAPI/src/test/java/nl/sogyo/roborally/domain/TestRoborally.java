@@ -816,7 +816,7 @@ public class TestRoborally {
         roborally.playAllRegistersIfRobotsReady();
         robot2.program(new MoveOneCard());
         roborally.playAllRegistersIfRobotsReady();
-        assertEquals(0, robot2.getXCoordinate());// this might be wring due to merge conflict
+        assertEquals(1, robot2.getXCoordinate());
         assertEquals(1, robot1.getXCoordinate());
     }
 

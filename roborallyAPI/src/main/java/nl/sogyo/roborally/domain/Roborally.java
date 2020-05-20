@@ -85,7 +85,7 @@ public class Roborally{
         this.deck = new Deck();  
         for(Robot robot : robots){
             robot.cyclePowerState();
-            robot.clearHand(deck);
+            robot.clearHand();
             robot.drawCards(deck);
             robot.unready();
         }

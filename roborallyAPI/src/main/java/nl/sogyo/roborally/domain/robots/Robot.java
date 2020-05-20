@@ -286,9 +286,13 @@ public class Robot{
         return this.hand;
     }
 
-    public void clearHand(Deck deck){
-        deck.returnCards(this.hand);
+    public void clearHand(Deck d){
+        clearHand();
+    }
+
+    public void clearHand(){
         this.hand.clear();
+
     }
 
     public boolean isInactive(){
