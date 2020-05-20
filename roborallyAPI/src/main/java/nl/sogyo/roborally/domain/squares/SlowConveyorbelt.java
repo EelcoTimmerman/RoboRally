@@ -39,27 +39,42 @@ public class SlowConveyorbelt extends Square{
     }
 
     private boolean moveRobotInDirectionIfPossible(Robot robot, Direction direction, Board board, List<Robot> otherRobots){
+        System.out.println("Entering moveRobotInDirectionIfPossible for: " + robot.getName() + "...");
+        System.out.println(robot.getName() + " at the beginning of its function call is at position [" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "].");
         boolean hasMoved = true;
-        Square currentPosition = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
+        SlowConveyorbelt currentPosition = (SlowConveyorbelt) board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
         boolean isBlockedByWall = currentPosition.hasWallAt(direction);
         if(!isBlockedByWall){
-            turnRobotIfNecessary(robot, board);
+            String robotTurnDirection = currentPosition.turnRobotIfNecessary(robot, board);
             robot.move(direction);
-            if(!respawnIfNecessary(robot, board)){
+            System.out.println(robot.getName() + " tries to move to position [" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "].");
+            if(!respawnRobotIfNecessary(robot, board)){
                 Square destination = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
                 for(Robot otherRobot : otherRobots){
+                    System.out.println("Entering the for-loop to check if anyone is in the way of " + robot.getName() + ".");
+                    System.out.println("Checking if " + otherRobot.getName() + " is in the way...");
                     if(otherRobot.isAt(robot.getXCoordinate(), robot.getYCoordinate()) && (otherRobot != robot & destination instanceof SlowConveyorbelt)){
+                        System.out.println(otherRobot.getName() + " is in the way of " + robot.getName() + " at position [" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "].");
                         SlowConveyorbelt destinationBelt = (SlowConveyorbelt) destination;
-                        hasMoved &= moveRobotInDirectionIfPossible(otherRobot, destinationBelt.getMovementDirection(), board, otherRobots);
+                        hasMoved &= destinationBelt.moveRobotInDirectionIfPossible(otherRobot, destinationBelt.getMovementDirection(), board, otherRobots);
                         if(hasMoved){
-                            respawnIfNecessary(otherRobot, board);
+                            System.out.println(otherRobot.getName() + " has moved out of the way and is now at position [" + otherRobot.getXCoordinate() + "," + otherRobot.getYCoordinate() + "].");
+                            respawnRobotIfNecessary(otherRobot, board);
                         }
                         else{
+                            System.out.println(otherRobot.getName() + " has not moved out of the way of " + robot.getName() + " and is still at position [" + otherRobot.getXCoordinate() + "," + otherRobot.getYCoordinate() + "].");
+                            robot.turnBack(robotTurnDirection);
                             robot.move(direction.getReverse());
+                            System.out.println("Therefore " + robot.getName() + " now needs to move back to its orginal position and is at [" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "].");
                         }
+                        System.out.println("Exiting for loop for " + otherRobot.getName() + " in original function-call for " + robot.getName());
                         break;
                     } else if(otherRobot.isAt(robot.getXCoordinate(), robot.getYCoordinate()) && (otherRobot != robot & !(destination instanceof SlowConveyorbelt))){
+                        robot.turnBack(robotTurnDirection);
                         robot.move(direction.getReverse());
+                        hasMoved = false;
+                        System.out.println(otherRobot.getName() + " is not on a slow conveyorbelt and can therefore not move out of the way of " + robot.getName() + ".");
+                        System.out.println("So " + robot.getName() + " needs to move back to its starting position and is now at [" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "].");
                     }
                 }
             }
@@ -67,18 +82,29 @@ public class SlowConveyorbelt extends Square{
         else{
             hasMoved = false;
         }
+        System.out.println(robot.getName() + " at the end of its function call is at position [" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "].");
+        System.out.println("Exiting moveRobotInDirectionIfPossible for: " + robot.getName() + "...");
         return hasMoved;
     }
 
-    private void turnRobotIfNecessary(Robot robot, Board board){
+    private String turnRobotIfNecessary(Robot robot, Board board){
         Square destination = getDestination(robot.getXCoordinate(), robot.getYCoordinate(), board);
+        String turnDirection = "";
         if(destination instanceof SlowConveyorbelt){
             SlowConveyorbelt destinationBelt = (SlowConveyorbelt) destination;
             Direction destinationDirection = destinationBelt.getMovementDirection();
-            if(destinationDirection == movementDirection.getLeft()) robot.turnLeft();
-            else if(destinationDirection == movementDirection.getRight()) robot.turnRight();
-            else if(destinationDirection == movementDirection.getReverse()) robot.turnReverse();
+            if(destinationDirection == movementDirection.getLeft()){
+                robot.turnLeft();
+                turnDirection = "left";
+            } else if(destinationDirection == movementDirection.getRight()){
+                robot.turnRight();
+                turnDirection = "right";
+            } else if(destinationDirection == movementDirection.getReverse()){
+                robot.turnReverse();
+                turnDirection = "reverse";
+            }
         }
+        return turnDirection;
     }
 
     private Square getDestination(int xCoordinate, int yCoordinate, Board board){
@@ -96,7 +122,7 @@ public class SlowConveyorbelt extends Square{
         else return board.getSquare(xCoordinate, yCoordinate);
     }
     
-    private boolean respawnIfNecessary(Robot robot, Board board){        
+    private boolean respawnRobotIfNecessary(Robot robot, Board board){        
         if(robotNotOnBoard(robot, board) || robotInPit(robot, board)) {
             robot.respawn();
             return true;

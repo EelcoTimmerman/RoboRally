@@ -315,11 +315,53 @@ public class BoardFactory{
 		row3.add(new SlowConveyorbelt(Direction.NORTH));
 		row3.add(new SlowConveyorbelt(Direction.NORTH));
 
+		ArrayList<Square> row4 = new ArrayList<>();
+		row4.add(new SlowConveyorbelt(Direction.NORTH));
+		row4.add(new SlowConveyorbelt(Direction.NORTH));
+
 		multipleRobotsOnSlowConveyorbeltTestBoard.addRow(row1);
 		multipleRobotsOnSlowConveyorbeltTestBoard.addRow(row2);
 		multipleRobotsOnSlowConveyorbeltTestBoard.addRow(row3);
+		multipleRobotsOnSlowConveyorbeltTestBoard.addRow(row4);
 
 		return multipleRobotsOnSlowConveyorbeltTestBoard;
+	}
+
+	public static Board createMultipleRobotsOnSlowConveyorbeltWithPitTestBoard(){
+		Board multipleRobotsOnSlowConveyorbeltWithPitTestBoard = new Board();
+
+		ArrayList<Square> row1 = new ArrayList<>();
+		row1.add(new SlowConveyorbelt(Direction.NORTH));
+		row1.add(new Pit());
+
+		ArrayList<Square> row2 = new ArrayList<>();
+		row2.add(new SlowConveyorbelt(Direction.NORTH));
+		row2.add(new SlowConveyorbelt(Direction.NORTH));
+		
+		ArrayList<Square> row3 = new ArrayList<>();
+		row3.add(new SlowConveyorbelt(Direction.NORTH));
+		row3.add(new SlowConveyorbelt(Direction.NORTH));
+
+		ArrayList<Square> row4 = new ArrayList<>();
+		row4.add(new SlowConveyorbelt(Direction.NORTH));
+		row4.add(new SlowConveyorbelt(Direction.NORTH));
+
+		ArrayList<Square> row5 = new ArrayList<>();
+		row5.add(new EmptySquare());
+		row5.add(new EmptySquare());
+
+		ArrayList<Square> row6 = new ArrayList<>();
+		row6.add(new EmptySquare());
+		row6.add(new EmptySquare());
+
+		multipleRobotsOnSlowConveyorbeltWithPitTestBoard.addRow(row1);
+		multipleRobotsOnSlowConveyorbeltWithPitTestBoard.addRow(row2);
+		multipleRobotsOnSlowConveyorbeltWithPitTestBoard.addRow(row3);
+		multipleRobotsOnSlowConveyorbeltWithPitTestBoard.addRow(row4);
+		multipleRobotsOnSlowConveyorbeltWithPitTestBoard.addRow(row5);
+		multipleRobotsOnSlowConveyorbeltWithPitTestBoard.addRow(row6);
+
+		return multipleRobotsOnSlowConveyorbeltWithPitTestBoard;
 	}
 
 	public static Board createPitTestBoard(){

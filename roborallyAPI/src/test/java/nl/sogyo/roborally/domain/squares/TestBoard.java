@@ -130,4 +130,12 @@ public class TestBoard{
         assert(multipleRobotsOnSlowConveyorbeltTestBoard.hasConsistentWalls());
         assert(multipleRobotsOnSlowConveyorbeltTestBoard.allLasersOnWalls());
     }
+
+    @Test
+    public void testMultipleRobotsOnSlowConveyorbeltWithPitTestBoard(){
+        Board multipleRobotsOnSlowConveyorbeltWithPitTestBoard = BoardFactory.createMultipleRobotsOnSlowConveyorbeltWithPitTestBoard();
+        assert(multipleRobotsOnSlowConveyorbeltWithPitTestBoard.isRectangular());
+        assert(multipleRobotsOnSlowConveyorbeltWithPitTestBoard.hasConsistentWalls());
+        assert(multipleRobotsOnSlowConveyorbeltWithPitTestBoard.allLasersOnWalls());
+    }
 }
