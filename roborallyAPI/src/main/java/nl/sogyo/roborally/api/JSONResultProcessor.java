@@ -46,6 +46,13 @@ public class JSONResultProcessor {
         return response.toJSONString();
     }
 
+    public String createGameOverResponse(Roborally r){
+        JSONObject response = new JSONObject();
+        response.put("messagetype", "gameover");
+        response.put("body", r.getWinner().getName());
+        return response.toJSONString();
+    }
+
     public String createLasersResponse(Roborally roborally){
         ArrayList<Laser> lasers = roborally.getBoard().getLasers();
         JSONArray jsonLasers = createJSONLasers(lasers);

@@ -3,6 +3,7 @@ package nl.sogyo.roborally.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import nl.sogyo.roborally.domain.cards.Card;
 import nl.sogyo.roborally.domain.cards.Deck;
 import nl.sogyo.roborally.domain.elements.Laser;
@@ -13,6 +14,7 @@ public class Roborally{
 
     List<Robot> robots = new ArrayList<Robot>();
     Board board;
+    private Robot winner = null;
     Deck deck = new Deck();
     
     public Roborally(){
@@ -48,38 +50,48 @@ public class Roborally{
         if(robotsReady) playRound();
     }
 
-    private void playRound(){     
-        for(int cardNr=0;cardNr<1;cardNr++){
-
-            robots.sort(Robot.COMPARE_BY_CARD);
-            for(Robot robot : robots){
-                robotPlaysCard(robot, cardNr);                
-            }
-
-            activateBoardElements(SlowConveyorbelt.class);
-            activateBoardElements(Gear180.class);
-            activateBoardElements(GearRight.class);
-            activateBoardElements(GearLeft.class);
-            fireBoardLasers();
-            fireRobotLasers();
-            activateBoardElements(Checkpoint.class);
-
-            //This keeps the order of the robots consistent for the frontend.
-            robots.sort(Robot.COMPARE_BY_NAME);
-            for(Robot robot : robots){
-                robot.cyclePowerState();
-                robot.clearHand(deck);
-                robot.drawCards(deck);
-                robot.unready();
+    private void playRound(){
+        outerloop: for(int cardNr=0;cardNr<5;cardNr++){
+                        robots.sort(Robot.COMPARE_BY_CARD);
+                        for(Robot robot : robots){
+                            robotPlaysCard(robot, cardNr);
+                            if(robot.isWinner()){
+                                this.winner = robot;
+                                break outerloop;
+                            }
+                    }
+        if(this.winner == null){
+                activateBoardElements(SlowConveyorbelt.class);
+                activateBoardElements(Gear180.class);
+                activateBoardElements(GearRight.class);
+                activateBoardElements(GearLeft.class);
+                fireBoardLasers();
+                fireRobotLasers();
+                activateBoardElements(Checkpoint.class);
             }
         }
-        this.deck = new Deck(); 
+        //This keeps the order of the robots consistent for the frontend.
+        robots.sort(Robot.COMPARE_BY_NAME);
+        this.deck = new Deck();         
+        for(Robot robot : robots){
+            robot.cyclePowerState();
+            robot.clearHand(deck);
+            robot.drawCards(deck);
+            robot.unready();
+        }
+
+    }
+
+    public Robot getWinner(){
+        return this.winner;
     }
 
     private void robotPlaysCard(Robot robot, int cardNr){
-        Card playingCard = robot.getCard(cardNr);
-        playingCard.doCardAction(robot, board, robots);
-        robot.updateCurrentCard();
+        if(!robot.isInactive()){
+            Card playingCard = robot.getCard(cardNr);
+            playingCard.doCardAction(robot, board, robots);
+            robot.updateCurrentCard();
+        }
     }
 
     public void program(int cardnr){
