@@ -3,6 +3,7 @@ package nl.sogyo.roborally.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import nl.sogyo.roborally.domain.cards.Card;
 import nl.sogyo.roborally.domain.cards.Deck;
 import nl.sogyo.roborally.domain.elements.Laser;
@@ -13,6 +14,7 @@ public class Roborally{
 
     List<Robot> robots = new ArrayList<Robot>();
     Board board;
+    private Robot winner = null;
     Deck deck = new Deck();
     
     public Roborally(){
@@ -48,33 +50,39 @@ public class Roborally{
         return robotsReady;
     }
 
-    public void playRoundIfAllRobotsReady(){
-        playRegisterIFAllRobotsReady(0);
-    }
-
-    public void playRegisterIFAllRobotsReady(int registernr){
-        if(allRobotsReady()) playRegister(registernr);
+    public void playAllRegistersIfRobotsReady(){
+        if(allRobotsReady()){
+            for(int registernr=0;registernr<5;registernr++){
+                playRegister(registernr);
+                if(this.winner != null) break;//TO DO: add a check that one robot cannot move the other from
+                //the winner square and be the winner himself.
+            }
+        }
+        prepareNextRound();
     }
 
     private void playRegister(int registernr){
         robots.sort(Robot.COMPARE_BY_CARD(registernr));
         for(Robot robot : robots){
-            robotPlaysCard(robot, registernr);                
+            robotPlaysCard(robot, registernr);
+            if(robot.isWinner()){
+                this.winner = robot;
+            }                
         }
-
-        activateBoardElements(SlowConveyorbelt.class);
-        activateBoardElements(Gear180.class);
-        activateBoardElements(GearRight.class);
-        activateBoardElements(GearLeft.class);
-        fireBoardLasers();
-        fireRobotLasers();
-        activateBoardElements(Checkpoint.class);
-
-        //This keeps the order of the robots consistent for the frontend.
-        robots.sort(Robot.COMPARE_BY_NAME);
+        if(this.winner == null){
+            activateBoardElements(SlowConveyorbelt.class);
+            activateBoardElements(Gear180.class);
+            activateBoardElements(GearRight.class);
+            activateBoardElements(GearLeft.class);
+            fireBoardLasers();
+            fireRobotLasers();
+            activateBoardElements(Checkpoint.class);
+        }
     }
 
-    public void prepareNextRound(){
+    private void prepareNextRound(){
+        robots.sort(Robot.COMPARE_BY_NAME);
+        this.deck = new Deck();  
         for(Robot robot : robots){
             robot.cyclePowerState();
             robot.clearHand(deck);
@@ -83,9 +91,16 @@ public class Roborally{
         }
     }
 
+    public Robot getWinner(){
+        return this.winner;
+    }
+
     private void robotPlaysCard(Robot robot, int cardNr){
-        Card playingCard = robot.getCard(cardNr);
-        playingCard.doCardAction(robot, board, robots);
+        if(!robot.isInactive()){
+            Card playingCard = robot.getCard(cardNr);
+            playingCard.doCardAction(robot, board, robots);
+            robot.updateCurrentCard();
+        }
     }
 
     public void program(int cardnr){

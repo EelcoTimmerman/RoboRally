@@ -50,11 +50,10 @@ public class RoborallyWebsocket{
             System.out.println(Arrays.toString(cardnrs));
             Robot robot = robots.get(session);
             robot.programFromHand(cardnrs);
-            if(roborally.allRobotsReady()){
-                for(int i = 0; i < 5; i++){
-                    roborally.playRegisterIFAllRobotsReady(i);
-                }
-                roborally.prepareNextRound();
+            roborally.playAllRegistersIfRobotsReady();
+            if(roborally.getWinner() != null){
+                String gameover = new JSONResultProcessor().createGameOverResponse(roborally);
+                session.getBasicRemote().sendText(gameover);
             }
         }
         updateAllPlayers();

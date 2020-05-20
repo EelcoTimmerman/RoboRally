@@ -34,6 +34,9 @@ public class Robot{
     String name = "defaultname";
     String colour = "orange";
     ActivityLevel activitylevel = ActivityLevel.ACTIVE;
+    boolean hasWonTheGame;
+
+    private int currentCardIndex = 0;
     
     public Robot(){
     }
@@ -414,4 +417,17 @@ public class Robot{
         if(this.activitylevel == ActivityLevel.ACTIVE) this.activitylevel = ActivityLevel.POWERINGDOWN;
         else if(this.activitylevel == ActivityLevel.POWERINGDOWN) this.activitylevel = ActivityLevel.ACTIVE;
     }
+
+    public void setToWinner(){
+        this.hasWonTheGame = true;
+    }
+
+    public boolean isWinner(){
+        if(this.hasWonTheGame) return true;
+        return false;
+    }
+
+	public void updateCurrentCard() {
+	}
+
 }

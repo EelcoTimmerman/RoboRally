@@ -3,6 +3,7 @@ package nl.sogyo.roborally.domain.cards;
 import java.util.List;
 
 import nl.sogyo.roborally.domain.Direction;
+import nl.sogyo.roborally.domain.Roborally;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.*;
 
@@ -54,6 +55,11 @@ public abstract class Card{
             return true;
         }
         return false;
+    }
+
+    protected void checkIfWinner(Robot robot, Board board){
+        Square currentPosition = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
+        if(currentPosition instanceof FinalCheckPoint) robot.setToWinner();;             
     }
     
     private boolean robotNotOnBoard(Robot robot, Board board){

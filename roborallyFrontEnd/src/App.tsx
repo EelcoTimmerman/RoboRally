@@ -19,8 +19,9 @@ export function App() {
     const [ powerstatus, setPowerstatus ] = useState("Active");
     const [ lasers, setLasers ] = useState<Laser[] | undefined>(undefined);
     const [ programmedCards, setProgrammedCards ] = useState<Card[]>([]);
+    const [gameWinner, setWinner]  = useState<String | undefined>(undefined);
 
-    if(board != undefined && robots != undefined && lasers != undefined){
+    if(board != undefined && robots != undefined && lasers != undefined && gameWinner == undefined){
         return (<div>
                     <Board squares = {board} robots={robots} lasers={lasers}></Board>
                     <Powerbutton powerstatus={powerstatus} onClick={() => powerDown()}/>
@@ -28,6 +29,12 @@ export function App() {
                     <CardsInhand cards = {cardsInHand} onClick={programCard}></CardsInhand>
                     <ProgrammedCards cards={programmedCards} removeCard={unProgramCard} ready={endTurn}></ProgrammedCards>
                 </div>);
+    }
+    else if(gameWinner != undefined){
+        return(
+        <div>Game Over. A long battle has been fought.. But after an immense power struggle,
+            {gameWinner} has gained victory and will now continue to reign the universe until eternity.</div>
+        )
     }
     else{
         return <Startscreen login={initialiseConnection}></Startscreen>;
@@ -56,6 +63,7 @@ export function App() {
                 }
                 else if(message.messagetype == "powerstatus") setPowerstatus(message.body);
                 else if(message.messagetype == "lasers") setLasers(message.body);
+                else if(message.messagetype == "gameover") setWinner(message.body);
             };
 
             tempwebsocket.onclose = function(event: WebSocketCloseEvent){
@@ -65,6 +73,11 @@ export function App() {
 
         setWebsocket(tempwebsocket);
     }
+
+    // function setWinner(winner: String){
+    //     console.log("reached winner", {winner});
+    //     return { gameWinner : winner };
+    // }
 
     function createBoard(squares: Square[][]){
         let board = squares.map(row => row.map(square => new Square(square.type, square.northwall, square.eastwall, square.southwall, square.westwall)));
