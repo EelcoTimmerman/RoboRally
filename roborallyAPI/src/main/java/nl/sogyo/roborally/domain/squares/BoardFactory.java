@@ -364,6 +364,56 @@ public class BoardFactory{
 		return multipleRobotsOnSlowConveyorbeltWithPitTestBoard;
 	}
 
+	public static Board createMultipleRobotsPushedToSameSquareBySlowConveyorbeltWithPitTestBoard(){
+		Board multipleRobotsPushedToSameSquareBySlowConveyorbeltWithPitTestBoard = new Board();
+
+		ArrayList<Square> row1 = new ArrayList<>();
+		row1.add(new EmptySquare());
+		row1.add(new SlowConveyorbelt(Direction.SOUTH));
+		row1.add(new EmptySquare());
+
+		ArrayList<Square> row2 = new ArrayList<>();
+		row2.add(new SlowConveyorbelt(Direction.EAST));
+		row2.add(new Pit());
+		row2.add(new SlowConveyorbelt(Direction.WEST));
+		
+		ArrayList<Square> row3 = new ArrayList<>();
+		row3.add(new EmptySquare());
+		row3.add(new SlowConveyorbelt(Direction.NORTH));
+		row3.add(new EmptySquare());
+
+		multipleRobotsPushedToSameSquareBySlowConveyorbeltWithPitTestBoard.addRow(row1);
+		multipleRobotsPushedToSameSquareBySlowConveyorbeltWithPitTestBoard.addRow(row2);
+		multipleRobotsPushedToSameSquareBySlowConveyorbeltWithPitTestBoard.addRow(row3);
+		
+		return multipleRobotsPushedToSameSquareBySlowConveyorbeltWithPitTestBoard;
+	}
+
+	public static Board createMultipleRobotsPushedToSameSquareBySlowConveyorbeltWithoutPitTestBoard(){
+		Board multipleRobotsPushedToSameSquareBySlowConveyorbeltWithoutPitTestBoard = new Board();
+
+		ArrayList<Square> row1 = new ArrayList<>();
+		row1.add(new EmptySquare());
+		row1.add(new SlowConveyorbelt(Direction.SOUTH));
+		row1.add(new EmptySquare());
+
+		ArrayList<Square> row2 = new ArrayList<>();
+		row2.add(new SlowConveyorbelt(Direction.EAST));
+		row2.add(new Pit());
+		row2.add(new SlowConveyorbelt(Direction.WEST));
+		
+		ArrayList<Square> row3 = new ArrayList<>();
+		row3.add(new EmptySquare());
+		row3.add(new SlowConveyorbelt(Direction.NORTH));
+		row3.add(new EmptySquare());
+
+		multipleRobotsPushedToSameSquareBySlowConveyorbeltWithoutPitTestBoard.addRow(row1);
+		multipleRobotsPushedToSameSquareBySlowConveyorbeltWithoutPitTestBoard.addRow(row2);
+		multipleRobotsPushedToSameSquareBySlowConveyorbeltWithoutPitTestBoard.addRow(row3);
+		
+		return multipleRobotsPushedToSameSquareBySlowConveyorbeltWithoutPitTestBoard;
+	}
+
 	public static Board createPitTestBoard(){
 		Board pitTestBoard = new Board();
 
