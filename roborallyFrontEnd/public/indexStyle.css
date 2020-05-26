@@ -25,11 +25,22 @@ html {
 }
 
 .card{
+  display: block;
   text-align: center;
-  width: 40px;
+  width: 90px;
   padding-top: 10px;
   border-style: dashed;
   border-color: darkgray;
+  font-size: "60px"
+}
+
+.cardsinhandgrid {
+  display: grid;
+  grid-auto-columns: min-content;
+  padding: 10px;
+  width: min-content;
+  grid-template-columns: auto auto auto auto auto auto auto auto auto;
+  grid-gap: 10px;
 }
 
 .robot {
@@ -65,16 +76,6 @@ html {
   display: inline-block;
   padding: 3px;
   margin-top: 50%;
-}
-
-.cardsinhandgrid {
-  display: grid;
-  grid-auto-columns: min-content;
-  background-color: rgb(13, 14, 13);
-  padding: 10px;
-  width: min-content;
-  grid-template-columns: auto auto auto auto auto auto auto auto auto;
-  grid-gap: 10px;
 }
 
 .East-arrow {

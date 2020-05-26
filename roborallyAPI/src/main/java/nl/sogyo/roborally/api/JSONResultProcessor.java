@@ -7,6 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import nl.sogyo.roborally.domain.*;
+import nl.sogyo.roborally.domain.cards.Card;
 import nl.sogyo.roborally.domain.elements.Laser;
 import nl.sogyo.roborally.domain.robots.Robot;
 import nl.sogyo.roborally.domain.squares.*;
@@ -17,10 +18,18 @@ public class JSONResultProcessor {
     public String createBoardResponse(Roborally roborally){
         Board board = roborally.getBoard();
         JSONArray squares = createJSONBoard(board);
-
         JSONObject response = new JSONObject();
         response.put("messagetype", "boardstate");
         response.put("body", squares);
+        return response.toJSONString();
+    }
+
+    public String createCardsResponse(Roborally rRally, Robot robot){
+        List<Card> hand = robot.getHand();
+        JSONArray cards = createJSONCards(hand);
+        JSONObject response = new JSONObject();
+        response.put("messagetype", "drawncards");
+        response.put("body", cards);
         return response.toJSONString();
     }
 
@@ -34,6 +43,13 @@ public class JSONResultProcessor {
         JSONObject response = new JSONObject();
         response.put("messagetype", "robots");
         response.put("body", robots);
+        return response.toJSONString();
+    }
+
+    public String createGameOverResponse(Roborally r){
+        JSONObject response = new JSONObject();
+        response.put("messagetype", "gameover");
+        response.put("body", r.getWinner().getName());
         return response.toJSONString();
     }
 
@@ -54,6 +70,22 @@ public class JSONResultProcessor {
         return response.toJSONString();
     }
  
+    private JSONArray createJSONCards(List<Card> cards){
+        JSONArray jsonCards = new JSONArray();
+        for(int i = 0; i < cards.size(); i++){
+            jsonCards.add(createJSONCard(cards.get(i), i));
+        }
+        return jsonCards;
+    }
+
+    private JSONObject createJSONCard(Card card, int index){
+        JSONObject jsonCard = new JSONObject();
+        jsonCard.put("name", card.getName());
+        jsonCard.put("speed", card.getSpeed());
+        jsonCard.put("cardid", index);
+        return jsonCard;
+    }
+
     private JSONArray createJSONBoard(Board board){
         JSONArray jsonSquares = new JSONArray();
         ArrayList<ArrayList<Square>> boardSquares = board.getBoard();

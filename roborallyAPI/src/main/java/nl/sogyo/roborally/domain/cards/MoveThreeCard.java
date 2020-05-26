@@ -7,6 +7,14 @@ import nl.sogyo.roborally.domain.squares.Board;
 
 public class MoveThreeCard extends Card{
 
+    public MoveThreeCard(){
+        super();
+    }
+
+    public MoveThreeCard(int speed){
+        super(speed);
+    }
+
     public void doCardAction(Robot robot, Board board, List<Robot> robots){
         boolean hasMoved = moveRobotInDirectionIfPossible(robot, robot.getOrientation(), board, robots);
         boolean hasRespawned = respawnIfNecessary(robot, board);
@@ -17,13 +25,12 @@ public class MoveThreeCard extends Card{
             if(hasMoved && !hasRespawned){
                 moveRobotInDirectionIfPossible(robot, robot.getOrientation(), board, robots);
                 respawnIfNecessary(robot, board);
+                checkIfWinner(robot, board);
             }
         }
     }
 
-
-    @Override
-    public int getSpeed(){
-        return 3;
+    public String getName(){
+        return "MoveThreeCard";
     }
 }

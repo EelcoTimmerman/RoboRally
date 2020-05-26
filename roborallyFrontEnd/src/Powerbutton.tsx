@@ -8,5 +8,5 @@ export function Powerbutton({ powerstatus, onClick }: PowerbuttonProps){
     let backgroundcolour = "";
     if(powerstatus == "Active") backgroundcolour = "green";
     else backgroundcolour = "red";
-    return <button style={{backgroundColor: backgroundcolour}} onClick={onClick}>Power</button>
+    return <button style={{backgroundColor: backgroundcolour, fontSize: "40px"}} onClick={onClick}>Power</button>
 }

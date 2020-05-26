@@ -22,6 +22,10 @@ export function PlayerList({ players }: playerlistprops){
     )
 }
 
+export function gameWinner(){
+    
+}
+
 function createPlayerEntry(robot: Robot){
     let style: React.CSSProperties = {
         color: robot.colour,

@@ -7,13 +7,26 @@ import nl.sogyo.roborally.domain.squares.Board;
 
 public class UTurnCard extends Card{
     
-    public void doCardAction(Robot robot, Board board, List<Robot> robots){      
+    public UTurnCard() {
+        super();
+    }
+
+    public UTurnCard(int speed) {
+        super(speed);
+    }
+
+    public void doCardAction(Robot robot, Board board, List<Robot> robots) {
         robot.turnRight();
         robot.turnRight();
     }
 
     @Override
     public int getSpeed(){
-        return 7;
+        return this.speed;
+    }
+
+    @Override
+    public String getName(){
+        return "UTurnCard";
     }
 }

@@ -5,26 +5,31 @@ import { Badge } from "@material-ui/core";
 export interface Card{
     name: string,
     speed: number,
+    cardid: number
 }
 
+interface CardElementProps{
+    card: Card,
+    onClick(cardid: number): void,
+}
 
-export function CardElement({ name, speed }: Card){
-    let cardimage = getCardImage(name);
-    return (<div className="card">
+export function CardElement({card, onClick}: CardElementProps){
+    let cardimage = getCardImage(card.name);
+    return (<div className="card" onClick={() => onClick(card.cardid)}>
         {cardimage}
         <br/>
-        {speed}
+        {card.speed}
     </div>);
 }
 
 function getCardImage(cardname: string){
     switch(cardname){
-        case "forward": return <ArrowUpward/>
-        case "right": return <Undo style={{transform: "scaleX(-1)"}}/>
-        case "left": return <Undo/>
-        case "turn around": return <Rotate90DegreesCcw style={{transform: "rotate(90deg) scaleX(-1)"}}/>
-        case "forwardx2": return <Badge badgeContent={2}><ArrowUpward/></Badge>
-        case "forwardx3": return <Badge badgeContent={3}><ArrowUpward/></Badge>
-        case "backwards": return <ArrowDownward/>
+        case "MoveOneCard": return <ArrowUpward style={{fontSize: "60px"}}/>
+        case "RotateRightCard": return <Undo style={{transform: "scaleX(-1)", fontSize: "60px"}}/>
+        case "RotateLeftCard": return <Undo style={{fontSize: "60px"}}/>
+        case "UTurnCard": return <Rotate90DegreesCcw style={{transform: "rotate(90deg) scaleX(-1)", fontSize: "60px"}}/>
+        case "MoveTwoCard": return <Badge badgeContent={2}><ArrowUpward style={{fontSize: "60px"}}/></Badge>
+        case "MoveThreeCard": return <Badge badgeContent={3}><ArrowUpward style={{fontSize: "60px"}}/></Badge>
+        case "MoveBackCard": return <ArrowDownward style={{fontSize: "60px"}}/>
     }
 }

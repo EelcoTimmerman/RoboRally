@@ -417,7 +417,23 @@ public class BoardFactory{
 		defaultBoard.addRow(row4);
 
 		return defaultBoard;
-	}    
+	
+	}
+
+	public static Board createWinningBoard(){
+		Board winningBoard = new Board();
+		ArrayList<Square> row1 = new ArrayList<>();
+		ArrayList<Square> row2 = new ArrayList<>();
+		row1.add(new EmptySquare());
+		row1.add(new EmptySquare());
+		row1.add(new FinalCheckPoint());
+		row2.add(new EmptySquare());
+		row2.add(new EmptySquare());
+		row2.add(new EmptySquare());
+		winningBoard.addRow(row1);
+		winningBoard.addRow(row2);
+		return winningBoard;
+	} 
 
 	public static Board createSmallCompleteBoard(){
 		Board smallCompleteBoard = new Board();
@@ -468,7 +484,7 @@ public class BoardFactory{
 		row6.add(new EmptySquare());
 		row6.add(new EmptySquare());
 		row6.add(new EmptySquare("N"));
-		row6.add(new EmptySquare());
+		row6.add(new FinalCheckPoint());
 
 		smallCompleteBoard.addRow(row1);
 		smallCompleteBoard.addRow(row2);
