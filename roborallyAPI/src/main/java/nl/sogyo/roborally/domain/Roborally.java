@@ -69,7 +69,7 @@ public class Roborally{
                 fireRobotLasers();
                 activateBoardElements(Checkpoint.class);
             }
-            // activateAllBoardElements();
+
         }
         //This keeps the order of the robots consistent for the frontend.
         robots.sort(Robot.COMPARE_BY_NAME);
@@ -110,6 +110,7 @@ public class Roborally{
     }
 
     private <T extends Square> void activateBoardElements(Class<T> elementTypeToActivate){
+        SlowConveyorbelt.addRobotsToSlowConveyorbeltList(board, robots);
         for(Robot robot : robots){
             Square position = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
             if(elementTypeToActivate.isInstance(position)){

@@ -560,27 +560,27 @@ public class TestRoborally {
         assert(robot3.getXCoordinate() == 1 && robot3.getYCoordinate() == 0);        
     }
 
-    // @Test
-    // public void testThreeRobotsNextToEachOtherOnSlowConveyorbeltWithPit(){
-    //     Robot robot1 = new Robot(1, 3, "Robot1", 7);
-    //     robot1.setRespawnPoint(0, 4);
-    //     Robot robot2 = new Robot(1, 2, "Robot2", 7);
-    //     robot2.setRespawnPoint(1, 4);
-    //     Robot robot3 = new Robot(1, 1, "Robot3", 7);
-    //     robot3.setRespawnPoint(0, 5);
-    //     Card card = new DoNothingCard();
-    //     robot1.program(card);
-    //     robot2.program(card);
-    //     robot3.program(card);
-    //     Roborally roborally = new Roborally(MULTIPLEROBOTSONSLOWCONVEYORBELTWITHPITTESTBOARD);
-    //     roborally.addRobot(robot1);
-    //     roborally.addRobot(robot2);
-    //     roborally.addRobot(robot3);
-    //     roborally.activateAllBoardElements();
-    //     assert(robot1.getXCoordinate() == 1 && robot1.getYCoordinate() == 2);
-    //     assert(robot2.getXCoordinate() == 1 && robot2.getYCoordinate() == 1);        
-    //     assert(robot3.getXCoordinate() == 0 && robot3.getYCoordinate() == 5);        
-    // }
+    @Test
+    public void testThreeRobotsNextToEachOtherOnSlowConveyorbeltWithPit(){
+        Robot robot1 = new Robot(1, 3, "Robot1", 7);
+        robot1.setRespawnPoint(0, 4);
+        Robot robot2 = new Robot(1, 2, "Robot2", 7);
+        robot2.setRespawnPoint(1, 4);
+        Robot robot3 = new Robot(1, 1, "Robot3", 7);
+        robot3.setRespawnPoint(0, 5);
+        Card card = new DoNothingCard();
+        robot1.program(card);
+        robot2.program(card);
+        robot3.program(card);
+        Roborally roborally = new Roborally(MULTIPLEROBOTSONSLOWCONVEYORBELTWITHPITTESTBOARD);
+        roborally.addRobot(robot1);
+        roborally.addRobot(robot2);
+        roborally.addRobot(robot3);
+        roborally.activateAllBoardElements();
+        assert(robot1.getXCoordinate() == 1 && robot1.getYCoordinate() == 2);
+        assert(robot2.getXCoordinate() == 1 && robot2.getYCoordinate() == 1);        
+        assert(robot3.getXCoordinate() == 0 && robot3.getYCoordinate() == 5);        
+    }
 
     @Test
     public void testTwoRobotsOnSlowConveyorbeltWithWallInFront(){
