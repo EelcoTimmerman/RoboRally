@@ -60,7 +60,7 @@ export function App() {
                 else if(message.messagetype == "drawncards"){
                     setCardsInHand(message.body);
                     setProgrammedCards([]);
-                }
+                } 
                 else if(message.messagetype == "powerstatus") setPowerstatus(message.body);
                 else if(message.messagetype == "lasers") setLasers(message.body);
                 else if(message.messagetype == "gameover") setWinner(message.body);
@@ -131,6 +131,7 @@ export function App() {
     async function endTurn(cardids: number[]){        
         if (websocket !== undefined && websocket.readyState !== WebSocket.CLOSED) {
             websocket.send(JSON.stringify(cardids));
+            console.log(cardids);
         }
         else{
             console.log("No connection.");
