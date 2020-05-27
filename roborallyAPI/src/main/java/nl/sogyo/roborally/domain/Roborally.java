@@ -110,6 +110,7 @@ public class Roborally{
     }
 
     private <T extends Square> void activateBoardElements(Class<T> elementTypeToActivate){
+        System.out.println("Inside activateBoardElements()... ");
         SlowConveyorbelt.addRobotsToSlowConveyorbeltList(board, robots);
         for(Robot robot : robots){
             Square position = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
@@ -117,6 +118,7 @@ public class Roborally{
                 position.doSquareAction(robot, board, robots);
             }
         }
+        // empty robotsOnSlowConvelyorbeltList or only add if boardElement instanceof SlowConveyorbelt
     }
 
     private void fireBoardLasers(){

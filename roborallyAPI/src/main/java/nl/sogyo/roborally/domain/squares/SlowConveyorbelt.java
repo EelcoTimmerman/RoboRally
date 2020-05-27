@@ -41,9 +41,11 @@ public class SlowConveyorbelt extends Square{
     }
 
     public static void addRobotsToSlowConveyorbeltList(Board board, List<Robot> robots){
+        System.out.println("Inside addRobotsToSlowConveyorbeltList()... ");
         for(Robot robot : robots){
             Square currentPosition = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
             if(currentPosition instanceof SlowConveyorbelt & !(robotsOnSlowConveyorbelt.contains(robot))){
+                System.out.println("Added " + robot.getName() + " to robotsOnSlowConveyorbelt.");
                 robotsOnSlowConveyorbelt.add(robot);
             }
         }
@@ -98,10 +100,12 @@ public class SlowConveyorbelt extends Square{
         return hasMoved;
     }
 
+    // --- fake method to prevent build failure, can be substituted by real method below once checks are run before robot moves ---
     private boolean robotsHaveSameDestination(Robot robot, Board board){
         return false;
     }
 
+    // --- doesn't work if robot moves before doing checks ---
     // private boolean robotsHaveSameDestination(Robot robot, Board board){
     //     System.out.println("Checking if another robot has the same destination as " + robot.getName() + "...");
     //     Square currentRobotDestination = getDestination(robot.getXCoordinate(), robot.getYCoordinate(), board);
@@ -109,11 +113,15 @@ public class SlowConveyorbelt extends Square{
     //     for(Robot otherRobot : robotsOnSlowConveyorbelt){
     //         System.out.println("Checking if " + otherRobot.getName() + " has the same destination as " + robot.getName() + "...");
     //         Square otherRobotDestination = getDestination(otherRobot.getXCoordinate(), otherRobot.getYCoordinate(), board);
-    //         if(((otherRobotDestination == currentRobotDestination) & (otherRobot != robot)) && !(currentRobotDestination instanceof Pit)){
+    //         // boolean destMatch = ;
+    //         // boolean roboNoMatch = ;
+    //         // boolean noPit = ;
+    //         if(otherRobotDestination == currentRobotDestination & otherRobot != robot & !(currentRobotDestination instanceof Pit)){
     //             destinationMatch = true;
     //             robotsOnSlowConveyorbelt.remove(otherRobot);
     //             System.out.println(otherRobot.getName() + " has the same destination as " + robot.getName());
     //         }
+    //         if(robotsOnSlowConveyorbelt.size() == 1) break;
     //     }
     //     if(destinationMatch) System.out.println("Other robots have the same destination as " + robot.getName() + ". Therefore, " + robot.getName() + " will not move.");
     //     return destinationMatch;
@@ -140,7 +148,8 @@ public class SlowConveyorbelt extends Square{
     }
 
     private Square getDestination(int xCoordinate, int yCoordinate, Board board){
-        switch(movementDirection){
+        SlowConveyorbelt origin = (SlowConveyorbelt) board.getSquare(xCoordinate, yCoordinate);
+        switch(origin.movementDirection){
             case NORTH: yCoordinate--;
                         break;
             case EAST: xCoordinate++;

@@ -289,13 +289,18 @@ public class BoardFactory{
 		row3.add(new SlowConveyorbelt(Direction.NORTH));
 
 		ArrayList<Square> row4 = new ArrayList<>();
-		row4.add(new SlowConveyorbelt(Direction.EAST));
-		row4.add(new SlowConveyorbelt(Direction.WEST));
+		row4.add(new SlowConveyorbelt(Direction.NORTH));
+		row4.add(new SlowConveyorbelt(Direction.NORTH));
+
+		ArrayList<Square> row5 = new ArrayList<>();
+		row5.add(new SlowConveyorbelt(Direction.EAST));
+		row5.add(new SlowConveyorbelt(Direction.WEST));
 
 		slowConveryorbeltRotationTestBoard.addRow(row1);
 		slowConveryorbeltRotationTestBoard.addRow(row2);
 		slowConveryorbeltRotationTestBoard.addRow(row3);
 		slowConveryorbeltRotationTestBoard.addRow(row4);
+		slowConveryorbeltRotationTestBoard.addRow(row5);
 
 		return slowConveryorbeltRotationTestBoard;
 	}
@@ -399,7 +404,7 @@ public class BoardFactory{
 
 		ArrayList<Square> row2 = new ArrayList<>();
 		row2.add(new SlowConveyorbelt(Direction.EAST));
-		row2.add(new Pit());
+		row2.add(new EmptySquare());
 		row2.add(new SlowConveyorbelt(Direction.WEST));
 		
 		ArrayList<Square> row3 = new ArrayList<>();
