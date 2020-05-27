@@ -9,22 +9,25 @@ import { Card } from "./board/Card";
 import { CardsInhand } from "./board/CardsInHand";
 import { Powerbutton } from "./Powerbutton";
 import { Laser } from "./board/Laser";
+import { ProgrammedCards } from "./board/ProgrammedCards";
 
 export function App() {
     const [ board, setBoard ] = useState<Square[][] | undefined>(undefined);
     const [ robots, setRobots ] = useState<Robot[] | undefined>(undefined);
-    const [ cards, setCards ] = useState<Card[] | undefined>(undefined);
+    const [ cardsInHand, setCardsInHand ] = useState<Card[]>([]);
     const [ websocket, setWebsocket ] = useState<WebSocket | undefined>(undefined);
     const [ powerstatus, setPowerstatus ] = useState("Active");
     const [ lasers, setLasers ] = useState<Laser[] | undefined>(undefined);
+    const [ programmedCards, setProgrammedCards ] = useState<Card[]>([]);
     const [gameWinner, setWinner]  = useState<String | undefined>(undefined);
 
-    if(board != undefined && robots != undefined && lasers != undefined && cards != undefined && gameWinner == undefined){
+    if(board != undefined && robots != undefined && lasers != undefined && gameWinner == undefined){
         return (<div>
                     <Board squares = {board} robots={robots} lasers={lasers}></Board>
                     <Powerbutton powerstatus={powerstatus} onClick={() => powerDown()}/>
                     <PlayerList players={robots}></PlayerList>
-                    <CardsInhand cards = {cards} onClick={programCard}></CardsInhand>
+                    <CardsInhand cards = {cardsInHand} onClick={programCard}></CardsInhand>
+                    <ProgrammedCards cards={programmedCards} removeCard={unProgramCard} ready={endTurn}></ProgrammedCards>
                 </div>);
     }
     else if(gameWinner != undefined){
@@ -54,7 +57,10 @@ export function App() {
                 let message: incomingMessage = JSON.parse(event.data);
                 if(message.messagetype == "boardstate") createBoard(message.body);
                 else if(message.messagetype == "robots") setRobots(message.body);
-                else if(message.messagetype == "drawncards")setCards(message.body);              
+                else if(message.messagetype == "drawncards"){
+                    setCardsInHand(message.body);
+                    setProgrammedCards([]);
+                } 
                 else if(message.messagetype == "powerstatus") setPowerstatus(message.body);
                 else if(message.messagetype == "lasers") setLasers(message.body);
                 else if(message.messagetype == "gameover") setWinner(message.body);
@@ -78,18 +84,54 @@ export function App() {
         setBoard(board);
     }
 
-    async function programCard(cardnr:number){
+    function programCard(cardid: number){
+        let cardToProgram: Card|undefined = undefined;
+        cardsInHand.forEach((card: Card) => {
+            if(card.cardid == cardid){
+                cardToProgram = card;
+            }
+        });
+        let newCardsInHand = cardsInHand.filter((card: Card) => card.cardid != cardid);
+        setCardsInHand(newCardsInHand);
+        if(cardToProgram != undefined){
+            setProgrammedCards([
+                ...programmedCards,
+                cardToProgram
+            ]);
+        }
+    }
+
+    function unProgramCard(cardid: number){
+        let cardToUnProgram: Card|undefined = undefined;
+        programmedCards.forEach((card: Card) => {
+            if(card.cardid == cardid){
+                cardToUnProgram = card;
+            }
+        });
+        let newProgrammedCards = programmedCards.filter((card: Card) => card.cardid != cardid);
+        setProgrammedCards(newProgrammedCards);
+        if(cardToUnProgram != undefined){
+            setCardsInHand([
+                ...cardsInHand,
+                cardToUnProgram
+            ]);
+        }
+
+    }
+
+    async function powerDown(){
         if (websocket !== undefined && websocket.readyState !== WebSocket.CLOSED) {
-            websocket.send(cardnr.toString());
+            websocket.send("switchpower");
         }
         else{
             console.log("No connection.");
         }
     }
 
-    async function powerDown(){
+    async function endTurn(cardids: number[]){        
         if (websocket !== undefined && websocket.readyState !== WebSocket.CLOSED) {
-            websocket.send("switchpower");
+            websocket.send(JSON.stringify(cardids));
+            console.log(cardids);
         }
         else{
             console.log("No connection.");

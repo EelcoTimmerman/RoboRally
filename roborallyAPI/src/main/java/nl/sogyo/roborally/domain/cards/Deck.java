@@ -62,5 +62,10 @@ public class Deck {
         this.cardsInDeck.remove(randCard);
         return randCard;
     }
+
+    public void returnCards(List<Card> cards){
+        cards.removeIf((Card card) -> card instanceof DoNothingCard);
+        this.cardsInDeck.addAll(cards);
+    }
     
 }

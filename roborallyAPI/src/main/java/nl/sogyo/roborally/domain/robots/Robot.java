@@ -24,7 +24,7 @@ public class Robot{
     List<Card> hand = new ArrayList<Card>();
 
     Direction orientation = Direction.NORTH;
-    Card[] cards = {new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
+    Card[] programmedCards = {new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
     int health = 9;
     int xCoordinate;
     int yCoordinate;
@@ -75,16 +75,7 @@ public class Robot{
     }
 
     public Card getCard(int CardNr){
-        return this.cards[CardNr];
-    }
-
-    private Card getCurrentCard(){
-        return this.cards[this.currentCardIndex];
-    }
-
-    public void updateCurrentCard(){
-        if(this.currentCardIndex<4) this.currentCardIndex++;
-        else  this.currentCardIndex = 0;
+        return this.programmedCards[CardNr];
     }
 
     public int getXCoordinate(){
@@ -159,7 +150,7 @@ public class Robot{
     }
 
     public void programOneCard(Card card, int index){
-        this.cards[index] = card;
+        this.programmedCards[index] = card;
     }
 
     public void programOneCard(int cardnr, int index){
@@ -218,6 +209,18 @@ public class Robot{
         this.program(hand.get(cardnr));
     }
 
+    public void programFromHand(int[] cardnrs){
+        if(cardnrs.length == 5){
+            for(int i = 0; i < 5; i++){
+                programOneCard(this.hand.get(cardnrs[i]), i);
+            }
+            this.ready = true;
+        }
+        else{
+            throw new RuntimeException("must program 5 cards");
+        }
+    }
+
     public void turnRight(){
         this.orientation = this.orientation.getRight();
     }
@@ -251,11 +254,13 @@ public class Robot{
         return this.respawnY;
     }
 
-    public static Comparator<Robot> COMPARE_BY_CARD = new Comparator<Robot>(){
-        @Override
-        public int compare(Robot robot1, Robot robot2) {
-            return robot1.getCurrentCard().getSpeed() - robot2.getCurrentCard().getSpeed();
-        }
+    public static Comparator<Robot> COMPARE_BY_CARD(int registernr){
+        return new Comparator<Robot>() {
+            @Override
+            public int compare(Robot robot1, Robot robot2) {
+                return robot1.getCard(registernr).getSpeed() - robot2.getCard(registernr).getSpeed();
+            }
+        };
     };
     
     public static Comparator<Robot> COMPARE_BY_NAME = new Comparator<Robot>(){
@@ -281,8 +286,13 @@ public class Robot{
         return this.hand;
     }
 
-    public void clearHand(Deck deck){
+    public void clearHand(Deck d){
+        clearHand();
+    }
+
+    public void clearHand(){
         this.hand.clear();
+
     }
 
     public boolean isInactive(){
@@ -296,7 +306,7 @@ public class Robot{
     public void shutDown(){
         this.activitylevel = ActivityLevel.INACTIVE;
         for(int i=0;i<5;i++){
-            this.cards[i] = new DoNothingCard();
+            this.programmedCards[i] = new DoNothingCard();
         }
         this.health = 9;
     }
@@ -420,5 +430,8 @@ public class Robot{
         if(this.hasWonTheGame) return true;
         return false;
     }
+
+	public void updateCurrentCard() {
+	}
 
 }
