@@ -118,7 +118,7 @@ public class Roborally{
                 position.doSquareAction(robot, board, robots);
             }
         }
-        // empty robotsOnSlowConvelyorbeltList or only add if boardElement instanceof SlowConveyorbelt
+        SlowConveyorbelt.clearListRobotsOnSlowConveyorbelt();
     }
 
     private void fireBoardLasers(){

@@ -51,100 +51,115 @@ public class SlowConveyorbelt extends Square{
         }
     }
 
+    public static void clearListRobotsOnSlowConveyorbelt(){
+        robotsOnSlowConveyorbelt.clear();
+    }
+
     private boolean moveRobotInDirectionIfPossible(Robot robot, Direction direction, Board board, List<Robot> otherRobots){
         System.out.println("Entering moveRobotInDirectionIfPossible for: " + robot.getName() + "...");
         System.out.println(robot.getName() + " at the beginning of its function call is at position [" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "].");
-        boolean hasMoved = true;
+        boolean canMove = true;
         SlowConveyorbelt currentPosition = (SlowConveyorbelt) board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
         boolean isBlockedByWall = currentPosition.hasWallAt(direction);
         if(!isBlockedByWall & robotsOnSlowConveyorbelt.contains(robot) & !robotsHaveSameDestination(robot, board)){
-            String robotTurnDirection = currentPosition.turnRobotIfNecessary(robot, board);
-            robot.move(direction);
-            System.out.println(robot.getName() + " tries to move to position [" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "].");
-            if(!respawnRobotIfNecessary(robot, board)){
-                Square destination = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
+            Square destination = getDestination(robot.getXCoordinate(), robot.getYCoordinate(), board);
+            if(destination != null){
+                System.out.println("The destination of " + robot.getName() + " is on the board.");
+                System.out.println(robot.getName() + " checks if no one is in the way at destination.");
+                boolean otherRobotAtDestination = false;
                 for(Robot otherRobot : otherRobots){
-                    System.out.println("Entering the for-loop to check if anyone is in the way of " + robot.getName() + ".");
-                    System.out.println("Checking if " + otherRobot.getName() + " is in the way...");
-                    if(otherRobot.isAt(robot.getXCoordinate(), robot.getYCoordinate()) && (otherRobot != robot & destination instanceof SlowConveyorbelt)){
-                        System.out.println(otherRobot.getName() + " is in the way of " + robot.getName() + " at position [" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "].");
+                    System.out.println("Checking via for-loop if " + otherRobot.getName() + " is in the way of " + robot.getName() + ".");
+                    otherRobotAtDestination = checkIfOtherRobotIsAtDestination(otherRobot, board, destination);
+                    if(otherRobotAtDestination && (otherRobot != robot & destination instanceof SlowConveyorbelt)){
+                        System.out.println(otherRobot.getName() + " is in the way of " + robot.getName() + " at slow conveyorbelt position [" + otherRobot.getXCoordinate() + "," + otherRobot.getYCoordinate() + "].");
                         SlowConveyorbelt destinationBelt = (SlowConveyorbelt) destination;
-                        hasMoved &= destinationBelt.moveRobotInDirectionIfPossible(otherRobot, destinationBelt.getMovementDirection(), board, otherRobots);
-                        if(hasMoved){
+                        boolean otherRobotMoved = destinationBelt.moveRobotInDirectionIfPossible(otherRobot, destinationBelt.getMovementDirection(), board, otherRobots);
+                        if(otherRobotMoved){
                             System.out.println(otherRobot.getName() + " has moved out of the way and is now at position [" + otherRobot.getXCoordinate() + "," + otherRobot.getYCoordinate() + "].");
-                            respawnRobotIfNecessary(otherRobot, board);
+                            turnRobotIfNecessary(robot, board);
+                            robot.move(direction);
+                            respawnRobotIfNecessary(robot, board);
                         }
                         else{
+                            canMove = false;
                             System.out.println(otherRobot.getName() + " has not moved out of the way of " + robot.getName() + " and is still at position [" + otherRobot.getXCoordinate() + "," + otherRobot.getYCoordinate() + "].");
-                            robot.turnBack(robotTurnDirection);
-                            robot.move(direction.getReverse());
-                            System.out.println("Therefore " + robot.getName() + " now needs to move back to its orginal position and is at [" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "].");
+                            System.out.println("Therefore " + robot.getName() + " cannot move and is still at [" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "].");
                         }
                         System.out.println("Exiting for loop for " + otherRobot.getName() + " in original function-call for " + robot.getName());
                         break;
-                    } else if(otherRobot.isAt(robot.getXCoordinate(), robot.getYCoordinate()) && (otherRobot != robot & !(destination instanceof SlowConveyorbelt))){
-                        robot.turnBack(robotTurnDirection);
-                        robot.move(direction.getReverse());
-                        hasMoved = false;
+                    } else if(otherRobotAtDestination && (otherRobot != robot & !(destination instanceof SlowConveyorbelt))){
+                        canMove = false;
                         System.out.println(otherRobot.getName() + " is not on a slow conveyorbelt and can therefore not move out of the way of " + robot.getName() + ".");
-                        System.out.println("So " + robot.getName() + " needs to move back to its starting position and is now at [" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "].");
+                        System.out.println("So " + robot.getName() + " cannot move and is still at its starting position at [" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "].");
+                        break;
                     }
                 }
+                if(!otherRobotAtDestination){
+                    System.out.println("No other robot is in the way and " + robot.getName() + " can now move.");
+                    turnRobotIfNecessary(robot, board);
+                    robot.move(direction);
+                    respawnRobotIfNecessary(robot, board);
+                }
+            }
+            else{
+                System.out.println("The destination of " + robot.getName() + " is off the board, so " + robot.getName() + " respawns.");
+                robot.respawn();
             }
         }
-        else hasMoved = false;
-        // if(hasMoved && robotsOnSlowConveyorbelt.contains(robot))
+        else canMove = false;
         robotsOnSlowConveyorbelt.remove(robot);
         System.out.println(robot.getName() + " at the end of its function call is at position [" + robot.getXCoordinate() + "," + robot.getYCoordinate() + "].");
         System.out.println("Exiting moveRobotInDirectionIfPossible for: " + robot.getName() + "...");
-        return hasMoved;
+        return canMove;
     }
 
-    // --- fake method to prevent build failure, can be substituted by real method below once checks are run before robot moves ---
+    private boolean checkIfOtherRobotIsAtDestination(Robot otherRobot, Board board, Square destination){
+        System.out.println("Checking if " + otherRobot.getName() + " is at destination.");
+        Square otherRobotPosition = board.getSquare(otherRobot.getXCoordinate(), otherRobot.getYCoordinate());
+        if(destination == otherRobotPosition){
+            System.out.println(otherRobot.getName() + " is at destination.");
+            return true;
+        }
+        else{
+            System.out.println(otherRobot.getName() + " is not at destination");
+            return false;
+        }
+    }
+
     private boolean robotsHaveSameDestination(Robot robot, Board board){
-        return false;
+        System.out.println("Checking if another robot has the same destination as " + robot.getName() + "...");
+        Square currentRobotDestination = getDestination(robot.getXCoordinate(), robot.getYCoordinate(), board);
+        boolean destinationMatch = false;
+        if(!(currentRobotDestination instanceof Pit)){
+            ArrayList<Robot> copyRobotsOnSlowConveyorbelt = new ArrayList<Robot>();
+            for(Robot robotOnOriginalList : robotsOnSlowConveyorbelt){
+                copyRobotsOnSlowConveyorbelt.add(robotOnOriginalList);
+            }
+            for(Robot otherRobot : copyRobotsOnSlowConveyorbelt){
+                if(robotsOnSlowConveyorbelt.size() > 1){
+                System.out.println("Checking if " + otherRobot.getName() + " has the same destination as " + robot.getName() + "...");
+                Square otherRobotDestination = getDestination(otherRobot.getXCoordinate(), otherRobot.getYCoordinate(), board);
+                if((otherRobotDestination == currentRobotDestination) && (otherRobot != robot)){
+                    destinationMatch = true;
+                    robotsOnSlowConveyorbelt.remove(otherRobot);
+                    System.out.println(otherRobot.getName() + " has the same destination as " + robot.getName());
+                    System.out.println(otherRobot.getName() + " is removed from robotsOnSlowConveyorbelt.");
+                    }
+                } else break;
+            }
+        }
+        return destinationMatch;
     }
 
-    // --- doesn't work if robot moves before doing checks ---
-    // private boolean robotsHaveSameDestination(Robot robot, Board board){
-    //     System.out.println("Checking if another robot has the same destination as " + robot.getName() + "...");
-    //     Square currentRobotDestination = getDestination(robot.getXCoordinate(), robot.getYCoordinate(), board);
-    //     boolean destinationMatch = false;
-    //     for(Robot otherRobot : robotsOnSlowConveyorbelt){
-    //         System.out.println("Checking if " + otherRobot.getName() + " has the same destination as " + robot.getName() + "...");
-    //         Square otherRobotDestination = getDestination(otherRobot.getXCoordinate(), otherRobot.getYCoordinate(), board);
-    //         // boolean destMatch = ;
-    //         // boolean roboNoMatch = ;
-    //         // boolean noPit = ;
-    //         if(otherRobotDestination == currentRobotDestination & otherRobot != robot & !(currentRobotDestination instanceof Pit)){
-    //             destinationMatch = true;
-    //             robotsOnSlowConveyorbelt.remove(otherRobot);
-    //             System.out.println(otherRobot.getName() + " has the same destination as " + robot.getName());
-    //         }
-    //         if(robotsOnSlowConveyorbelt.size() == 1) break;
-    //     }
-    //     if(destinationMatch) System.out.println("Other robots have the same destination as " + robot.getName() + ". Therefore, " + robot.getName() + " will not move.");
-    //     return destinationMatch;
-    // }
-
-    private String turnRobotIfNecessary(Robot robot, Board board){
+    private void turnRobotIfNecessary(Robot robot, Board board){
         Square destination = getDestination(robot.getXCoordinate(), robot.getYCoordinate(), board);
-        String turnDirection = "";
         if(destination instanceof SlowConveyorbelt){
             SlowConveyorbelt destinationBelt = (SlowConveyorbelt) destination;
             Direction destinationDirection = destinationBelt.getMovementDirection();
-            if(destinationDirection == movementDirection.getLeft()){
-                robot.turnLeft();
-                turnDirection = "left";
-            } else if(destinationDirection == movementDirection.getRight()){
-                robot.turnRight();
-                turnDirection = "right";
-            } else if(destinationDirection == movementDirection.getReverse()){
-                robot.turnReverse();
-                turnDirection = "reverse";
-            }
+            if(destinationDirection == movementDirection.getLeft()) robot.turnLeft();
+            else if(destinationDirection == movementDirection.getRight()) robot.turnRight();
+            else if(destinationDirection == movementDirection.getReverse()) robot.turnReverse();
         }
-        return turnDirection;
     }
 
     private Square getDestination(int xCoordinate, int yCoordinate, Board board){
@@ -179,4 +194,5 @@ public class SlowConveyorbelt extends Square{
         Square currentPosition = board.getSquare(robot.getXCoordinate(), robot.getYCoordinate());
         return (currentPosition instanceof Pit);
     }
+
 }

@@ -235,20 +235,6 @@ public class Robot{
         this.yCoordinate = this.respawnY;
     }
 
-    public void turnBack(String robotTurnDirection){
-        switch(robotTurnDirection){
-            case "left":
-                turnRight();
-                break;
-            case "right":
-                turnLeft();
-                break;
-            case "reverse":
-                turnReverse();
-                break;
-        }
-    }
-
     public void setXCoordinate(int xCoordinate){
         this.xCoordinate = xCoordinate;
     }
