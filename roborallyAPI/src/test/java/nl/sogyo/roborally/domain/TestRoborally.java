@@ -362,10 +362,11 @@ public class TestRoborally {
         assert(robot.isAt(0, 0));
     }
     
+// --------------------------------------------------
 
     @Test
     public void testMovementRobotOnSlowConveyorbeltNORTH(){
-        Robot robot = new Robot(0,1);
+        Robot robot = new Robot(0,2);
         robot.program(new DoNothingCard());
         Roborally roborally = new Roborally(SLOWCONVEYORBELTTESTBOARD, robot);
         roborally.playRoundIfAllRobotsReady();
