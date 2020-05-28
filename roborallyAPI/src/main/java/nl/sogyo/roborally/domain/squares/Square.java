@@ -1,5 +1,7 @@
 package nl.sogyo.roborally.domain.squares;
 
+import java.util.List;
+
 import nl.sogyo.roborally.domain.*;
 import nl.sogyo.roborally.domain.robots.Robot;
 
@@ -39,5 +41,5 @@ public abstract class Square{
     
     public abstract String getType();
 
-    public abstract void doSquareAction(Robot robot, Board board);
+    public abstract void doSquareAction(Robot robot, Board board, List<Robot> robots);
 }

@@ -114,4 +114,44 @@ public class TestBoard{
         assert(smallCompleteBoard.hasConsistentWalls());
         assert(smallCompleteBoard.allLasersOnWalls());
     }
+
+    @Test
+    public void testSlowConveyorbeltRotationTestBoard(){
+        Board slowConveyorbeltRotationTestBoard = BoardFactory.createSlowConveyorbeltRotationTestBoard();
+        assert(slowConveyorbeltRotationTestBoard.isRectangular());
+        assert(slowConveyorbeltRotationTestBoard.hasConsistentWalls());
+        assert(slowConveyorbeltRotationTestBoard.allLasersOnWalls());
+    }
+
+    @Test
+    public void testMultipleRobotsOnSlowConveyorbeltTestBoard(){
+        Board multipleRobotsOnSlowConveyorbeltTestBoard = BoardFactory.createMultipleRobotsOnSlowConveyorbeltTestBoard();
+        assert(multipleRobotsOnSlowConveyorbeltTestBoard.isRectangular());
+        assert(multipleRobotsOnSlowConveyorbeltTestBoard.hasConsistentWalls());
+        assert(multipleRobotsOnSlowConveyorbeltTestBoard.allLasersOnWalls());
+    }
+
+    @Test
+    public void testMultipleRobotsOnSlowConveyorbeltWithPitTestBoard(){
+        Board multipleRobotsOnSlowConveyorbeltWithPitTestBoard = BoardFactory.createMultipleRobotsOnSlowConveyorbeltWithPitTestBoard();
+        assert(multipleRobotsOnSlowConveyorbeltWithPitTestBoard.isRectangular());
+        assert(multipleRobotsOnSlowConveyorbeltWithPitTestBoard.hasConsistentWalls());
+        assert(multipleRobotsOnSlowConveyorbeltWithPitTestBoard.allLasersOnWalls());
+    }
+
+    @Test
+    public void testMultipleRobotsPushedToSameSquareBySlowConveyorbeltWithPitTestBoard(){
+        Board multipleRobotsPushedToSameSquareBySlowConveyorbeltWithPitTestBoard = BoardFactory.createMultipleRobotsPushedToSameSquareBySlowConveyorbeltWithPitTestBoard();
+        assert(multipleRobotsPushedToSameSquareBySlowConveyorbeltWithPitTestBoard.isRectangular());
+        assert(multipleRobotsPushedToSameSquareBySlowConveyorbeltWithPitTestBoard.hasConsistentWalls());
+        assert(multipleRobotsPushedToSameSquareBySlowConveyorbeltWithPitTestBoard.allLasersOnWalls());
+    }
+
+    @Test
+    public void testMultipleRobotsPushedToSameSquareBySlowConveyorbeltWithoutPitTestBoard(){
+        Board multipleRobotsPushedToSameSquareBySlowConveyorbeltWithoutPitTestBoard = BoardFactory.createMultipleRobotsPushedToSameSquareBySlowConveyorbeltWithoutPitTestBoard();
+        assert(multipleRobotsPushedToSameSquareBySlowConveyorbeltWithoutPitTestBoard.isRectangular());
+        assert(multipleRobotsPushedToSameSquareBySlowConveyorbeltWithoutPitTestBoard.hasConsistentWalls());
+        assert(multipleRobotsPushedToSameSquareBySlowConveyorbeltWithoutPitTestBoard.allLasersOnWalls());
+    }
 }
