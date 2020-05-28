@@ -42,45 +42,54 @@ public class Roborally{
         return this.board;
     }
 
-    public void playRoundIfAllRobotsReady(){
+    public boolean allRobotsReady(){
         boolean robotsReady = true;
         for(Robot robot : robots){
             robotsReady &= (robot.isReady() || robot.isInactive());
         }
-        if(robotsReady) playRound();
+        return robotsReady;
     }
 
-    private void playRound(){
-        outerloop: for(int cardNr=0;cardNr<5;cardNr++){
-                        robots.sort(Robot.COMPARE_BY_CARD);
-                        for(Robot robot : robots){
-                            robotPlaysCard(robot, cardNr);
-                            if(robot.isWinner()){
-                                this.winner = robot;
-                                break outerloop;
-                            }
-                    }
-        if(this.winner == null){
-                activateBoardElements(SlowConveyorbelt.class);
-                activateBoardElements(Gear180.class);
-                activateBoardElements(GearRight.class);
-                activateBoardElements(GearLeft.class);
-                fireBoardLasers();
-                fireRobotLasers();
-                activateBoardElements(Checkpoint.class);
+    public void playAllRegistersIfRobotsReady(){
+        if(allRobotsReady()){
+            for(int registernr=0;registernr<5;registernr++){
+                playRegister(registernr);
+                if(this.winner != null) break;//TO DO: add a check that one robot cannot move the other from
+                //the winner square and be the winner himself.
             }
 
         }
-        //This keeps the order of the robots consistent for the frontend.
+        prepareNextRound();
+    }
+
+    private void playRegister(int registernr){
+        robots.sort(Robot.COMPARE_BY_CARD(registernr));
+        for(Robot robot : robots){
+            robotPlaysCard(robot, registernr);
+            if(robot.isWinner()){
+                this.winner = robot;
+            }                
+        }
+        if(this.winner == null){
+            activateBoardElements(SlowConveyorbelt.class);
+            activateBoardElements(Gear180.class);
+            activateBoardElements(GearRight.class);
+            activateBoardElements(GearLeft.class);
+            fireBoardLasers();
+            fireRobotLasers();
+            activateBoardElements(Checkpoint.class);
+        }
+    }
+
+    private void prepareNextRound(){
         robots.sort(Robot.COMPARE_BY_NAME);
-        this.deck = new Deck();         
+        this.deck = new Deck();  
         for(Robot robot : robots){
             robot.cyclePowerState();
-            robot.clearHand(deck);
+            robot.clearHand();
             robot.drawCards(deck);
             robot.unready();
         }
-
     }
 
     public Robot getWinner(){

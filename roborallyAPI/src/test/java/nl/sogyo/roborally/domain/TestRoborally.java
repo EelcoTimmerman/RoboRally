@@ -66,7 +66,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(2, robot.getXCoordinate());
         assertEquals(1, robot.getYCoordinate());
     }
@@ -78,7 +78,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(2, robot.getXCoordinate());
         assertEquals(0, robot.getYCoordinate());
     }
@@ -90,7 +90,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(3, robot.getXCoordinate());
         assertEquals(2, robot.getYCoordinate());
     }
@@ -102,7 +102,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(1, robot.getXCoordinate());
         assertEquals(3, robot.getYCoordinate());
     }
@@ -114,7 +114,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(0, robot.getXCoordinate());
         assertEquals(1, robot.getYCoordinate());
     }
@@ -126,7 +126,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(Direction.EAST, robot.getOrientation());
     }
 
@@ -137,7 +137,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(Direction.WEST, robot.getOrientation());
     }
     
@@ -148,7 +148,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(Direction.SOUTH, robot.getOrientation());
     }
 
@@ -160,7 +160,7 @@ public class TestRoborally {
         robot.program(cards);
         robot.setRespawnPoint(2,2);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(2, robot.getXCoordinate());
         assertEquals(2, robot.getYCoordinate());
     }
@@ -172,7 +172,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(2, robot.getXCoordinate());
         assertEquals(3, robot.getYCoordinate());
     }
@@ -184,7 +184,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(2, robot.getXCoordinate());
         assertEquals(0, robot.getYCoordinate());
 
@@ -198,7 +198,7 @@ public class TestRoborally {
         robot.program(cards);
         robot.setRespawnPoint(2,2);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(2, robot.getXCoordinate());
         assertEquals(2, robot.getYCoordinate());
     }
@@ -210,7 +210,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(2, robot.getXCoordinate());
         assertEquals(0, robot.getYCoordinate());
     }
@@ -222,7 +222,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(2, robot.getXCoordinate());
         assertEquals(0, robot.getYCoordinate());
     }
@@ -234,7 +234,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(2, robot.getXCoordinate());
         assertEquals(0, robot.getYCoordinate());
     }
@@ -247,7 +247,7 @@ public class TestRoborally {
         robot.program(cards);
         robot.setRespawnPoint(2,2);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(2, robot.getXCoordinate());
         assertEquals(2, robot.getYCoordinate());
     }
@@ -260,7 +260,7 @@ public class TestRoborally {
         robot.program(cards);
         robot.setRespawnPoint(2,2);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(2, robot.getXCoordinate());
         assertEquals(2, robot.getYCoordinate());
     }
@@ -273,7 +273,7 @@ public class TestRoborally {
         robot.program(cards);
         robot.setRespawnPoint(2,2);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(2, robot.getXCoordinate());
         assertEquals(2, robot.getYCoordinate());
 
@@ -287,7 +287,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(PITTESTBOARD, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.isAt(0, 0));
     }
 
@@ -299,7 +299,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(PITTESTBOARD, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.isAt(0, 0));
     }
 
@@ -311,7 +311,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(PITTESTBOARD, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.isAt(0, 0));
     }
 
@@ -323,7 +323,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(PITTESTBOARD, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.isAt(0, 0));
     }
 
@@ -334,7 +334,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(PITTESTBOARD, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.isAt(0, 0));
     }
 
@@ -346,7 +346,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(PITTESTBOARD, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.isAt(0, 0));
     }
 
@@ -358,7 +358,7 @@ public class TestRoborally {
         Card[] cards = {card, new DoNothingCard(),new DoNothingCard(),new DoNothingCard(),new DoNothingCard()};
         robot.program(cards);
         Roborally roborally = new Roborally(PITTESTBOARD, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.isAt(0, 0));
     }
     
@@ -369,7 +369,7 @@ public class TestRoborally {
         Robot robot = new Robot(0,2);
         robot.program(new DoNothingCard());
         Roborally roborally = new Roborally(SLOWCONVEYORBELTTESTBOARD, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.getXCoordinate() == 0 && robot.getYCoordinate() == 1);
     }
 
@@ -378,7 +378,7 @@ public class TestRoborally {
         Robot robot = new Robot(0,0);
         robot.program(new DoNothingCard());
         Roborally roborally = new Roborally(SLOWCONVEYORBELTTESTBOARD, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 0);
     }
 
@@ -387,7 +387,7 @@ public class TestRoborally {
         Robot robot = new Robot(2,0);
         robot.program(new DoNothingCard());
         Roborally roborally = new Roborally(SLOWCONVEYORBELTTESTBOARD, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.getXCoordinate() == 2 && robot.getYCoordinate() == 1);
     }
 
@@ -396,7 +396,7 @@ public class TestRoborally {
         Robot robot = new Robot(2,2);
         robot.program(new DoNothingCard());
         Roborally roborally = new Roborally(SLOWCONVEYORBELTTESTBOARD, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 2);
     }
     
@@ -405,7 +405,7 @@ public class TestRoborally {
         Robot robot = new Robot(0,0);
         robot.program(new DoNothingCard());
         Roborally roborally = new Roborally(SLOWCONVEYORBELTTESTBOARDOTHER, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.getXCoordinate() == 0 && robot.getYCoordinate() == 0);
     }
 
@@ -415,7 +415,7 @@ public class TestRoborally {
         robot.program(new DoNothingCard());
         robot.setRespawnPoint(0, 1);
         Roborally roborally = new Roborally(SLOWCONVEYORBELTTESTBOARDOTHER, robot);
-        roborally.activateAllBoardElements();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.getXCoordinate() == 0 && robot.getYCoordinate() == 1);
     }
 
@@ -425,7 +425,7 @@ public class TestRoborally {
         robot.program(new DoNothingCard());
         robot.setRespawnPoint(1, 1);
         Roborally roborally = new Roborally(SLOWCONVEYORBELTTESTBOARDOTHER, robot);
-        roborally.activateAllBoardElements();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.getXCoordinate() == 1 && robot.getYCoordinate() == 1);
     }
 
@@ -719,7 +719,7 @@ public class TestRoborally {
         robot.program(new DoNothingCard());
         Roborally roborally = new Roborally(GEARTESTBOARD, robot);
         assert(robot.getOrientation().equals(Direction.NORTH));
-        roborally.activateAllBoardElements();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.getOrientation().equals(Direction.SOUTH));
     }
     
@@ -729,7 +729,7 @@ public class TestRoborally {
         robot.program(new DoNothingCard());
         Roborally roborally = new Roborally(GEARTESTBOARD, robot);
         assert(robot.getOrientation().equals(Direction.NORTH));
-        roborally.activateAllBoardElements();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.getOrientation().equals(Direction.EAST));
     }
     
@@ -739,7 +739,7 @@ public class TestRoborally {
         robot.program(new DoNothingCard());
         Roborally roborally = new Roborally(GEARTESTBOARD, robot);
         assert(robot.getOrientation().equals(Direction.NORTH));
-        roborally.activateAllBoardElements();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.getOrientation().equals(Direction.WEST));
     }
     
@@ -750,7 +750,7 @@ public class TestRoborally {
         robot.program(0);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
         assert(robot.getRespawnXCoordinate() == 0 && robot.getRespawnYCoordinate() == 0);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.getRespawnXCoordinate() == 3 && robot.getRespawnYCoordinate() == 3);
     }
 
@@ -761,7 +761,7 @@ public class TestRoborally {
         robot.program(0);
         Roborally roborally = new Roborally(TESTBOARD4X4, robot);
         assert(robot.getRespawnXCoordinate() == 0 && robot.getRespawnYCoordinate() == 0);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assert(robot.getRespawnXCoordinate() == 3 && robot.getRespawnYCoordinate() == 3);
     }
 
@@ -776,7 +776,7 @@ public class TestRoborally {
         robot2.program(cards2);
         roborally.addRobot(robot1);
         roborally.addRobot(robot2);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(0, robot1.getXCoordinate());
         assertEquals(1, robot1.getYCoordinate());
         assertEquals(1, robot2.getXCoordinate());
@@ -794,7 +794,7 @@ public class TestRoborally {
         robot2.program(cards2);
         roborally.addRobot(robot1);
         roborally.addRobot(robot2);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(0, robot1.getXCoordinate());
         assertEquals(1, robot1.getYCoordinate());
         assertEquals(1, robot2.getXCoordinate());
@@ -813,7 +813,7 @@ public class TestRoborally {
         robot2.program(cards2);
         roborally.addRobot(robot1);
         roborally.addRobot(robot2);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(3, robot1.getXCoordinate());
         assertEquals(3, robot1.getYCoordinate());
         assertEquals(0, robot2.getXCoordinate());
@@ -832,7 +832,7 @@ public class TestRoborally {
         roborally.addRobot(robot1);
         roborally.addRobot(robot2);
         roborally.addRobot(robot3);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(0, robot1.getXCoordinate());
         assertEquals(0, robot1.getYCoordinate());
         assertEquals(1, robot2.getXCoordinate());
@@ -853,7 +853,7 @@ public class TestRoborally {
         roborally.addRobot(robot1);
         roborally.addRobot(robot2);
         roborally.addRobot(robot3);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(0, robot1.getXCoordinate());
         assertEquals(1, robot1.getYCoordinate());
         assertEquals(1, robot2.getXCoordinate());
@@ -871,7 +871,7 @@ public class TestRoborally {
         robot2.program(new MoveTwoCard());
         roborally.addRobot(robot1);
         roborally.addRobot(robot2);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(0, robot1.getXCoordinate());
         assertEquals(1, robot1.getYCoordinate());
         assertEquals(1, robot2.getXCoordinate());
@@ -887,7 +887,7 @@ public class TestRoborally {
         robot2.program(new MoveTwoCard());
         roborally.addRobot(robot1);
         roborally.addRobot(robot2);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(0, robot1.getXCoordinate());
         assertEquals(1, robot1.getYCoordinate());
         assertEquals(1, robot2.getXCoordinate());
@@ -903,7 +903,7 @@ public class TestRoborally {
         robot2.program(new MoveTwoCard());
         roborally.addRobot(robot1);
         roborally.addRobot(robot2);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(0, robot1.getXCoordinate());
         assertEquals(1, robot1.getYCoordinate());
         assertEquals(1, robot2.getXCoordinate());
@@ -921,7 +921,7 @@ public class TestRoborally {
         robot2.setRespawnPoint(2, 2);
         roborally.addRobot(robot1);
         roborally.addRobot(robot2);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(3, robot1.getXCoordinate());
         assertEquals(3, robot1.getYCoordinate());
         assertEquals(2, robot2.getXCoordinate());
@@ -936,7 +936,7 @@ public class TestRoborally {
         roborally.addRobot(robot2);
         robot1.program(0);
         robot2.program(4);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(robot1, roborally.getRobots().get(0));
     }
 
@@ -949,7 +949,7 @@ public class TestRoborally {
         roborally.addRobot(robot2);
         robot1.program(doNothingIntArray);
         robot2.program(doNothingIntArray);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(4, robot1.getHealth());
     }
     
@@ -962,7 +962,7 @@ public class TestRoborally {
         roborally.addRobot(robot2);
         robot1.program(doNothingIntArray);
         robot2.program(doNothingIntArray);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(4, robot1.getHealth());
     }
     
@@ -975,7 +975,7 @@ public class TestRoborally {
         roborally.addRobot(robot2);
         robot1.program(doNothingIntArray);
         robot2.program(doNothingIntArray);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(4, robot1.getHealth());
     }
     
@@ -988,7 +988,7 @@ public class TestRoborally {
         roborally.addRobot(robot2);
         robot1.program(doNothingIntArray);
         robot2.program(doNothingIntArray);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(4, robot1.getHealth());
     }
     
@@ -1001,7 +1001,7 @@ public class TestRoborally {
         roborally.addRobot(robot2);
         robot1.program(7);
         robot2.program(7);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(9, robot1.getHealth());
     }
 
@@ -1014,7 +1014,7 @@ public class TestRoborally {
         roborally.addRobot(robot2);
         robot1.program(7);
         robot2.program(7);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(9, robot1.getHealth());
     }
 
@@ -1027,7 +1027,7 @@ public class TestRoborally {
         roborally.addRobot(robot2);
         robot1.program(7);
         robot2.program(7);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(9, robot1.getHealth());
     }
     
@@ -1040,7 +1040,7 @@ public class TestRoborally {
         roborally.addRobot(robot2);
         robot1.program(7);
         robot2.program(7);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(9, robot1.getHealth());
     }
     
@@ -1053,7 +1053,7 @@ public class TestRoborally {
         roborally.addRobot(robot2);
         robot1.program(7);
         robot2.program(7);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(9, robot1.getHealth());
     }
 
@@ -1069,7 +1069,7 @@ public class TestRoborally {
         robot1.program(doNothingIntArray);
         robot2.program(doNothingIntArray);
         robot3.program(doNothingIntArray);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(4, robot1.getHealth());
         assertEquals(9, robot3.getHealth());
 
@@ -1090,7 +1090,7 @@ public class TestRoborally {
         robot2.program(new DoNothingCard());
         robot3.program(new DoNothingCard());
         robot4.program(new DoNothingCard());
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(4, robot1.getHealth());
         assertEquals(4, robot2.getHealth());
         assertEquals(4, robot3.getHealth());
@@ -1107,10 +1107,9 @@ public class TestRoborally {
         robot1.program(new MoveOneCard());
         robot2.program(new MoveOneCard());
         robot2.turnOnOrOff();
-        roborally.playRoundIfAllRobotsReady();
-        robot1.program(doNothingIntArray);
+        roborally.playAllRegistersIfRobotsReady();
         robot2.program(new MoveOneCard());
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(1, robot2.getXCoordinate());
         assertEquals(1, robot1.getXCoordinate());
     }
@@ -1122,10 +1121,10 @@ public class TestRoborally {
         roborally.addRobot(robot);
         robot.program(new MoveOneCard());
         robot.turnOnOrOff();
-        roborally.playRoundIfAllRobotsReady();
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         robot.program(new MoveOneCard());
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(2, robot.getXCoordinate());
     }
 
@@ -1138,7 +1137,7 @@ public class TestRoborally {
         robot.takeDamage(4);
         assertEquals(5, robot.getHealth());
         roborally.addRobot(robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(9, robot.getHealth());
     }
 
@@ -1147,7 +1146,7 @@ public class TestRoborally {
         Robot robot = new Robot();
         robot.program(new DoNothingCard());
         Roborally roborally = new Roborally(BOARDLASERTESTBOARD, robot);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
     }
 
     @Test
@@ -1155,7 +1154,7 @@ public class TestRoborally {
         Robot robot = new Robot(0,0);
         Roborally roborally = new Roborally(BOARDLASERTESTBOARD, robot);
         robot.program(new DoNothingCard());
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(4, robot.getHealth());
     }
 
@@ -1164,10 +1163,10 @@ public class TestRoborally {
         Robot robot = new Robot(0,0);
         Roborally roborally = new Roborally(WINNINGTESTBOARD, robot);
         robot.program(new RotateRightCard());
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(roborally.getWinner(), null);
         robot.program(new MoveTwoCard());
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(roborally.getWinner(), robot);
     }
 
@@ -1176,11 +1175,11 @@ public class TestRoborally {
         Robot robot = new Robot(0,0);
         Roborally roborally = new Roborally(WINNINGTESTBOARD, robot);
         robot.program(new RotateRightCard());
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(roborally.getWinner(), null);
         Card[] cards = {new DoNothingCard(), new MoveTwoCard(),new UTurnCard(), new MoveOneCard(), new DoNothingCard()};
         robot.program(cards);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(roborally.getWinner(), robot);
     }
 
@@ -1192,12 +1191,12 @@ public class TestRoborally {
         roborally.addRobot(robot2);
         robot1.program(new RotateRightCard());
         robot2.program(new DoNothingCard());
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         Card[] cards1 = {new DoNothingCard(), new DoNothingCard(),new DoNothingCard(), new DoNothingCard(), new MoveTwoCard()};
         Card[] cards2 = {new MoveOneCard(), new MoveBackCard(),new DoNothingCard(), new DoNothingCard(), new MoveTwoCard()};
         robot1.program(cards1);
         robot2.program(cards2);
-        roborally.playRoundIfAllRobotsReady();
+        roborally.playAllRegistersIfRobotsReady();
         assertEquals(roborally.getWinner(), robot2);
     }
 
