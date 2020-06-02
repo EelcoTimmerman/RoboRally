@@ -57,9 +57,8 @@ public class Roborally{
                 if(this.winner != null) break;//TO DO: add a check that one robot cannot move the other from
                 //the winner square and be the winner himself.
             }
-
+            prepareNextRound();
         }
-        prepareNextRound();
     }
 
     private void playRegister(int registernr){
