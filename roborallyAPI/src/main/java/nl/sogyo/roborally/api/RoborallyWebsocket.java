@@ -47,7 +47,6 @@ public class RoborallyWebsocket{
         }
         else{            
             int[] cardnrs = MessageParser.parseMessage(message);
-            System.out.println(Arrays.toString(cardnrs));
             Robot robot = robots.get(session);
             robot.programFromHand(cardnrs);
             roborally.playAllRegistersIfRobotsReady();
