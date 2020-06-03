@@ -209,9 +209,6 @@ public class Robot{
 
     public void programFromHand(int[] cardnrs){
         this.ready = true;
-        System.out.println("Within the method we have status: "+ isReady());
-
-        System.out.print("I am ready");
         if(cardnrs.length == 5){
             for(int i = 0; i < 5; i++){
                 programOneCard(this.hand.get(cardnrs[i]), i);
