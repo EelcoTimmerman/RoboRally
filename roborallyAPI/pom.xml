@@ -10,7 +10,7 @@
 	<name>Roborally API</name>
 
 	<properties>
-		<jettyVersion>9.4.26.v20200117</jettyVersion>
+		<jettyVersion>9.4.41.v20210516</jettyVersion>
 		<google-json-simple.version>1.1.1</google-json-simple.version>
 	</properties>
 
